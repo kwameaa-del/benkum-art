@@ -56,14 +56,6 @@
     letter-spacing: 0.005em;
     color: var(--ink);
   }
-  .whisper {
-    margin: 0 2px;
-    font-family: "Newsreader", serif;
-    font-style: italic;
-    font-size: 14px;
-    color: var(--ink-faint);
-    opacity: 0.8;
-  }
   .piece-frame {
     background: #FAFAF6;
     padding: clamp(12px, 2.4vw, 26px);
@@ -163,12 +155,16 @@
 
   /* ---------- About ---------- */
   .about-view {
+    position: relative;
+    overflow: hidden;
     padding: 96px 0 80px;
     max-width: 46ch;
     margin: 0 auto;
     text-align: center;
   }
   .about-poem {
+    position: relative;
+    z-index: 1;
     font-family: "Newsreader", serif;
     font-style: italic;
     font-size: 18px;
@@ -176,7 +172,21 @@
     color: var(--ink);
   }
   .about-poem p { margin: 0 0 1.6em; }
-  .about-poem p:last-child { margin-bottom: 0; }
+  .about-poem p:last-child { margin-bottom: 0; color: var(--accent); }
+  .about-glyph-fragment {
+    position: absolute;
+    z-index: 0;
+    right: clamp(-140px, -22vw, -70px);
+    bottom: clamp(-120px, -18vw, -60px);
+    width: clamp(220px, 46vw, 360px);
+    aspect-ratio: 1;
+    color: var(--accent);
+    opacity: 0.08;
+    transform: rotate(-11deg);
+    pointer-events: none;
+    user-select: none;
+  }
+  .about-glyph-fragment svg { display: block; width: 100%; height: 100%; overflow: visible; }
   .about-back {
     display: block;
     margin-top: 64px;
@@ -195,12 +205,12 @@
     font-family: "Newsreader", serif;
     font-style: italic;
     font-size: 13px;
-    color: var(--ink-faint);
+    color: var(--ink-soft);
     text-decoration: none;
-    border-bottom: 1px solid rgba(122, 118, 109, 0.4);
+    border-bottom: 1px solid rgba(171, 167, 158, 0.55);
     cursor: pointer;
   }
-  .foot-about-link:hover { color: var(--ink-soft); border-bottom-color: var(--ink-soft); }
+  .foot-about-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
 
   /* ---------- Lightbox ---------- */
   .lightbox {
@@ -302,7 +312,8 @@
       <span class="sig-word sig-gold">benkum</span><span class="sig-script sig-gold">art</span><span class="sig-attribution">&mdash; Kwame Asiedu</span>
     </p>
     <p class="foot-caption">self taught, figuring it out, yɛn kɔ &middot; <a class="foot-about-link" href="#about">a note</a></p>
-    <p class="foot-disclosure">&copy; 2026 Benkum Art &middot; AI-generated &middot; human-directed</p>
+    <p class="foot-disclosure">&copy; 2026 Benkum Art</p>
+    <p class="foot-disclosure">AI-generated &middot; human-directed</p>
   </footer>
 </div>
 
@@ -457,6 +468,7 @@
     }).join("");
     return (
       '<div class="about-view">' +
+        '<div class="about-glyph-fragment" aria-hidden="true">' + glyphSVG("benkum-about-fragment") + '</div>' +
         '<div class="about-poem">' + paras + '</div>' +
         '<a class="about-back" href="#">&larr; Back to gallery</a>' +
       '</div>'
@@ -525,8 +537,7 @@
     if (item) {
       root.innerHTML = storyHTML(item);
     } else {
-      var whisper = '<p class="whisper">Fifty-four countries. I&rsquo;m still listening.</p>';
-      root.innerHTML = '<div class="stack">' + whisper +
+      root.innerHTML = '<div class="stack">' +
         (ARTWORKS.length ? ARTWORKS.map(pieceHTML).join("") : emptyHTML()) +
         '</div>';
     }
