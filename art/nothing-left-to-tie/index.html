@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nothing Left to Tie — Benkum Art</title>
+<meta name="description" content="I’ve checked the same knot three times now.">
+<link rel="canonical" href="https://kwameaa-del.github.io/benkum-art/art/nothing-left-to-tie/">
+<meta property="og:title" content="Nothing Left to Tie — Benkum Art">
+<meta property="og:description" content="I’ve checked the same knot three times now.">
+<meta property="og:image" content="https://kwameaa-del.github.io/benkum-art/assets/art/nothing-left-to-tie.jpg">
+<meta property="og:url" content="https://kwameaa-del.github.io/benkum-art/art/nothing-left-to-tie/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VisualArtwork",
+  "name": "Nothing Left to Tie",
+  "url": "https://kwameaa-del.github.io/benkum-art/art/nothing-left-to-tie/",
+  "image": "https://kwameaa-del.github.io/benkum-art/assets/art/nothing-left-to-tie.jpg",
+  "description": "I’ve checked the same knot three times now.",
+  "artist": {
+    "@type": "Person",
+    "name": "Kwame Asiedu"
+  }
+}
+</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Archivo:wght@500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&display=swap">
+<style>
+  :root {
+    --bg: #141414;
+    --ink: #EDEAE2;
+    --ink-soft: #ABA79E;
+    --ink-faint: #7A766D;
+    --border: rgba(237, 234, 226, 0.16);
+    --accent: #EAAE45;
+    --focus: #EAAE45;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background-color: var(--bg);
+    background-image:
+      radial-gradient(ellipse 70% 55% at 50% 105%, rgba(0,0,0,0.4), transparent 60%),
+      url("/benkum-art/assets/bg/site-bg.jpg");
+    background-repeat: no-repeat, no-repeat;
+    background-size: auto, cover;
+    background-position: center, center top;
+    background-attachment: scroll, fixed;
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (max-width: 700px) {
+    body {
+      background-image:
+        radial-gradient(ellipse 70% 55% at 50% 105%, rgba(0,0,0,0.4), transparent 60%),
+        url("/benkum-art/assets/bg/site-bg-mobile.jpg");
+      background-repeat: no-repeat, repeat;
+      background-size: auto, 150px 150px;
+      background-position: center, top left;
+      background-attachment: scroll, scroll;
+    }
+  }
+  a { color: inherit; }
+  button:focus-visible, a:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 32px; }
+
+  /* ---------- Gallery ---------- */
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 96px;
+    padding: 72px 0 48px;
+  }
+  .piece-title {
+    margin: 0 2px 18px;
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 26px;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+  }
+  .piece-frame {
+    background: #FAFAF6;
+    padding: clamp(12px, 2.4vw, 26px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+  }
+  .piece-frame img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    aspect-ratio: auto;
+    display: block;
+    cursor: zoom-in;
+  }
+  .piece-cap {
+    margin: 18px 2px 0;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+  .piece-story-link {
+    display: inline-block;
+    margin: 12px 2px 0;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(234, 174, 69, 0.35);
+    cursor: pointer;
+    background: none;
+    padding: 0;
+  }
+  .piece-story-link:hover { border-bottom-color: var(--accent); }
+
+  /* ---------- Story view ---------- */
+  .story-view {
+    padding: 72px 0 64px;
+  }
+  .story-back {
+    display: inline-block;
+    margin-bottom: 56px;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .story-back:hover { color: var(--ink); }
+  .story-title {
+    margin: 0 2px 26px;
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 28px;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+    text-align: center;
+  }
+  .story-frame {
+    position: relative;
+    background: #FAFAF6;
+    padding: clamp(12px, 2.4vw, 26px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+    max-width: 560px;
+    margin: 0 auto 24px;
+  }
+  .story-frame img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    aspect-ratio: auto;
+    display: block;
+    cursor: zoom-in;
+  }
+  .story-frame.marked::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 14px;
+    height: 14px;
+    border-top: 1.5px solid var(--accent);
+    border-left: 1.5px solid var(--accent);
+    opacity: 0.85;
+    pointer-events: none;
+  }
+  .story-cap {
+    margin: 0 auto 48px;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--ink-soft);
+    max-width: 52ch;
+    text-align: center;
+  }
+  .story-text {
+    margin: 0 auto;
+    max-width: 60ch;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+  .story-text p { margin: 0 0 1.2em; }
+  .story-text p:last-child { margin-bottom: 0; }
+  .story-glyph {
+    display: flex;
+    justify-content: center;
+    margin: 48px auto 0;
+    cursor: default;
+  }
+  .story-glyph svg { display: block; }
+
+  /* ---------- About ---------- */
+  .about-view {
+    position: relative;
+    overflow: hidden;
+    padding: 96px 0 80px;
+    max-width: 46ch;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .about-poem {
+    position: relative;
+    z-index: 1;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 2;
+    color: var(--ink);
+  }
+  .about-poem p { margin: 0 0 1.6em; }
+  .about-poem p:last-child { margin-bottom: 0; color: var(--accent); }
+  .about-glyph-fragment {
+    position: absolute;
+    z-index: 0;
+    right: clamp(-140px, -22vw, -70px);
+    bottom: clamp(-120px, -18vw, -60px);
+    width: clamp(220px, 46vw, 360px);
+    aspect-ratio: 1;
+    color: var(--accent);
+    opacity: 0.08;
+    transform: rotate(-11deg);
+    pointer-events: none;
+    user-select: none;
+  }
+  .about-glyph-fragment svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  .about-back {
+    display: block;
+    margin-top: 64px;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .about-back:hover { color: var(--ink); }
+  .foot-about-link {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(171, 167, 158, 0.55);
+    cursor: pointer;
+  }
+  .foot-about-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* ---------- Lightbox ---------- */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.94);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+    z-index: 1000;
+    cursor: zoom-out;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    box-shadow: none;
+    display: block;
+  }
+
+  /* Empty state */
+  .empty {
+    padding: 120px 0;
+    text-align: center;
+  }
+  .empty-sub {
+    font-size: 15px;
+    font-style: italic;
+    color: var(--ink-faint);
+  }
+
+  footer.site-foot {
+    border-top: 1px solid var(--border);
+    padding: 26px 0 56px;
+  }
+  .signature {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    line-height: 1;
+  }
+  .sig-gold {
+    background: linear-gradient(160deg, #F5D48A 0%, #C89430 22%, #7A4E12 45%, #E8BE6A 62%, #B9791A 80%, #F0CE7E 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+  .sig-word {
+    font-family: "Archivo", sans-serif;
+    font-weight: 700;
+    font-size: 21px;
+    letter-spacing: 0.01em;
+    line-height: 1;
+  }
+  .sig-script {
+    font-family: "Alex Brush", cursive;
+    font-size: 30px;
+    line-height: 0.6;
+    margin-left: 3px;
+  }
+  .sig-logo-img {
+    height: 26px;
+    width: auto;
+    display: block;
+  }
+  .sig-attribution {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-faint);
+    margin-left: 6px;
+    line-height: 1;
+  }
+  .foot-caption {
+    margin: 3px 0 0;
+    line-height: 1.3;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-faint);
+  }
+  .foot-disclosure {
+    margin: 12px 0 0;
+    line-height: 1.3;
+    font-family: "Newsreader", serif;
+    font-size: 10px;
+    letter-spacing: 0.03em;
+    color: var(--ink-faint);
+    opacity: 0.62;
+  }
+
+  /* ---------- Site header (real, crawlable brand heading) ---------- */
+  .site-head {
+    padding: 40px 0 0;
+  }
+  .site-head-link {
+    display: inline-block;
+    text-decoration: none;
+  }
+  .site-head-title {
+    margin: 0;
+    font-family: "Archivo", sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .site-head-link:hover .site-head-title { color: var(--accent); }
+
+  /* ---------- Artwork page (standalone, non-hash pages) ---------- */
+  .art-back {
+    display: inline-block;
+    margin: 28px 0 0;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .art-back:hover { color: var(--ink); }
+</style>
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="site-head">
+    <a class="site-head-link" href="/benkum-art/"><h1 class="site-head-title">Benkum Art</h1></a>
+  </header>
+
+  <main class="story-view">
+    <a class="story-back" href="/benkum-art/">&larr; Back to gallery</a>
+    <h2 class="story-title">Nothing Left to Tie</h2>
+    <div class="story-frame marked"><img class="piece-img" data-full="/benkum-art/assets/art/nothing-left-to-tie.jpg" src="/benkum-art/assets/art/nothing-left-to-tie.jpg" alt="A figure kneels beside a sealed burlap sack of grain, testing its tied knot, as more stacked sacks fade into shadow behind." width="1024" height="1536" loading="eager"></div>
+    <p class="story-cap">I’ve checked the same knot three times now.</p>
+    <div class="story-text"><p>The knot’s already tight. I check it again anyway.</p><p>On September 1, 2026, Mathews Mulenga, head of Restoration for Community Justice, warned that Zambia’s record 5-million-metric-ton maize harvest this year could be undone within months — “This is not a Kanchibiya problem or a Muchinga problem,” he said. “This is a national emergency in the making.” Forecasters expect a punishing El Niño to peak by December, pushing the October 2026–March 2027 rainy season well below normal, echoing a 2023–24 drought that erased a similarly strong harvest almost as fast as it arrived. More than two million smallholder farmers are being urged to hold back part of this year’s grain instead of selling it, and to plant hardier, faster crops before the rains — if they come at all — fall short again.</p><p>I’ve checked the same knot three times now. My hands keep finding reasons to stay busy with the one thing they can still fix.</p></div>
+    <div class="story-glyph" aria-hidden="true"><svg viewBox="0 0 100 100" width="68" height="68" fill="none" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(-14.5 43.2 46.6)"><path d="M 43.4 44.3 Q 32.1 47.1 29.9 58.6" stroke="#EAAE45" stroke-width="1.94" stroke-linecap="round" fill="none" opacity="0.85"/><path d="M 31.9 53.7 Q 30.9 56.1 29.9 58.6" stroke="#EAAE45" stroke-width="0.81" stroke-linecap="round" fill="none" opacity="0.59"/><line x1="36.8" y1="55.6" x2="32.4" y2="51.6" stroke="#EAAE45" stroke-width="1.13" stroke-linecap="round" opacity="0.47"/><path d="M 47.3 45.5 Q 44.5 60.9 30.1 67.0" stroke="#EAAE45" stroke-width="2.06" stroke-linecap="round" fill="none" opacity="0.67"/><path d="M 36.1 63.0 Q 33.1 65.0 30.1 67.0" stroke="#EAAE45" stroke-width="0.87" stroke-linecap="round" fill="none" opacity="0.47"/><line x1="40.0" y1="59.6" x2="35.6" y2="55.0" stroke="#EAAE45" stroke-width="1.82" stroke-linecap="round" opacity="0.40"/><path d="M 40.1 47.8 Q 22.0 54.6 8.6 68.5" stroke="#EAAE45" stroke-width="3.20" stroke-linecap="round" fill="none" opacity="0.66"/><path d="M 15.8 62.2 Q 12.2 65.4 8.6 68.5" stroke="#EAAE45" stroke-width="1.34" stroke-linecap="round" fill="none" opacity="0.46"/><line x1="28.3" y1="60.3" x2="23.9" y2="53.7" stroke="#EAAE45" stroke-width="1.07" stroke-linecap="round" opacity="0.37"/><path d="M 47.8 47.8 Q 64.4 47.7 76.3 59.2" stroke="#EAAE45" stroke-width="2.15" stroke-linecap="round" fill="none" opacity="0.69"/><path d="M 69.9 54.6 Q 73.1 56.9 76.3 59.2" stroke="#EAAE45" stroke-width="0.90" stroke-linecap="round" fill="none" opacity="0.48"/></g></svg></div>
+  </main>
+
+  <footer class="site-foot">
+    <p class="signature"><img class="sig-logo-img" src="/benkum-art/assets/brand/benkum-logo.png" alt="benkum art" width="647" height="130"></p>
+    <p class="foot-caption">self taught, figuring it out, yɛn kɔ &middot; <a class="foot-about-link" href="/benkum-art/#about">a note</a> &middot; <a class="foot-about-link" href="/benkum-art/rights.html">rights &amp; usage</a></p>
+    <p class="foot-disclosure">&copy; 2026 Kwame Asiedu &middot; Benkum Art. All rights reserved.</p>
+    <p class="foot-disclosure">AI-generated &middot; human-directed</p>
+  </footer>
+</div>
+
+<div class="lightbox" id="lightbox"><img id="lightbox-img" src="" alt=""></div>
+
+<script>
+(function () {
+  var lightbox = document.getElementById("lightbox");
+  var lightboxImg = document.getElementById("lightbox-img");
+  document.querySelectorAll(".piece-img").forEach(function (img) {
+    img.addEventListener("click", function () {
+      lightboxImg.src = img.getAttribute("data-full");
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add("open");
+    });
+  });
+  lightbox.addEventListener("click", function () {
+    lightbox.classList.remove("open");
+    lightboxImg.src = "";
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      lightbox.classList.remove("open");
+      lightboxImg.src = "";
+    }
+  });
+})();
+</script>
+</body>
+</html>
