@@ -119,12 +119,18 @@
     font-style: italic;
     color: var(--ink-soft);
     max-width: 62ch;
-    text-decoration: none;
     cursor: pointer;
-    transition: color 0.35s ease;
+    text-decoration: underline;
+    text-decoration-color: rgba(234, 174, 69, 0.3);
+    text-underline-offset: 3px;
+    transition: color 0.35s ease, text-decoration-color 0.35s ease;
   }
-  .piece-cap:hover { color: var(--ink); }
-  .piece-cap.is-active { color: var(--accent); transition: color 0.15s ease; }
+  .piece-cap:hover { color: var(--ink); text-decoration-color: rgba(234, 174, 69, 0.75); }
+  .piece-cap.is-active {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
+  }
 
   /* ---------- Story view ---------- */
   .story-view {
