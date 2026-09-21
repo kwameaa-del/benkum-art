@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Wonder &amp; Dread — Benkum Art</title>
 <meta name="description" content="Wonder and dread can share the same breath. Most days do.">
 <link rel="canonical" href="https://kwameaa-del.github.io/benkum-art/art/wonder-dread/">
@@ -42,29 +42,10 @@
   body {
     margin: 0;
     background-color: var(--bg);
-    background-image:
-      radial-gradient(ellipse 70% 55% at 50% 105%, rgba(0,0,0,0.4), transparent 60%),
-      url("/benkum-art/assets/bg/site-bg.jpg");
-    background-repeat: no-repeat, no-repeat;
-    background-size: auto, cover;
-    background-position: center, center top;
-    background-attachment: scroll, fixed;
     color: var(--ink);
     font-family: "Newsreader", Georgia, serif;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
-  }
-
-  @media (max-width: 700px) {
-    body {
-      background-image:
-        radial-gradient(ellipse 70% 55% at 50% 105%, rgba(0,0,0,0.4), transparent 60%),
-        url("/benkum-art/assets/bg/site-bg-mobile.jpg");
-      background-repeat: no-repeat, repeat;
-      background-size: auto, 150px 150px;
-      background-position: center, top left;
-      background-attachment: scroll, scroll;
-    }
   }
   a { color: inherit; }
   button:focus-visible, a:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
