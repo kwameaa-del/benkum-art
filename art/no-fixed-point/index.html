@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>No Fixed Point — Benkum Art</title>
 <meta name="description" content="Sometimes it looks like a place that can no longer hold still.">
 <link rel="canonical" href="https://kwameaa-del.github.io/benkum-art/art/no-fixed-point/">
@@ -135,7 +135,7 @@
     background: #FAFAF6;
     padding: clamp(12px, 2.4vw, 26px);
     box-shadow: 0 18px 40px rgba(0,0,0,0.45);
-    max-width: 560px;
+    max-width: 860px;
     margin: 0 auto 24px;
   }
   .story-frame img {
@@ -147,12 +147,15 @@
     cursor: zoom-in;
   }
   .story-cap {
-    margin: 0 auto 48px;
+    margin: 0 auto;
     font-size: 15px;
     font-style: italic;
     color: var(--ink-soft);
     max-width: 52ch;
     text-align: center;
+  }
+  .story-reading-pause {
+    height: clamp(48px, 7vw, 88px);
   }
   .story-text {
     margin: 0 auto;
@@ -170,6 +173,32 @@
     cursor: default;
   }
   .story-glyph svg { display: block; }
+  .story-nav {
+    max-width: 60ch;
+    margin: 64px auto 0;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .story-next {
+    display: block;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink);
+    text-decoration: none;
+    margin-bottom: 20px;
+  }
+  .story-next:hover { color: var(--accent); }
+  .story-return {
+    display: inline-block;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .story-return:hover { color: var(--ink); }
 
   /* ---------- About ---------- */
   .about-view {
@@ -250,6 +279,20 @@
     box-shadow: none;
     display: block;
   }
+  .lightbox-close {
+    position: absolute;
+    top: max(18px, env(safe-area-inset-top));
+    right: 22px;
+    min-width: 44px;
+    min-height: 44px;
+    background: none;
+    border: 0;
+    color: var(--ink);
+    font: 32px Georgia, serif;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .lightbox-close:hover { color: var(--accent); }
 
   /* Empty state */
   .empty {
@@ -369,8 +412,9 @@
     <h2 class="story-title">No Fixed Point</h2>
     <div class="story-frame"><img class="piece-img" data-full="/benkum-art/assets/art/no-fixed-point.jpg" src="/benkum-art/assets/art/no-fixed-point.jpg" alt="Figures move through a dark, rain-swept camp of tents and lanterns at night, one shrouded bundle resting in the mud." width="1536" height="1024" loading="eager"></div>
     <p class="story-cap">Sometimes it looks like a place that can no longer hold still.</p>
+    <div class="story-reading-pause" aria-hidden="true"></div>
     <div class="story-text"><p>No one here was walking toward the same place.</p><p>On September 2, 2026, a report from eastern Chad described dozens of Sudanese refugees from Marra camp walking roughly twenty kilometers through heavy rain and strong winds to the town of Amliouna, demanding aid after four months without food or cash support — days after a storm tore through shelters at nearby Mile camp and left children and the elderly without cover.</p><p>What I kept returning to wasn’t the distance they covered, but a place too unsettled to resolve into a single direction.</p></div>
-    <div class="story-glyph" aria-hidden="true"><svg viewBox="0 0 100 100" width="68" height="68" fill="none" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(-8.2 47.2 47.2)"><path d="M 47.2 46.3 Q 49.8 59.8 39.4 68.8" stroke="#EAAE45" stroke-width="2.19" stroke-linecap="round" fill="none" opacity="0.76"/><path d="M 43.3 63.9 Q 41.4 66.3 39.4 68.8" stroke="#EAAE45" stroke-width="0.92" stroke-linecap="round" fill="none" opacity="0.53"/><line x1="47.1" y1="61.6" x2="38.2" y2="57.2" stroke="#EAAE45" stroke-width="0.86" stroke-linecap="round" opacity="0.70"/><path d="M 50.0 51.6 Q 36.3 37.0 26.4 19.7" stroke="#EAAE45" stroke-width="2.27" stroke-linecap="round" fill="none" opacity="0.77"/><path d="M 31.7 28.1 Q 29.1 23.9 26.4 19.7" stroke="#EAAE45" stroke-width="0.95" stroke-linecap="round" fill="none" opacity="0.54"/><line x1="31.3" y1="31.8" x2="37.0" y2="28.4" stroke="#EAAE45" stroke-width="1.84" stroke-linecap="round" opacity="0.60"/><path d="M 48.9 51.9 Q 62.6 65.8 82.1 64.8" stroke="#EAAE45" stroke-width="3.26" stroke-linecap="round" fill="none" opacity="0.84"/><path d="M 73.0 63.8 Q 77.5 64.3 82.1 64.8" stroke="#EAAE45" stroke-width="1.37" stroke-linecap="round" fill="none" opacity="0.59"/><path d="M 42.5 43.4 Q 29.5 48.8 17.2 42.0" stroke="#EAAE45" stroke-width="3.21" stroke-linecap="round" fill="none" opacity="0.59"/><path d="M 23.4 44.2 Q 20.3 43.1 17.2 42.0" stroke="#EAAE45" stroke-width="1.35" stroke-linecap="round" fill="none" opacity="0.41"/><line x1="33.0" y1="47.2" x2="33.0" y2="38.5" stroke="#EAAE45" stroke-width="1.79" stroke-linecap="round" opacity="0.38"/><path d="M 47.3 49.4 Q 49.8 34.1 61.7 24.1" stroke="#EAAE45" stroke-width="1.93" stroke-linecap="round" fill="none" opacity="0.58"/><path d="M 56.7 29.6 Q 59.2 26.9 61.7 24.1" stroke="#EAAE45" stroke-width="0.81" stroke-linecap="round" fill="none" opacity="0.41"/><line x1="48.8" y1="34.2" x2="60.6" y2="38.7" stroke="#EAAE45" stroke-width="1.75" stroke-linecap="round" opacity="0.46"/><path d="M 43.5 50.9 Q 53.0 48.7 61.3 53.8" stroke="#EAAE45" stroke-width="1.91" stroke-linecap="round" fill="none" opacity="0.58"/><path d="M 57.1 52.0 Q 59.2 52.9 61.3 53.8" stroke="#EAAE45" stroke-width="0.80" stroke-linecap="round" fill="none" opacity="0.41"/><line x1="51.4" y1="46.3" x2="49.8" y2="57.9" stroke="#EAAE45" stroke-width="1.12" stroke-linecap="round" opacity="0.74"/></g></svg></div>
+    <div class="story-glyph" aria-hidden="true"><svg viewBox="0 0 100 100" width="68" height="68" fill="none" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(-8.2 47.2 47.2)"><path d="M 47.2 46.3 Q 49.8 59.8 39.4 68.8" stroke="#EAAE45" stroke-width="2.19" stroke-linecap="round" fill="none" opacity="0.76"/><path d="M 43.3 63.9 Q 41.4 66.3 39.4 68.8" stroke="#EAAE45" stroke-width="0.92" stroke-linecap="round" fill="none" opacity="0.53"/><line x1="47.1" y1="61.6" x2="38.2" y2="57.2" stroke="#EAAE45" stroke-width="0.86" stroke-linecap="round" opacity="0.70"/><path d="M 50.0 51.6 Q 36.3 37.0 26.4 19.7" stroke="#EAAE45" stroke-width="2.27" stroke-linecap="round" fill="none" opacity="0.77"/><path d="M 31.7 28.1 Q 29.1 23.9 26.4 19.7" stroke="#EAAE45" stroke-width="0.95" stroke-linecap="round" fill="none" opacity="0.54"/><line x1="31.3" y1="31.8" x2="37.0" y2="28.4" stroke="#EAAE45" stroke-width="1.84" stroke-linecap="round" opacity="0.60"/><path d="M 48.9 51.9 Q 62.6 65.8 82.1 64.8" stroke="#EAAE45" stroke-width="3.26" stroke-linecap="round" fill="none" opacity="0.84"/><path d="M 73.0 63.8 Q 77.5 64.3 82.1 64.8" stroke="#EAAE45" stroke-width="1.37" stroke-linecap="round" fill="none" opacity="0.59"/><path d="M 42.5 43.4 Q 29.5 48.8 17.2 42.0" stroke="#EAAE45" stroke-width="3.21" stroke-linecap="round" fill="none" opacity="0.59"/><path d="M 23.4 44.2 Q 20.3 43.1 17.2 42.0" stroke="#EAAE45" stroke-width="1.35" stroke-linecap="round" fill="none" opacity="0.41"/><line x1="33.0" y1="47.2" x2="33.0" y2="38.5" stroke="#EAAE45" stroke-width="1.79" stroke-linecap="round" opacity="0.38"/><path d="M 47.3 49.4 Q 49.8 34.1 61.7 24.1" stroke="#EAAE45" stroke-width="1.93" stroke-linecap="round" fill="none" opacity="0.58"/><path d="M 56.7 29.6 Q 59.2 26.9 61.7 24.1" stroke="#EAAE45" stroke-width="0.81" stroke-linecap="round" fill="none" opacity="0.41"/><line x1="48.8" y1="34.2" x2="60.6" y2="38.7" stroke="#EAAE45" stroke-width="1.75" stroke-linecap="round" opacity="0.46"/><path d="M 43.5 50.9 Q 53.0 48.7 61.3 53.8" stroke="#EAAE45" stroke-width="1.91" stroke-linecap="round" fill="none" opacity="0.58"/><path d="M 57.1 52.0 Q 59.2 52.9 61.3 53.8" stroke="#EAAE45" stroke-width="0.80" stroke-linecap="round" fill="none" opacity="0.41"/><line x1="51.4" y1="46.3" x2="49.8" y2="57.9" stroke="#EAAE45" stroke-width="1.12" stroke-linecap="round" opacity="0.74"/></g></svg></div><nav class="story-nav" aria-label="Artwork navigation"><a class="story-next" href="/benkum-art/art/second-wind/">Continue &rarr; Second Wind</a><a class="story-return" href="/benkum-art/">Return to the archive</a></nav>
   </main>
 
   <footer class="site-foot">
@@ -380,27 +424,60 @@
   </footer>
 </div>
 
-<div class="lightbox" id="lightbox"><img id="lightbox-img" src="" alt=""></div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork enlarged" tabindex="-1"><button class="lightbox-close" id="lightbox-close" aria-label="Close enlarged artwork" type="button">&times;</button><img id="lightbox-img" src="" alt=""></div>
 
 <script>
 (function () {
   var lightbox = document.getElementById("lightbox");
   var lightboxImg = document.getElementById("lightbox-img");
-  document.querySelectorAll(".piece-img").forEach(function (img) {
-    img.addEventListener("click", function () {
-      lightboxImg.src = img.getAttribute("data-full");
-      lightboxImg.alt = img.alt;
-      lightbox.classList.add("open");
-    });
-  });
-  lightbox.addEventListener("click", function () {
+  var lightboxClose = document.getElementById("lightbox-close");
+  var page = document.querySelector(".wrap");
+  var lastFocus = null;
+
+  function openLightbox(img) {
+    lastFocus = img;
+    lightboxImg.src = img.getAttribute("data-full");
+    lightboxImg.alt = img.alt;
+    lightbox.classList.add("open");
+    document.body.style.overflow = "hidden";
+    if (page) page.inert = true;
+    lightboxClose.focus();
+  }
+  function closeLightbox() {
     lightbox.classList.remove("open");
     lightboxImg.src = "";
+    document.body.style.overflow = "";
+    if (page) page.inert = false;
+    if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+  }
+
+  document.querySelectorAll(".piece-img").forEach(function (img) {
+    img.setAttribute("tabindex", "0");
+    img.setAttribute("role", "button");
+    img.setAttribute("aria-label", "Enlarge " + img.alt);
+    img.addEventListener("click", function () { openLightbox(img); });
+    img.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openLightbox(img);
+      }
+    });
+  });
+  lightboxClose.addEventListener("click", closeLightbox);
+  lightbox.addEventListener("click", function (e) {
+    if (e.target === lightbox) closeLightbox();
   });
   document.addEventListener("keydown", function (e) {
+    if (!lightbox.classList.contains("open")) return;
     if (e.key === "Escape") {
-      lightbox.classList.remove("open");
-      lightboxImg.src = "";
+      e.preventDefault();
+      closeLightbox();
+      return;
+    }
+    if (e.key === "Tab") {
+      // The close button is intentionally the only focusable control in the modal.
+      e.preventDefault();
+      lightboxClose.focus();
     }
   });
 })();
