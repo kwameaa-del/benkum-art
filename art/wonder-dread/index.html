@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wonder &amp; Dread — Benkum Art</title>
 <meta name="description" content="Wonder and dread can share the same breath. Most days do.">
 <link rel="canonical" href="https://kwameaa-del.github.io/benkum-art/art/wonder-dread/">
@@ -135,7 +135,7 @@
     background: #FAFAF6;
     padding: clamp(12px, 2.4vw, 26px);
     box-shadow: 0 18px 40px rgba(0,0,0,0.45);
-    max-width: 560px;
+    max-width: 860px;
     margin: 0 auto 24px;
   }
   .story-frame img {
@@ -147,12 +147,15 @@
     cursor: zoom-in;
   }
   .story-cap {
-    margin: 0 auto 48px;
+    margin: 0 auto;
     font-size: 15px;
     font-style: italic;
     color: var(--ink-soft);
     max-width: 52ch;
     text-align: center;
+  }
+  .story-reading-pause {
+    height: clamp(48px, 7vw, 88px);
   }
   .story-text {
     margin: 0 auto;
@@ -170,6 +173,32 @@
     cursor: default;
   }
   .story-glyph svg { display: block; }
+  .story-nav {
+    max-width: 60ch;
+    margin: 64px auto 0;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .story-next {
+    display: block;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink);
+    text-decoration: none;
+    margin-bottom: 20px;
+  }
+  .story-next:hover { color: var(--accent); }
+  .story-return {
+    display: inline-block;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .story-return:hover { color: var(--ink); }
 
   /* ---------- About ---------- */
   .about-view {
@@ -250,6 +279,20 @@
     box-shadow: none;
     display: block;
   }
+  .lightbox-close {
+    position: absolute;
+    top: max(18px, env(safe-area-inset-top));
+    right: 22px;
+    min-width: 44px;
+    min-height: 44px;
+    background: none;
+    border: 0;
+    color: var(--ink);
+    font: 32px Georgia, serif;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .lightbox-close:hover { color: var(--accent); }
 
   /* Empty state */
   .empty {
@@ -369,8 +412,9 @@
     <h2 class="story-title">Wonder &amp; Dread</h2>
     <div class="story-frame"><img class="piece-img" data-full="/benkum-art/assets/art/wonder-dread.jpg" src="/benkum-art/assets/art/wonder-dread.jpg" alt="A stadium crowd looks up in golden light as two fighter jets fly low overhead against a stormy sky." width="1024" height="767" loading="eager"></div>
     <p class="story-cap">Wonder and dread can share the same breath. Most days do.</p>
+    <div class="story-reading-pause" aria-hidden="true"></div>
     <div class="story-text"><p>Thousands of people looked up at once.</p><p>On August 29, two Airlink jets crossed low over DHL Stadium in Cape Town before the Springboks–All Blacks Test — flight-tracking analysis put the lead aircraft at roughly 41–46 feet above the roof. Some watched in delight. Others didn't like how close it felt.</p><p>I wasn't interested in recreating the flyover itself. I was interested in the half-second where wonder and worry occupy the exact same body.</p></div>
-    <div class="story-glyph" aria-hidden="true"><svg viewBox="0 0 100 100" width="68" height="68" fill="none" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(5.6 42.1 53.1)"><path d="M 46.4 57.6 Q 30.3 52.7 21.7 38.2" stroke="#EAAE45" stroke-width="2.99" stroke-linecap="round" fill="none" opacity="0.54"/><path d="M 26.8 44.5 Q 24.3 41.3 21.7 38.2" stroke="#EAAE45" stroke-width="1.26" stroke-linecap="round" fill="none" opacity="0.38"/><path d="M 44.7 50.7 Q 42.3 34.3 33.4 20.4" stroke="#EAAE45" stroke-width="2.26" stroke-linecap="round" fill="none" opacity="0.77"/><path d="M 37.2 27.6 Q 35.3 24.0 33.4 20.4" stroke="#EAAE45" stroke-width="0.95" stroke-linecap="round" fill="none" opacity="0.54"/><line x1="35.6" y1="35.4" x2="41.9" y2="34.1" stroke="#EAAE45" stroke-width="1.50" stroke-linecap="round" opacity="0.47"/><path d="M 42.3 49.5 Q 54.0 52.7 59.6 63.4" stroke="#EAAE45" stroke-width="1.75" stroke-linecap="round" fill="none" opacity="0.41"/><path d="M 56.2 58.8 Q 57.9 61.1 59.6 63.4" stroke="#EAAE45" stroke-width="0.73" stroke-linecap="round" fill="none" opacity="0.29"/><path d="M 42.8 53.8 Q 56.1 53.5 67.7 59.8" stroke="#EAAE45" stroke-width="2.20" stroke-linecap="round" fill="none" opacity="0.77"/><path d="M 61.7 57.3 Q 64.7 58.6 67.7 59.8" stroke="#EAAE45" stroke-width="0.92" stroke-linecap="round" fill="none" opacity="0.54"/><line x1="60.9" y1="51.3" x2="61.5" y2="65.2" stroke="#EAAE45" stroke-width="0.82" stroke-linecap="round" opacity="0.47"/><path d="M 43.1 48.6 Q 55.7 45.6 62.4 34.5" stroke="#EAAE45" stroke-width="1.96" stroke-linecap="round" fill="none" opacity="0.66"/><path d="M 58.4 39.2 Q 60.4 36.9 62.4 34.5" stroke="#EAAE45" stroke-width="0.82" stroke-linecap="round" fill="none" opacity="0.46"/><line x1="49.6" y1="36.2" x2="56.3" y2="46.6" stroke="#EAAE45" stroke-width="1.13" stroke-linecap="round" opacity="0.40"/><path d="M 43.9 48.2 Q 59.7 43.4 76.0 45.4" stroke="#EAAE45" stroke-width="2.36" stroke-linecap="round" fill="none" opacity="0.46"/><path d="M 67.9 45.1 Q 72.0 45.2 76.0 45.4" stroke="#EAAE45" stroke-width="0.99" stroke-linecap="round" fill="none" opacity="0.32"/></g></svg></div>
+    <div class="story-glyph" aria-hidden="true"><svg viewBox="0 0 100 100" width="68" height="68" fill="none" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(5.6 42.1 53.1)"><path d="M 46.4 57.6 Q 30.3 52.7 21.7 38.2" stroke="#EAAE45" stroke-width="2.99" stroke-linecap="round" fill="none" opacity="0.54"/><path d="M 26.8 44.5 Q 24.3 41.3 21.7 38.2" stroke="#EAAE45" stroke-width="1.26" stroke-linecap="round" fill="none" opacity="0.38"/><path d="M 44.7 50.7 Q 42.3 34.3 33.4 20.4" stroke="#EAAE45" stroke-width="2.26" stroke-linecap="round" fill="none" opacity="0.77"/><path d="M 37.2 27.6 Q 35.3 24.0 33.4 20.4" stroke="#EAAE45" stroke-width="0.95" stroke-linecap="round" fill="none" opacity="0.54"/><line x1="35.6" y1="35.4" x2="41.9" y2="34.1" stroke="#EAAE45" stroke-width="1.50" stroke-linecap="round" opacity="0.47"/><path d="M 42.3 49.5 Q 54.0 52.7 59.6 63.4" stroke="#EAAE45" stroke-width="1.75" stroke-linecap="round" fill="none" opacity="0.41"/><path d="M 56.2 58.8 Q 57.9 61.1 59.6 63.4" stroke="#EAAE45" stroke-width="0.73" stroke-linecap="round" fill="none" opacity="0.29"/><path d="M 42.8 53.8 Q 56.1 53.5 67.7 59.8" stroke="#EAAE45" stroke-width="2.20" stroke-linecap="round" fill="none" opacity="0.77"/><path d="M 61.7 57.3 Q 64.7 58.6 67.7 59.8" stroke="#EAAE45" stroke-width="0.92" stroke-linecap="round" fill="none" opacity="0.54"/><line x1="60.9" y1="51.3" x2="61.5" y2="65.2" stroke="#EAAE45" stroke-width="0.82" stroke-linecap="round" opacity="0.47"/><path d="M 43.1 48.6 Q 55.7 45.6 62.4 34.5" stroke="#EAAE45" stroke-width="1.96" stroke-linecap="round" fill="none" opacity="0.66"/><path d="M 58.4 39.2 Q 60.4 36.9 62.4 34.5" stroke="#EAAE45" stroke-width="0.82" stroke-linecap="round" fill="none" opacity="0.46"/><line x1="49.6" y1="36.2" x2="56.3" y2="46.6" stroke="#EAAE45" stroke-width="1.13" stroke-linecap="round" opacity="0.40"/><path d="M 43.9 48.2 Q 59.7 43.4 76.0 45.4" stroke="#EAAE45" stroke-width="2.36" stroke-linecap="round" fill="none" opacity="0.46"/><path d="M 67.9 45.1 Q 72.0 45.2 76.0 45.4" stroke="#EAAE45" stroke-width="0.99" stroke-linecap="round" fill="none" opacity="0.32"/></g></svg></div><nav class="story-nav" aria-label="Artwork navigation"><a class="story-return" href="/benkum-art/">Return to the archive</a></nav>
   </main>
 
   <footer class="site-foot">
@@ -380,27 +424,60 @@
   </footer>
 </div>
 
-<div class="lightbox" id="lightbox"><img id="lightbox-img" src="" alt=""></div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork enlarged" tabindex="-1"><button class="lightbox-close" id="lightbox-close" aria-label="Close enlarged artwork" type="button">&times;</button><img id="lightbox-img" src="" alt=""></div>
 
 <script>
 (function () {
   var lightbox = document.getElementById("lightbox");
   var lightboxImg = document.getElementById("lightbox-img");
-  document.querySelectorAll(".piece-img").forEach(function (img) {
-    img.addEventListener("click", function () {
-      lightboxImg.src = img.getAttribute("data-full");
-      lightboxImg.alt = img.alt;
-      lightbox.classList.add("open");
-    });
-  });
-  lightbox.addEventListener("click", function () {
+  var lightboxClose = document.getElementById("lightbox-close");
+  var page = document.querySelector(".wrap");
+  var lastFocus = null;
+
+  function openLightbox(img) {
+    lastFocus = img;
+    lightboxImg.src = img.getAttribute("data-full");
+    lightboxImg.alt = img.alt;
+    lightbox.classList.add("open");
+    document.body.style.overflow = "hidden";
+    if (page) page.inert = true;
+    lightboxClose.focus();
+  }
+  function closeLightbox() {
     lightbox.classList.remove("open");
     lightboxImg.src = "";
+    document.body.style.overflow = "";
+    if (page) page.inert = false;
+    if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+  }
+
+  document.querySelectorAll(".piece-img").forEach(function (img) {
+    img.setAttribute("tabindex", "0");
+    img.setAttribute("role", "button");
+    img.setAttribute("aria-label", "Enlarge " + img.alt);
+    img.addEventListener("click", function () { openLightbox(img); });
+    img.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openLightbox(img);
+      }
+    });
+  });
+  lightboxClose.addEventListener("click", closeLightbox);
+  lightbox.addEventListener("click", function (e) {
+    if (e.target === lightbox) closeLightbox();
   });
   document.addEventListener("keydown", function (e) {
+    if (!lightbox.classList.contains("open")) return;
     if (e.key === "Escape") {
-      lightbox.classList.remove("open");
-      lightboxImg.src = "";
+      e.preventDefault();
+      closeLightbox();
+      return;
+    }
+    if (e.key === "Tab") {
+      // The close button is intentionally the only focusable control in the modal.
+      e.preventDefault();
+      lightboxClose.focus();
     }
   });
 })();
