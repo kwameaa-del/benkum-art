@@ -167,7 +167,7 @@
     background: #FAFAF6;
     padding: clamp(12px, 2.4vw, 26px);
     box-shadow: 0 18px 40px rgba(0,0,0,0.45);
-    max-width: 560px;
+    max-width: 860px;
     margin: 0 auto 24px;
   }
   .story-frame img {
@@ -192,12 +192,15 @@
     pointer-events: none;
   }
   .story-cap {
-    margin: 0 auto 48px;
+    margin: 0 auto;
     font-size: 15px;
     font-style: italic;
     color: var(--ink-soft);
     max-width: 52ch;
     text-align: center;
+  }
+  .story-reading-pause {
+    height: clamp(48px, 7vw, 88px);
   }
   .story-text {
     margin: 0 auto;
@@ -215,6 +218,32 @@
     cursor: default;
   }
   .story-glyph svg { display: block; }
+  .story-nav {
+    max-width: 60ch;
+    margin: 64px auto 0;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .story-next {
+    display: block;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink);
+    text-decoration: none;
+    margin-bottom: 20px;
+  }
+  .story-next:hover { color: var(--accent); }
+  .story-return {
+    display: inline-block;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .story-return:hover { color: var(--ink); }
 
   /* ---------- About ---------- */
   .about-view {
@@ -295,6 +324,20 @@
     box-shadow: none;
     display: block;
   }
+  .lightbox-close {
+    position: absolute;
+    top: max(18px, env(safe-area-inset-top));
+    right: 22px;
+    min-width: 44px;
+    min-height: 44px;
+    background: none;
+    border: 0;
+    color: var(--ink);
+    font: 32px Georgia, serif;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .lightbox-close:hover { color: var(--accent); }
 
   /* Empty state */
   .empty {
@@ -418,7 +461,7 @@
   </footer>
 </div>
 
-<div class="lightbox" id="lightbox"><img id="lightbox-img" src="" alt=""></div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork enlarged" tabindex="-1"><button class="lightbox-close" id="lightbox-close" aria-label="Close enlarged artwork" type="button">&times;</button><img id="lightbox-img" src="" alt=""></div>
 
 <script>
 (function () {
@@ -431,6 +474,9 @@
       caption: "Wonder and dread can share the same breath. Most days do.",
       alt: "A stadium crowd looks up in golden light as two fighter jets fly low overhead against a stormy sky.",
       glyph: "GLY-001-wonder-dread",
+      width: 1024,
+      height: 767,
+      next: null,
       story: "Thousands of people looked up at once.\n\nOn August 29, two Airlink jets crossed low over DHL Stadium in Cape Town before the Springboks–All Blacks Test — flight-tracking analysis put the lead aircraft at roughly 41–46 feet above the roof. Some watched in delight. Others didn't like how close it felt.\n\nI wasn't interested in recreating the flyover itself. I was interested in the half-second where wonder and worry occupy the exact same body."
     },
     {
@@ -440,6 +486,9 @@
       caption: "Tired is not the same as stopped. Some days you find out how much further the body was always willing to go.",
       alt: "Children in wet school uniforms walk through a rain-soaked street toward a lit iron gate at dusk.",
       glyph: "GLY-002-second-wind",
+      width: 1024,
+      height: 1536,
+      next: null,
       story: "School began anyway.\n\nOn September 1, 2026, in Bunia, in DR Congo’s Ituri province, the year opened on schedule — even with the region facing one of the fastest-growing Ebola outbreaks on record, alongside conflict and a threatened teachers’ strike. The risk was visible from the first step through the gate. Nobody pretended otherwise. They moved forward with it anyway.\n\nI didn’t set out to document the outbreak. What stayed with me was a body that keeps moving long after it has every reason to stop."
     },
     {
@@ -449,6 +498,9 @@
       caption: "Sometimes it looks like a place that can no longer hold still.",
       alt: "Figures move through a dark, rain-swept camp of tents and lanterns at night, one shrouded bundle resting in the mud.",
       glyph: "GLY-003-no-fixed-point",
+      width: 1536,
+      height: 1024,
+      next: "second-wind",
       story: "No one here was walking toward the same place.\n\nOn September 2, 2026, a report from eastern Chad described dozens of Sudanese refugees from Marra camp walking roughly twenty kilometers through heavy rain and strong winds to the town of Amliouna, demanding aid after four months without food or cash support — days after a storm tore through shelters at nearby Mile camp and left children and the elderly without cover.\n\nWhat I kept returning to wasn’t the distance they covered, but a place too unsettled to resolve into a single direction."
     },
     {
@@ -458,6 +510,9 @@
       caption: "Peace isn't the absence of hunger. It's not having to think about it.",
       alt: "A man sits in warm lamplight beside bowls of grain and produce on a woven mat in a bare room.",
       glyph: "GLY-004-enough",
+      width: 1536,
+      height: 1024,
+      next: "nothing-left-to-tie",
       story: "No one in the room was hungry that day.\n\nFrom August 31 to September 4, 2026, more than 5,000 delegates gathered in Kigali for the 20th Africa Food Systems Forum, pledging roughly $100 billion toward closing the gap that left an estimated 309 million people across the continent undernourished last year.\n\nThe number that stayed with me wasn't the billions. It was the smaller, harder-to-measure moment somewhere ahead of it — a hand finally resting next to a bowl instead of guarding it."
     },
     {
@@ -467,6 +522,9 @@
       caption: "Hope is not proof. Sometimes it is the room made ready before proof arrives.",
       alt: "Hands and faces gather in near-darkness around a small lit structure of sticks and paper beneath a hanging lamp.",
       glyph: "GLY-005-before-it-works",
+      width: 1024,
+      height: 1536,
+      next: "second-wind",
       story: "The room was made ready.\n\nOn September 5, 2026, emerging Nigerian builders gathered in Lagos for the African Impact Challenge Startup Showcase, bringing unfinished ventures into conversation with investors, operators, partners, and the wider technology community. Their work reached across medicine access, food systems, retail, climate risk, employment, finance, and other problems rooted in daily life.\n\nNone of that guaranteed what would happen next. That uncertainty became the lens. Hope was not the promise that every idea would succeed. It was the decision to place unfinished work in the light and allow other people to see what it might become."
     },
     {
@@ -476,6 +534,9 @@
       caption: "Satisfaction wasn't finishing the register. It was knowing whose hands would open it next.",
       alt: "Two weathered hands stitch the woven spine of a thick book with a needle and thread against near-total darkness.",
       glyph: "GLY-006-bound-to-outlast",
+      width: 1536,
+      height: 1024,
+      next: "wonder-dread",
       story: "On September 8, 2026, President Mahama swore in Ghana’s first Independent Fiscal Council — five members, a four-year mandate, tasked under new law with scrutinizing government spending before it goes wrong rather than explaining it after. He called it a moral obligation to present and future generations. It comes three years after Ghana defaulted on its external debt and asked its own bondholders, many of them ordinary savers and pensioners, to accept less than they were owed.\n\nI kept the oath out of the frame. What’s here instead is the part that happens with no one in the room — a new ledger, hand-bound to outlast whoever’s currently in office. One hand is still stitching, building something for hands not yet in the room. The other has finally earned the right to just rest."
     },
     {
@@ -485,6 +546,9 @@
       caption: "Seconds to the hand. Time to the day.",
       alt: "A silhouetted figure grips a weathered doorframe, looking out at an empty, rain-slicked market of covered stalls beneath a stormy sky.",
       glyph: "GLY-007-yet-to-let-go",
+      width: 1536,
+      height: 1024,
+      next: "bound-to-outlast",
       story: "Others have held this frame.\n\nBy September 7, 2026, merchants across Omdurman were hoarding goods rather than selling them, afraid the currency would fall further before they could restock — in a market that has stood in roughly this spot since the 1880s, through a catastrophic military defeat in 1898 and every hardship since. Economic researchers pointed to the collapsing exchange rate driving up the price of sugar, beans, lentils, and onions week to week — civil servants, teachers, health workers, and pensioners were absorbing the gap directly, cutting spending on food, medicine, and school, or going into debt to cover what’s left.\n\nMy hand is yet to let go."
     },
     {
@@ -494,6 +558,9 @@
       caption: "I’ve checked the same knot three times now.",
       alt: "A figure kneels beside a sealed burlap sack of grain, testing its tied knot, as more stacked sacks fade into shadow behind.",
       glyph: "GLY-008-nothing-left-to-tie",
+      width: 1024,
+      height: 1536,
+      next: "yet-to-let-go",
       story: "The knot’s already tight. I check it again anyway.\n\nOn September 1, 2026, Mathews Mulenga, head of Restoration for Community Justice, warned that Zambia’s record 5-million-metric-ton maize harvest this year could be undone within months — “This is not a Kanchibiya problem or a Muchinga problem,” he said. “This is a national emergency in the making.” Forecasters expect a punishing El Niño to peak by December, pushing the October 2026–March 2027 rainy season well below normal, echoing a 2023–24 drought that erased a similarly strong harvest almost as fast as it arrived. More than two million smallholder farmers are being urged to hold back part of this year’s grain instead of selling it, and to plant hardier, faster crops before the rains — if they come at all — fall short again.\n\nI’ve checked the same knot three times now. My hands keep finding reasons to stay busy with the one thing they can still fix."
     },
     {
@@ -503,6 +570,9 @@
       caption: "This room isn’t finished yet. I already am.",
       alt: "A woman in a deep orange boubou stands calm and grounded in the raw, unfinished interior of a concrete building, lit by daylight through an unglazed window opening, as bare columns recede into shadow behind her.",
       glyph: "GLY-009-steady-without-me",
+      width: 1536,
+      height: 1024,
+      next: "before-it-works",
       story: "The walls around me aren’t finished. I am.\n\nOn September 14, 2026, the Youth Olympic flame — lit four days earlier at Athens’ Panathenaic Stadium — arrived in Senegal, escorted by one hundred Senegalese women in bright orange boubous to Place du Souvenir, where it lit a cauldron for the first Olympic event ever held on African soil. “All of Africa is watching Senegal with confidence,” President Bassirou Diomaye Diakhar Faye said, as the flame began a six-week relay through all fourteen of the country’s regions before the Games open on October 31.\n\nLet the walls catch up. I already know exactly where I’m standing."
     },
     {
@@ -512,6 +582,9 @@
       caption: "The water hasn’t settled.",
       alt: "A woman steps from a weathered stone jetty onto a wooden boat at dawn, her back foot lifting clear of the stone as her front foot plants flat on the deck, coral-stone buildings and a minaret rising along the shore behind her, the water below dark and unsettled.",
       glyph: "GLY-011-already-landed",
+      width: 1536,
+      height: 1024,
+      next: "steady-without-me",
       story: "One foot is still on the stone. The other already carries all of me.\n\nOn September 17, 2026, the U.S. national emergency declared during the war in northern Ethiopia expired. The next day, sanctions tied to it were removed, including those on Eritrea’s ruling party, defense forces, Red Sea Trading Corporation and senior officials. Eritrea welcomed the move. But an expiration doesn’t answer what comes after it. What this changes between the two countries remains unsettled.\n\nMy back foot hasn’t caught up yet. It already knows where it’s going."
     },
     {
@@ -521,6 +594,9 @@
       caption: "Everything else made the cut. One thing still being weighed.",
       alt: "A figure kneels on the floor of a bare, lamplit room beside a nearly full cardboard parcel box — folded cloth, a bundle, and a single shoe already inside — while a hand rests on the floor beside the shoe’s unpacked match, a work uniform and bag hanging on the wall, a lit lantern and a woven basket nearby, city lights visible through a window at dusk.",
       glyph: "GLY-012-one-more",
+      width: 1536,
+      height: 1024,
+      next: "enough",
       story: "The box is nearly full. One shoe still isn’t in it, and my hand hasn’t moved from beside it in a while.\n\nClose to half a million Kenyans work in the Gulf, many in homes and on construction sites, and every year before the holidays they send two things home: money, and a box packed by hand. Every extra kilogram in that box costs money to ship, and new fees and tighter permit costs in Saudi Arabia have already cut into what a lot of them earn — so what goes in isn’t decided by what’s wanted. It’s decided by what still fits the weight the money allows.\n\nOne shoe is already inside. Its pair is still on the floor, and my hand hasn’t picked it up yet."
     }
   ];
@@ -644,12 +720,12 @@
     return false;
   }
 
-  function pieceHTML(item) {
+  function pieceHTML(item, loadingMode) {
     var frameCls = "piece-frame" + (isMarked(item.id) ? " marked" : "");
     return (
       '<article class="piece">' +
         '<h2 class="piece-title">' + esc(item.title) + '</h2>' +
-        '<div class="' + frameCls + '"><img class="piece-img" data-full="' + item.image + '" src="' + item.image + '" alt="' + esc(item.alt || item.title) + '"></div>' +
+        '<div class="' + frameCls + '"><img class="piece-img" data-full="' + item.image + '" src="' + item.image + '" alt="' + esc(item.alt || item.title) + '" width="' + item.width + '" height="' + item.height + '" loading="' + (loadingMode || 'lazy') + '"></div>' +
         '<a class="piece-cap" data-id="' + esc(item.id) + '" href="/benkum-art/art/' + esc(item.id) + '/">' + esc(item.caption) + '</a>' +
       '</article>'
     );
@@ -685,43 +761,105 @@
     return parts.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('');
   }
 
+  // "Next" is an explicit editorial pairing only. It never derives from archive order.
+  function nextItem(item) {
+    // Curated editorial relationship only. Never infer from array/gallery/release order.
+    return item && item.next ? findById(item.next) : null;
+  }
+
+  function storyNavHTML(item) {
+    var next = nextItem(item);
+    var nextLink = next
+      ? '<a class="story-next" href="/benkum-art/art/' + esc(next.id) + '/">Continue &rarr; ' + esc(next.title) + '</a>'
+      : '';
+    return (
+      '<nav class="story-nav" aria-label="Artwork navigation">' +
+        nextLink +
+        '<a class="story-return" href="/benkum-art/">Return to the archive</a>' +
+      '</nav>'
+    );
+  }
+
   function storyHTML(item) {
     var frameCls = "story-frame" + (isMarked(item.id) ? " marked" : "");
     return (
       '<div class="story-view">' +
         '<a class="story-back" href="#">&larr; Back to gallery</a>' +
         '<h2 class="story-title">' + esc(item.title) + '</h2>' +
-        '<div class="' + frameCls + '"><img class="piece-img" data-full="' + item.image + '" src="' + item.image + '" alt="' + esc(item.alt || item.title) + '"></div>' +
+        '<div class="' + frameCls + '"><img class="piece-img" data-full="' + item.image + '" src="' + item.image + '" alt="' + esc(item.alt || item.title) + '" width="' + item.width + '" height="' + item.height + '" loading="eager"></div>' +
         '<p class="story-cap">' + esc(item.caption) + '</p>' +
+        '<div class="story-reading-pause" aria-hidden="true"></div>' +
         '<div class="story-text">' + storyParagraphs(item.story) + '</div>' +
         (item.glyph ?
           '<div class="story-glyph" aria-hidden="true">' + glyphSVG(item.glyph) + '</div>'
         : '') +
+        storyNavHTML(item) +
       '</div>'
     );
   }
 
-  function wireLightbox() {
+  var lightboxLastFocus = null;
+  function openLightbox(img) {
     var lightbox = document.getElementById("lightbox");
     var lightboxImg = document.getElementById("lightbox-img");
+    var lightboxClose = document.getElementById("lightbox-close");
+    var page = document.querySelector(".wrap");
+    lightboxLastFocus = img;
+    lightboxImg.src = img.getAttribute("data-full");
+    lightboxImg.alt = img.alt;
+    lightbox.classList.add("open");
+    document.body.style.overflow = "hidden";
+    if (page) page.inert = true;
+    lightboxClose.focus();
+  }
+  function closeLightbox() {
+    var lightbox = document.getElementById("lightbox");
+    var lightboxImg = document.getElementById("lightbox-img");
+    var page = document.querySelector(".wrap");
+    lightbox.classList.remove("open");
+    lightboxImg.src = "";
+    document.body.style.overflow = "";
+    if (page) page.inert = false;
+    if (lightboxLastFocus && document.contains(lightboxLastFocus)) lightboxLastFocus.focus();
+  }
+  function wireLightbox() {
+    var lightbox = document.getElementById("lightbox");
     document.querySelectorAll(".piece-img").forEach(function (img) {
-      img.addEventListener("click", function () {
-        lightboxImg.src = img.getAttribute("data-full");
-        lightboxImg.alt = img.alt;
-        lightbox.classList.add("open");
+      if (img.dataset.lightboxWired === "true") return;
+      img.dataset.lightboxWired = "true";
+      img.setAttribute("tabindex", "0");
+      img.setAttribute("role", "button");
+      img.setAttribute("aria-label", "Enlarge " + img.alt);
+      img.addEventListener("click", function () { openLightbox(img); });
+      img.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openLightbox(img);
+        }
       });
     });
-    lightbox.addEventListener("click", function () {
-      lightbox.classList.remove("open");
-      lightboxImg.src = "";
-    });
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") {
-        lightbox.classList.remove("open");
-        lightboxImg.src = "";
-      }
-    });
+    if (!lightbox.dataset.overlayWired) {
+      lightbox.dataset.overlayWired = "true";
+      lightbox.addEventListener("click", function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+    }
   }
+  document.getElementById("lightbox-close").addEventListener("click", closeLightbox);
+  document.addEventListener("keydown", function (e) {
+    var lightbox = document.getElementById("lightbox");
+    if (!lightbox.classList.contains("open")) return;
+    if (e.key === "Escape") {
+      e.preventDefault();
+      closeLightbox();
+      return;
+    }
+    if (e.key === "Tab") {
+      // The close button is intentionally the only focusable control in the modal.
+      e.preventDefault();
+      document.getElementById("lightbox-close").focus();
+    }
+  });
 
   function wireCaptionLinks() {
     document.querySelectorAll("a.piece-cap[data-id]").forEach(function (link) {
@@ -747,7 +885,7 @@
     var hasMore = items.length > galleryShown;
     root.innerHTML =
       '<div class="stack">' +
-        (items.length ? visible.map(pieceHTML).join("") : emptyHTML()) +
+        (items.length ? visible.map(function (item, idx) { return pieceHTML(item, idx === 0 ? "eager" : "lazy"); }).join("") : emptyHTML()) +
       '</div>' +
       (hasMore ? '<div class="gallery-more"><button class="load-more-btn" id="load-more-btn" type="button">View earlier work</button></div>' : '');
     wireLightbox();
