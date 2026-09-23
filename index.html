@@ -283,6 +283,52 @@ function markLoaded(e) {
   }
   .about-poem p { margin: 0 0 1.6em; }
   .about-poem p:last-child { margin-bottom: 0; color: var(--accent); }
+  .about-prose {
+    position: relative;
+    z-index: 1;
+    margin: 64px auto 0;
+    padding-top: 48px;
+    border-top: 1px solid var(--border);
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--ink);
+  }
+  .about-prose p { margin: 0 0 1.3em; }
+  .about-prose p:last-child { margin-bottom: 0; }
+  .about-prose em { color: var(--accent); }
+  .about-now {
+    position: relative;
+    z-index: 1;
+    margin: 48px auto 0;
+    padding: 22px 24px;
+    border: 1px solid var(--border);
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+  .about-now p { margin: 0; }
+  .about-now .about-now-label {
+    margin-bottom: 8px;
+    font-family: "Archivo", sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .about-contact {
+    position: relative;
+    z-index: 1;
+    margin: 40px 0 0;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+  .about-contact a {
+    text-decoration: none;
+    border-bottom: 1px solid rgba(234, 174, 69, 0.55);
+  }
+  .about-contact a:hover { color: var(--accent); }
   .about-glyph-fragment {
     position: absolute;
     z-index: 0;
@@ -485,7 +531,7 @@ function markLoaded(e) {
     <p class="signature">
       <img class="sig-logo-img" src="/assets/brand/benkum-logo.png" alt="benkum art" width="647" height="130">
     </p>
-    <p class="foot-caption">self taught, figuring it out, yɛn kɔ &middot; <a class="foot-about-link" href="#about">a note</a> &middot; <a class="foot-about-link" href="/rights.html">rights &amp; usage</a></p>
+    <p class="foot-caption">self taught, figuring it out, yɛn kɔ &middot; <a class="foot-about-link" href="#about">a note</a> &middot; <a class="foot-about-link" href="/rights.html">rights &amp; usage</a> &middot; <a class="foot-about-link" href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">instagram</a> &middot; <a class="foot-about-link" href="mailto:ka.benkum.art@gmail.com">email</a></p>
     <p class="foot-disclosure">&copy; 2026 Kwame Asiedu &middot; Benkum Art. All rights reserved.</p>
   </footer>
 </div>
@@ -810,14 +856,37 @@ function markLoaded(e) {
     "yɛn kɔ"
   ];
 
+  // Permanent "about me" - true across every cycle and body of work.
+  var ABOUT_PROSE = [
+    "I was born in Accra, GH. I am left-handed, and in Akan <em>benkum</em> means the left hand. This is the hand I create with.",
+    "Everything here is rooted in this continent. I come from a place where culture moves a person, and that is what I look for: not the headline, but the small human gesture underneath it. I start from what I feel, and let that be the guide.",
+    "I’ve always loved art in its many forms, and always wanted to walk the path of creators. The means change from work to work - paint, draw, direct.",
+    "I don’t know exactly where this is going. That is the part I love. The work will continue as long as there is time.",
+    "The last line above, <em>yɛn kɔ</em>, means “let’s go.” Consider this the invitation."
+  ];
+
+  // Current body of work. Swap this out when a new cycle or series begins.
+  var ABOUT_NOW = {
+    label: "Now — Cycle I",
+    text: "One real event from each of Africa’s fifty-four countries, in the order feeling leads me, never returning to the same country twice. AI helps me find the stories and make the images, under my direction."
+  };
+
+  var CONTACT_EMAIL = "ka.benkum.art@gmail.com";
+  var INSTAGRAM_HANDLE = "benkum.art";
+
   function aboutHTML() {
     var paras = ABOUT_STANZAS.map(function (stanza) {
       return "<p>" + esc(stanza).replace(/\n/g, "<br>") + "</p>";
     }).join("");
+    // ABOUT_PROSE is trusted, hand-written copy and may contain <em>.
+    var prose = ABOUT_PROSE.map(function (p) { return "<p>" + p + "</p>"; }).join("");
     return (
       '<div class="about-view">' +
         '<div class="about-glyph-fragment" aria-hidden="true">' + glyphSVG("benkum-about-fragment") + '</div>' +
         '<div class="about-poem">' + paras + '</div>' +
+        '<div class="about-prose">' + prose + '</div>' +
+        '<div class="about-now"><p class="about-now-label">' + esc(ABOUT_NOW.label) + '</p><p>' + esc(ABOUT_NOW.text) + '</p></div>' +
+        '<p class="about-contact"><a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + '</a> &middot; <a href="https://www.instagram.com/' + INSTAGRAM_HANDLE + '/" target="_blank" rel="me noopener">Instagram @' + INSTAGRAM_HANDLE + '</a></p>' +
         '<a class="about-back" href="#">&larr; Back to gallery</a>' +
       '</div>'
     );
