@@ -79,17 +79,27 @@ function markLoaded(e) {
   @media (min-width: 780px) {
     .stack { column-count: 2; }
   }
-  @media (min-width: 1280px) {
-    .stack { column-count: 3; }
-  }
   .stack .piece {
     break-inside: avoid;
     margin: 0 0 56px;
   }
   .gallery-more {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 28px;
     padding: 8px 0 56px;
   }
+  .gallery-newer {
+    font: italic 16px "Newsreader", serif;
+    color: var(--ink-soft);
+    background: none;
+    border: 0;
+    padding: 10px 4px;
+    cursor: pointer;
+  }
+  .gallery-newer:hover { color: var(--accent); }
   .load-more-btn {
     font-family: "Newsreader", serif;
     font-style: italic;
@@ -572,16 +582,42 @@ function markLoaded(e) {
   }
   .signup-note { margin: 12px 0 0; font-size: 13px; font-style: italic; color: var(--ink-faint); }
   .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* ---------- Readability ---------- */
+  /* Newsreader has a small x-height; sizes run ~2px larger than a typical
+     face would need, and the optical-size axis gives sturdier letters at
+     reading sizes. Faint grey lifted from 4.1:1 to ~6:1 contrast. */
+  :root { --ink-faint: #9A968D; }
+  body { font-optical-sizing: auto; }
+  .story-text { font-size: 19px; line-height: 1.7; }
+  .story-cap, .piece-cap { font-size: 17px; }
+  .story-back, .story-return { font-size: 15px; }
+  .story-next { font-size: 19px; }
+  .about-poem { font-size: 20px; }
+  .about-prose { font-size: 19px; }
+  .about-now { font-size: 16px; }
+  .about-contact { font-size: 16px; }
+  .signup-line { font-size: 18px; }
+  .signup-note, .foot-caption { font-size: 14px; }
+  .foot-disclosure { font-size: 12px; opacity: 1; }
+  .site-nav a { font-size: 13px; }
+  .load-more-btn { font-size: 16px; }
+  @media (max-width: 600px) {
+    .story-text, .about-prose { font-size: 18px; }
+  }
+  @media (max-width: 420px) {
+    .site-nav a { font-size: 12px; }
+  }
 </style>
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Archivo:wght@500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Archivo:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400..500&display=swap">
 
 <div class="wrap">
   <header class="site-head">
     <a class="site-head-link" href="/"><h1 class="site-head-title">Benkum Art</h1></a>
     <nav class="site-nav" aria-label="Site"><a href="/#about">about</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
   </header>
-  <main id="view-root"><div class="stack"><article class="piece"><h2 class="piece-title">Always Left Open</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/always-left-open.jpg" src="/assets/art/always-left-open.webp" alt="A wooden gate stands ajar between two walled family compounds under a fiery dusk sky, an iron slide-bolt freshly thrown shut across a pale, unweathered strip of wood where it has always rested open before; through the gap, a man walks away with his back turned, past a small lit, barred window, into the darkening courtyard beyond." width="1536" height="1024" loading="eager" fetchpriority="high"></div><a class="piece-cap" data-id="always-left-open" href="/art/always-left-open/">The wood under the bolt has never seen the sun. Tonight it does.</a></article><article class="piece"><h2 class="piece-title">Between the Marks</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/between-the-marks.jpg" src="/assets/art/between-the-marks.webp" alt="A man crouches at the edge of a small irrigation canal, one hand braced against a weathered concrete gauge post marked with old repainted bands, a solar-powered lamp glowing faintly above it, his other hand reaching toward the water where the level sits between two of the post’s marks; a tin kettle, tea glass, and woven basket rest on the muddy bank among reeds and a distant palm." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="between-the-marks" href="/art/between-the-marks/">Two marks, one river. It still won’t pick a side.</a></article><article class="piece"><h2 class="piece-title">One More</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/one-more.jpg" src="/assets/art/one-more.webp" alt="A figure kneels on the floor of a bare, lamplit room beside a nearly full cardboard parcel box — folded cloth, a bundle, and a single shoe already inside — while a hand rests on the floor beside the shoe’s unpacked match, a work uniform and bag hanging on the wall, a lit lantern and a woven basket nearby, city lights visible through a window at dusk." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="one-more" href="/art/one-more/">Everything else made the cut. One thing still being weighed.</a></article><article class="piece"><h2 class="piece-title">Already Landed</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/already-landed.jpg" src="/assets/art/already-landed.webp" alt="A woman steps from a weathered stone jetty onto a wooden boat at dawn, her back foot lifting clear of the stone as her front foot plants flat on the deck, coral-stone buildings and a minaret rising along the shore behind her, the water below dark and unsettled." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="already-landed" href="/art/already-landed/">The water hasn’t settled.</a></article><article class="piece"><h2 class="piece-title">Steady Without Me</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/steady-without-me.jpg" src="/assets/art/steady-without-me.webp" alt="A woman in a deep orange boubou stands calm and grounded in the raw, unfinished interior of a concrete building, lit by daylight through an unglazed window opening, as bare columns recede into shadow behind her." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="steady-without-me" href="/art/steady-without-me/">This room isn’t finished yet. I already am.</a></article><article class="piece"><h2 class="piece-title">Nothing Left to Tie</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/nothing-left-to-tie.jpg" src="/assets/art/nothing-left-to-tie.webp" alt="A figure kneels beside a sealed burlap sack of grain, testing its tied knot, as more stacked sacks fade into shadow behind." width="1024" height="1536" loading="lazy"></div><a class="piece-cap" data-id="nothing-left-to-tie" href="/art/nothing-left-to-tie/">I’ve checked the same knot three times now.</a></article></div><div class="gallery-more"><button class="load-more-btn" type="button">View earlier work</button></div></main>
+  <main id="view-root"><div class="stack"><article class="piece"><h2 class="piece-title">Always Left Open</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/always-left-open.jpg" src="/assets/art/always-left-open.webp" alt="A wooden gate stands ajar between two walled family compounds under a fiery dusk sky, an iron slide-bolt freshly thrown shut across a pale, unweathered strip of wood where it has always rested open before; through the gap, a man walks away with his back turned, past a small lit, barred window, into the darkening courtyard beyond." width="1536" height="1024" loading="eager" fetchpriority="high"></div><a class="piece-cap" data-id="always-left-open" href="/art/always-left-open/">The wood under the bolt has never seen the sun. Tonight it does.</a></article><article class="piece"><h2 class="piece-title">Between the Marks</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/between-the-marks.jpg" src="/assets/art/between-the-marks.webp" alt="A man crouches at the edge of a small irrigation canal, one hand braced against a weathered concrete gauge post marked with old repainted bands, a solar-powered lamp glowing faintly above it, his other hand reaching toward the water where the level sits between two of the post’s marks; a tin kettle, tea glass, and woven basket rest on the muddy bank among reeds and a distant palm." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="between-the-marks" href="/art/between-the-marks/">Two marks, one river. It still won’t pick a side.</a></article><article class="piece"><h2 class="piece-title">One More</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/one-more.jpg" src="/assets/art/one-more.webp" alt="A figure kneels on the floor of a bare, lamplit room beside a nearly full cardboard parcel box — folded cloth, a bundle, and a single shoe already inside — while a hand rests on the floor beside the shoe’s unpacked match, a work uniform and bag hanging on the wall, a lit lantern and a woven basket nearby, city lights visible through a window at dusk." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="one-more" href="/art/one-more/">Everything else made the cut. One thing still being weighed.</a></article><article class="piece"><h2 class="piece-title">Already Landed</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/already-landed.jpg" src="/assets/art/already-landed.webp" alt="A woman steps from a weathered stone jetty onto a wooden boat at dawn, her back foot lifting clear of the stone as her front foot plants flat on the deck, coral-stone buildings and a minaret rising along the shore behind her, the water below dark and unsettled." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="already-landed" href="/art/already-landed/">The water hasn’t settled.</a></article></div><nav class="gallery-more" aria-label="More work"><button class="load-more-btn" id="gallery-earlier" type="button">Earlier work &rarr;</button></nav></main>
 
   <footer class="site-foot">
     <p class="signature">
@@ -867,10 +903,18 @@ function markLoaded(e) {
     return null;
   }
 
-  // Gallery pagination: newest work first, older pieces revealed on demand
-  // so the homepage never turns into an endless scroll as the archive grows.
-  var GALLERY_PAGE_SIZE = 6;
-  var galleryShown = GALLERY_PAGE_SIZE;
+  // Gallery paging: newest work first, a few pieces at a time. "Earlier work"
+  // replaces the current set rather than appending, so a phone never holds
+  // more than one small set. No page numbers are shown anywhere.
+  var GALLERY_PAGE_SIZE = 4;
+  var GALLERY_PAGE_KEY = "benkum-gallery-page";
+  var galleryPage = 0;
+  function savedGalleryPage() {
+    try { return parseInt(sessionStorage.getItem(GALLERY_PAGE_KEY), 10) || 0; } catch (e) { return 0; }
+  }
+  function saveGalleryPage() {
+    try { sessionStorage.setItem(GALLERY_PAGE_KEY, String(galleryPage)); } catch (e) {}
+  }
   function galleryOrder() {
     return ARTWORKS.slice().reverse();
   }
@@ -1077,21 +1121,31 @@ function markLoaded(e) {
 
   function renderGallery(root) {
     var items = galleryOrder();
-    var visible = items.slice(0, galleryShown);
-    var hasMore = items.length > galleryShown;
+    var lastPage = Math.max(0, Math.ceil(items.length / GALLERY_PAGE_SIZE) - 1);
+    galleryPage = Math.min(Math.max(galleryPage, 0), lastPage);
+    var start = galleryPage * GALLERY_PAGE_SIZE;
+    var visible = items.slice(start, start + GALLERY_PAGE_SIZE);
+    var hasNewer = galleryPage > 0;
+    var hasEarlier = galleryPage < lastPage;
     root.innerHTML =
       '<div class="stack">' +
         (items.length ? visible.map(function (item, idx) { return pieceHTML(item, idx === 0 ? "eager" : "lazy"); }).join("") : emptyHTML()) +
       '</div>' +
-      (hasMore ? '<div class="gallery-more"><button class="load-more-btn" id="load-more-btn" type="button">View earlier work</button></div>' : '');
+      ((hasNewer || hasEarlier) ?
+        '<nav class="gallery-more" aria-label="More work">' +
+          (hasNewer ? '<button class="gallery-newer" id="gallery-newer" type="button">&larr; Newer work</button>' : '') +
+          (hasEarlier ? '<button class="load-more-btn" id="gallery-earlier" type="button">Earlier work &rarr;</button>' : '') +
+        '</nav>' : '');
     wireLightbox();
     wireCaptionLinks();
-    if (hasMore) {
-      document.getElementById("load-more-btn").addEventListener("click", function () {
-        galleryShown += GALLERY_PAGE_SIZE;
-        renderGallery(root);
-      });
+    saveGalleryPage();
+    function turn(delta) {
+      galleryPage += delta;
+      renderGallery(root);
+      root.scrollIntoView({ block: "start" });
     }
+    if (hasEarlier) document.getElementById("gallery-earlier").addEventListener("click", function () { turn(1); });
+    if (hasNewer) document.getElementById("gallery-newer").addEventListener("click", function () { turn(-1); });
   }
 
   function render() {
@@ -1113,7 +1167,7 @@ function markLoaded(e) {
       return;
     }
 
-    galleryShown = GALLERY_PAGE_SIZE;
+    galleryPage = savedGalleryPage();
     renderGallery(root);
     window.scrollTo(0, 0);
   }
@@ -1134,6 +1188,9 @@ function markLoaded(e) {
     head.parentNode.insertBefore(note, head.nextSibling);
     history.replaceState(null, "", window.location.pathname + window.location.hash);
   }
+
+  var headLink = document.querySelector(".site-head-link");
+  if (headLink) headLink.addEventListener("click", function () { galleryPage = 0; saveGalleryPage(); });
 
   window.addEventListener("hashchange", render);
   render();

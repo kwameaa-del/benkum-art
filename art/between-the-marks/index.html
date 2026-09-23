@@ -29,7 +29,7 @@
   }
 }
 </script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Archivo:wght@500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Archivo:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400..500&display=swap">
 <style>
   :root {
     --bg: #141414;
@@ -466,6 +466,32 @@
   .signup-form button:hover { background: rgba(234, 174, 69, 0.16); border-color: var(--accent); color: var(--ink); }
   .signup-note { margin: 12px 0 0; font-size: 13px; font-style: italic; color: var(--ink-faint); }
   .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* ---------- Readability ---------- */
+  /* Newsreader has a small x-height; sizes run ~2px larger than a typical
+     face would need, and the optical-size axis gives sturdier letters at
+     reading sizes. Faint grey lifted from 4.1:1 to ~6:1 contrast. */
+  :root { --ink-faint: #9A968D; }
+  body { font-optical-sizing: auto; }
+  .story-text { font-size: 19px; line-height: 1.7; }
+  .story-cap, .piece-cap { font-size: 17px; }
+  .story-back, .story-return { font-size: 15px; }
+  .story-next { font-size: 19px; }
+  .about-poem { font-size: 20px; }
+  .about-prose { font-size: 19px; }
+  .about-now { font-size: 16px; }
+  .about-contact { font-size: 16px; }
+  .signup-line { font-size: 18px; }
+  .signup-note, .foot-caption { font-size: 14px; }
+  .foot-disclosure { font-size: 12px; opacity: 1; }
+  .site-nav a { font-size: 13px; }
+  .load-more-btn { font-size: 16px; }
+  @media (max-width: 600px) {
+    .story-text, .about-prose { font-size: 18px; }
+  }
+  @media (max-width: 420px) {
+    .site-nav a { font-size: 12px; }
+  }
 </style>
 
 <script>
