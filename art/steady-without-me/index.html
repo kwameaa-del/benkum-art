@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/assets/brand/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <title>Steady Without Me — Benkum Art</title>
 <meta name="description" content="This room isn’t finished yet. I already am.">
 <link rel="canonical" href="https://benkum.art/art/steady-without-me/">
@@ -410,8 +413,29 @@
     text-decoration: none;
   }
   .art-back:hover { color: var(--ink); }
+
+  /* ---------- Image loading ---------- */
+  /* Dark mat inside the frame shows while the image loads, instead of bare white. */
+  .piece-frame, .story-frame {
+    background: linear-gradient(#1F1D1A, #1F1D1A) content-box, #FAFAF6;
+  }
+  .js-fade .piece-img { opacity: 0; transition: opacity 0.45s ease; }
+  .js-fade .piece-img.is-loaded { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) {
+    .js-fade .piece-img { transition: none; }
+  }
 </style>
 
+<script>
+// Fade artwork in once decoded, so frames never flash a half-drawn image.
+document.documentElement.classList.add("js-fade");
+document.addEventListener("load", markLoaded, true);
+document.addEventListener("error", markLoaded, true);
+function markLoaded(e) {
+  var t = e.target;
+  if (t && t.classList && t.classList.contains("piece-img")) t.classList.add("is-loaded");
+}
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -422,7 +446,7 @@
   <main class="story-view">
     <a class="story-back" href="/">&larr; Back to gallery</a>
     <h2 class="story-title">Steady Without Me</h2>
-    <div class="story-frame marked"><img class="piece-img" data-full="/assets/art/steady-without-me.jpg" src="/assets/art/steady-without-me.jpg" alt="A woman in a deep orange boubou stands calm and grounded in the raw, unfinished interior of a concrete building, lit by daylight through an unglazed window opening, as bare columns recede into shadow behind her." width="1536" height="1024" loading="eager"></div>
+    <div class="story-frame marked"><img class="piece-img" data-full="/assets/art/steady-without-me.jpg" src="/assets/art/steady-without-me.jpg" srcset="/assets/art/steady-without-me.webp 1000w, /assets/art/steady-without-me.jpg 1536w" sizes="(max-width: 900px) 92vw, 860px" alt="A woman in a deep orange boubou stands calm and grounded in the raw, unfinished interior of a concrete building, lit by daylight through an unglazed window opening, as bare columns recede into shadow behind her." width="1536" height="1024" loading="eager"></div>
     <p class="story-cap">This room isn’t finished yet. I already am.</p>
     <div class="story-reading-pause" aria-hidden="true"></div>
     <div class="story-text"><p>The walls around me aren’t finished. I am.</p><p>On September 14, 2026, the Youth Olympic flame — lit four days earlier at Athens’ Panathenaic Stadium — arrived in Senegal, escorted by one hundred Senegalese women in bright orange boubous to Place du Souvenir, where it lit a cauldron for the first Olympic event ever held on African soil. “All of Africa is watching Senegal with confidence,” President Bassirou Diomaye Diakhar Faye said, as the flame began a six-week relay through all fourteen of the country’s regions before the Games open on October 31.</p><p>Let the walls catch up. I already know exactly where I’m standing.</p></div>
@@ -436,7 +460,7 @@
   </footer>
 </div>
 
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork enlarged" tabindex="-1"><button class="lightbox-close" id="lightbox-close" aria-label="Close enlarged artwork" type="button">&times;</button><img id="lightbox-img" src="" alt=""></div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork enlarged" tabindex="-1"><button class="lightbox-close" id="lightbox-close" aria-label="Close enlarged artwork" type="button">&times;</button><img id="lightbox-img" alt=""></div>
 
 <script>
 (function () {
@@ -457,7 +481,7 @@
   }
   function closeLightbox() {
     lightbox.classList.remove("open");
-    lightboxImg.src = "";
+    lightboxImg.removeAttribute("src");
     document.body.style.overflow = "";
     if (page) page.inert = false;
     if (lastFocus && document.contains(lastFocus)) lastFocus.focus();

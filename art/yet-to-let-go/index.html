@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/assets/brand/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <title>Yet to Let Go — Benkum Art</title>
 <meta name="description" content="Seconds to the hand. Time to the day.">
 <link rel="canonical" href="https://benkum.art/art/yet-to-let-go/">
@@ -410,8 +413,29 @@
     text-decoration: none;
   }
   .art-back:hover { color: var(--ink); }
+
+  /* ---------- Image loading ---------- */
+  /* Dark mat inside the frame shows while the image loads, instead of bare white. */
+  .piece-frame, .story-frame {
+    background: linear-gradient(#1F1D1A, #1F1D1A) content-box, #FAFAF6;
+  }
+  .js-fade .piece-img { opacity: 0; transition: opacity 0.45s ease; }
+  .js-fade .piece-img.is-loaded { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) {
+    .js-fade .piece-img { transition: none; }
+  }
 </style>
 
+<script>
+// Fade artwork in once decoded, so frames never flash a half-drawn image.
+document.documentElement.classList.add("js-fade");
+document.addEventListener("load", markLoaded, true);
+document.addEventListener("error", markLoaded, true);
+function markLoaded(e) {
+  var t = e.target;
+  if (t && t.classList && t.classList.contains("piece-img")) t.classList.add("is-loaded");
+}
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -422,7 +446,7 @@
   <main class="story-view">
     <a class="story-back" href="/">&larr; Back to gallery</a>
     <h2 class="story-title">Yet to Let Go</h2>
-    <div class="story-frame marked"><img class="piece-img" data-full="/assets/art/yet-to-let-go.jpg" src="/assets/art/yet-to-let-go.jpg" alt="A silhouetted figure grips a weathered doorframe, looking out at an empty, rain-slicked market of covered stalls beneath a stormy sky." width="1536" height="1024" loading="eager"></div>
+    <div class="story-frame marked"><img class="piece-img" data-full="/assets/art/yet-to-let-go.jpg" src="/assets/art/yet-to-let-go.jpg" srcset="/assets/art/yet-to-let-go.webp 1000w, /assets/art/yet-to-let-go.jpg 1536w" sizes="(max-width: 900px) 92vw, 860px" alt="A silhouetted figure grips a weathered doorframe, looking out at an empty, rain-slicked market of covered stalls beneath a stormy sky." width="1536" height="1024" loading="eager"></div>
     <p class="story-cap">Seconds to the hand. Time to the day.</p>
     <div class="story-reading-pause" aria-hidden="true"></div>
     <div class="story-text"><p>Others have held this frame.</p><p>By September 7, 2026, merchants across Omdurman were hoarding goods rather than selling them, afraid the currency would fall further before they could restock — in a market that has stood in roughly this spot since the 1880s, through a catastrophic military defeat in 1898 and every hardship since. Economic researchers pointed to the collapsing exchange rate driving up the price of sugar, beans, lentils, and onions week to week — civil servants, teachers, health workers, and pensioners were absorbing the gap directly, cutting spending on food, medicine, and school, or going into debt to cover what’s left.</p><p>My hand is yet to let go.</p></div>
@@ -436,7 +460,7 @@
   </footer>
 </div>
 
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork enlarged" tabindex="-1"><button class="lightbox-close" id="lightbox-close" aria-label="Close enlarged artwork" type="button">&times;</button><img id="lightbox-img" src="" alt=""></div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork enlarged" tabindex="-1"><button class="lightbox-close" id="lightbox-close" aria-label="Close enlarged artwork" type="button">&times;</button><img id="lightbox-img" alt=""></div>
 
 <script>
 (function () {
@@ -457,7 +481,7 @@
   }
   function closeLightbox() {
     lightbox.classList.remove("open");
-    lightboxImg.src = "";
+    lightboxImg.removeAttribute("src");
     document.body.style.overflow = "";
     if (page) page.inert = false;
     if (lastFocus && document.contains(lastFocus)) lastFocus.focus();

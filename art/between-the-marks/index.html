@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/assets/brand/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <title>Between the Marks — Benkum Art</title>
 <meta name="description" content="Two marks, one river. It still won't pick a side.">
 <link rel="canonical" href="https://benkum.art/art/between-the-marks/">
@@ -410,8 +413,29 @@
     text-decoration: none;
   }
   .art-back:hover { color: var(--ink); }
+
+  /* ---------- Image loading ---------- */
+  /* Dark mat inside the frame shows while the image loads, instead of bare white. */
+  .piece-frame, .story-frame {
+    background: linear-gradient(#1F1D1A, #1F1D1A) content-box, #FAFAF6;
+  }
+  .js-fade .piece-img { opacity: 0; transition: opacity 0.45s ease; }
+  .js-fade .piece-img.is-loaded { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) {
+    .js-fade .piece-img { transition: none; }
+  }
 </style>
 
+<script>
+// Fade artwork in once decoded, so frames never flash a half-drawn image.
+document.documentElement.classList.add("js-fade");
+document.addEventListener("load", markLoaded, true);
+document.addEventListener("error", markLoaded, true);
+function markLoaded(e) {
+  var t = e.target;
+  if (t && t.classList && t.classList.contains("piece-img")) t.classList.add("is-loaded");
+}
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -422,7 +446,7 @@
   <main class="story-view">
     <a class="story-back" href="/">&larr; Back to gallery</a>
     <h2 class="story-title">Between the Marks</h2>
-    <div class="story-frame marked"><img class="piece-img" data-full="/assets/art/between-the-marks.jpg" src="/assets/art/between-the-marks.jpg" alt="A man crouches at the edge of a small irrigation canal, one hand braced against a weathered concrete gauge post marked with old repainted bands, a solar-powered lamp glowing faintly above it, his other hand reaching toward the water where the level sits between two of the post’s marks; a tin kettle, tea glass, and woven basket rest on the muddy bank among reeds and a distant palm." width="1536" height="1024" loading="eager"></div>
+    <div class="story-frame marked"><img class="piece-img" data-full="/assets/art/between-the-marks.jpg" src="/assets/art/between-the-marks.jpg" srcset="/assets/art/between-the-marks.webp 1000w, /assets/art/between-the-marks.jpg 1536w" sizes="(max-width: 900px) 92vw, 860px" alt="A man crouches at the edge of a small irrigation canal, one hand braced against a weathered concrete gauge post marked with old repainted bands, a solar-powered lamp glowing faintly above it, his other hand reaching toward the water where the level sits between two of the post’s marks; a tin kettle, tea glass, and woven basket rest on the muddy bank among reeds and a distant palm." width="1536" height="1024" loading="eager"></div>
     <p class="story-cap">Two marks, one river. It still won’t pick a side.</p>
     <div class="story-reading-pause" aria-hidden="true"></div>
     <div class="story-text"><p>My hand hasn’t left the post. Not because I don’t trust what I’m seeing — because the post doesn’t agree with itself.</p><p>On September 21, 2026, Egypt’s irrigation minister told foreign press in Cairo that the Grand Ethiopian Renaissance Dam is illegitimate, and that Egypt retains every measure available under international law to protect its interests. The next day, Ethiopia’s Ministry of Water and Energy called that a crude colonial mentality and urged Cairo to retire its old ambitions. Two governments, the same river, and neither one reads it the way the other does.</p><p>Down here the disagreement is smaller, but it’s mine: an old gauge repainted by hands I never met, and a waterline that won’t sit cleanly on any of their marks. My hand is still on the post. It hasn’t picked a mark yet either.</p></div>
@@ -436,7 +460,7 @@
   </footer>
 </div>
 
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork enlarged" tabindex="-1"><button class="lightbox-close" id="lightbox-close" aria-label="Close enlarged artwork" type="button">&times;</button><img id="lightbox-img" src="" alt=""></div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork enlarged" tabindex="-1"><button class="lightbox-close" id="lightbox-close" aria-label="Close enlarged artwork" type="button">&times;</button><img id="lightbox-img" alt=""></div>
 
 <script>
 (function () {
@@ -457,7 +481,7 @@
   }
   function closeLightbox() {
     lightbox.classList.remove("open");
-    lightboxImg.src = "";
+    lightboxImg.removeAttribute("src");
     document.body.style.overflow = "";
     if (page) page.inert = false;
     if (lastFocus && document.contains(lastFocus)) lastFocus.focus();

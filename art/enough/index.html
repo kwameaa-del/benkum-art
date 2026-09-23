@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/assets/brand/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <title>Enough — Benkum Art</title>
 <meta name="description" content="Peace isn't the absence of hunger. It's not having to think about it.">
 <link rel="canonical" href="https://benkum.art/art/enough/">
@@ -397,8 +400,29 @@
     text-decoration: none;
   }
   .art-back:hover { color: var(--ink); }
+
+  /* ---------- Image loading ---------- */
+  /* Dark mat inside the frame shows while the image loads, instead of bare white. */
+  .piece-frame, .story-frame {
+    background: linear-gradient(#1F1D1A, #1F1D1A) content-box, #FAFAF6;
+  }
+  .js-fade .piece-img { opacity: 0; transition: opacity 0.45s ease; }
+  .js-fade .piece-img.is-loaded { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) {
+    .js-fade .piece-img { transition: none; }
+  }
 </style>
 
+<script>
+// Fade artwork in once decoded, so frames never flash a half-drawn image.
+document.documentElement.classList.add("js-fade");
+document.addEventListener("load", markLoaded, true);
+document.addEventListener("error", markLoaded, true);
+function markLoaded(e) {
+  var t = e.target;
+  if (t && t.classList && t.classList.contains("piece-img")) t.classList.add("is-loaded");
+}
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -409,7 +433,7 @@
   <main class="story-view">
     <a class="story-back" href="/">&larr; Back to gallery</a>
     <h2 class="story-title">Enough</h2>
-    <div class="story-frame"><img class="piece-img" data-full="/assets/art/enough.jpg" src="/assets/art/enough.jpg" alt="A man sits in warm lamplight beside bowls of grain and produce on a woven mat in a bare room." width="1536" height="1024" loading="eager"></div>
+    <div class="story-frame"><img class="piece-img" data-full="/assets/art/enough.jpg" src="/assets/art/enough.jpg" srcset="/assets/art/enough.webp 1000w, /assets/art/enough.jpg 1536w" sizes="(max-width: 900px) 92vw, 860px" alt="A man sits in warm lamplight beside bowls of grain and produce on a woven mat in a bare room." width="1536" height="1024" loading="eager"></div>
     <p class="story-cap">Peace isn't the absence of hunger. It's not having to think about it.</p>
     <div class="story-reading-pause" aria-hidden="true"></div>
     <div class="story-text"><p>No one in the room was hungry that day.</p><p>From August 31 to September 4, 2026, more than 5,000 delegates gathered in Kigali for the 20th Africa Food Systems Forum, pledging roughly $100 billion toward closing the gap that left an estimated 309 million people across the continent undernourished last year.</p><p>The number that stayed with me wasn't the billions. It was the smaller, harder-to-measure moment somewhere ahead of it — a hand finally resting next to a bowl instead of guarding it.</p></div>
@@ -423,7 +447,7 @@
   </footer>
 </div>
 
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork enlarged" tabindex="-1"><button class="lightbox-close" id="lightbox-close" aria-label="Close enlarged artwork" type="button">&times;</button><img id="lightbox-img" src="" alt=""></div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork enlarged" tabindex="-1"><button class="lightbox-close" id="lightbox-close" aria-label="Close enlarged artwork" type="button">&times;</button><img id="lightbox-img" alt=""></div>
 
 <script>
 (function () {
@@ -444,7 +468,7 @@
   }
   function closeLightbox() {
     lightbox.classList.remove("open");
-    lightboxImg.src = "";
+    lightboxImg.removeAttribute("src");
     document.body.style.overflow = "";
     if (page) page.inert = false;
     if (lastFocus && document.contains(lastFocus)) lastFocus.focus();

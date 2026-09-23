@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/assets/brand/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <title>Nothing Left to Tie — Benkum Art</title>
 <meta name="description" content="I’ve checked the same knot three times now.">
 <link rel="canonical" href="https://benkum.art/art/nothing-left-to-tie/">
@@ -410,8 +413,29 @@
     text-decoration: none;
   }
   .art-back:hover { color: var(--ink); }
+
+  /* ---------- Image loading ---------- */
+  /* Dark mat inside the frame shows while the image loads, instead of bare white. */
+  .piece-frame, .story-frame {
+    background: linear-gradient(#1F1D1A, #1F1D1A) content-box, #FAFAF6;
+  }
+  .js-fade .piece-img { opacity: 0; transition: opacity 0.45s ease; }
+  .js-fade .piece-img.is-loaded { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) {
+    .js-fade .piece-img { transition: none; }
+  }
 </style>
 
+<script>
+// Fade artwork in once decoded, so frames never flash a half-drawn image.
+document.documentElement.classList.add("js-fade");
+document.addEventListener("load", markLoaded, true);
+document.addEventListener("error", markLoaded, true);
+function markLoaded(e) {
+  var t = e.target;
+  if (t && t.classList && t.classList.contains("piece-img")) t.classList.add("is-loaded");
+}
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -422,7 +446,7 @@
   <main class="story-view">
     <a class="story-back" href="/">&larr; Back to gallery</a>
     <h2 class="story-title">Nothing Left to Tie</h2>
-    <div class="story-frame marked"><img class="piece-img" data-full="/assets/art/nothing-left-to-tie.jpg" src="/assets/art/nothing-left-to-tie.jpg" alt="A figure kneels beside a sealed burlap sack of grain, testing its tied knot, as more stacked sacks fade into shadow behind." width="1024" height="1536" loading="eager"></div>
+    <div class="story-frame marked"><img class="piece-img" data-full="/assets/art/nothing-left-to-tie.jpg" src="/assets/art/nothing-left-to-tie.jpg" srcset="/assets/art/nothing-left-to-tie.webp 1000w, /assets/art/nothing-left-to-tie.jpg 1536w" sizes="(max-width: 900px) 92vw, 860px" alt="A figure kneels beside a sealed burlap sack of grain, testing its tied knot, as more stacked sacks fade into shadow behind." width="1024" height="1536" loading="eager"></div>
     <p class="story-cap">I’ve checked the same knot three times now.</p>
     <div class="story-reading-pause" aria-hidden="true"></div>
     <div class="story-text"><p>The knot’s already tight. I check it again anyway.</p><p>On September 1, 2026, Mathews Mulenga, head of Restoration for Community Justice, warned that Zambia’s record 5-million-metric-ton maize harvest this year could be undone within months — “This is not a Kanchibiya problem or a Muchinga problem,” he said. “This is a national emergency in the making.” Forecasters expect a punishing El Niño to peak by December, pushing the October 2026–March 2027 rainy season well below normal, echoing a 2023–24 drought that erased a similarly strong harvest almost as fast as it arrived. More than two million smallholder farmers are being urged to hold back part of this year’s grain instead of selling it, and to plant hardier, faster crops before the rains — if they come at all — fall short again.</p><p>I’ve checked the same knot three times now. My hands keep finding reasons to stay busy with the one thing they can still fix.</p></div>
@@ -436,7 +460,7 @@
   </footer>
 </div>
 
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork enlarged" tabindex="-1"><button class="lightbox-close" id="lightbox-close" aria-label="Close enlarged artwork" type="button">&times;</button><img id="lightbox-img" src="" alt=""></div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork enlarged" tabindex="-1"><button class="lightbox-close" id="lightbox-close" aria-label="Close enlarged artwork" type="button">&times;</button><img id="lightbox-img" alt=""></div>
 
 <script>
 (function () {
@@ -457,7 +481,7 @@
   }
   function closeLightbox() {
     lightbox.classList.remove("open");
-    lightboxImg.src = "";
+    lightboxImg.removeAttribute("src");
     document.body.style.overflow = "";
     if (page) page.inert = false;
     if (lastFocus && document.contains(lastFocus)) lastFocus.focus();

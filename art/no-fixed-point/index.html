@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/assets/brand/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <title>No Fixed Point — Benkum Art</title>
 <meta name="description" content="Sometimes it looks like a place that can no longer hold still.">
 <link rel="canonical" href="https://benkum.art/art/no-fixed-point/">
@@ -397,8 +400,29 @@
     text-decoration: none;
   }
   .art-back:hover { color: var(--ink); }
+
+  /* ---------- Image loading ---------- */
+  /* Dark mat inside the frame shows while the image loads, instead of bare white. */
+  .piece-frame, .story-frame {
+    background: linear-gradient(#1F1D1A, #1F1D1A) content-box, #FAFAF6;
+  }
+  .js-fade .piece-img { opacity: 0; transition: opacity 0.45s ease; }
+  .js-fade .piece-img.is-loaded { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) {
+    .js-fade .piece-img { transition: none; }
+  }
 </style>
 
+<script>
+// Fade artwork in once decoded, so frames never flash a half-drawn image.
+document.documentElement.classList.add("js-fade");
+document.addEventListener("load", markLoaded, true);
+document.addEventListener("error", markLoaded, true);
+function markLoaded(e) {
+  var t = e.target;
+  if (t && t.classList && t.classList.contains("piece-img")) t.classList.add("is-loaded");
+}
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -409,7 +433,7 @@
   <main class="story-view">
     <a class="story-back" href="/">&larr; Back to gallery</a>
     <h2 class="story-title">No Fixed Point</h2>
-    <div class="story-frame"><img class="piece-img" data-full="/assets/art/no-fixed-point.jpg" src="/assets/art/no-fixed-point.jpg" alt="Figures move through a dark, rain-swept camp of tents and lanterns at night, one shrouded bundle resting in the mud." width="1536" height="1024" loading="eager"></div>
+    <div class="story-frame"><img class="piece-img" data-full="/assets/art/no-fixed-point.jpg" src="/assets/art/no-fixed-point.jpg" srcset="/assets/art/no-fixed-point.webp 1000w, /assets/art/no-fixed-point.jpg 1536w" sizes="(max-width: 900px) 92vw, 860px" alt="Figures move through a dark, rain-swept camp of tents and lanterns at night, one shrouded bundle resting in the mud." width="1536" height="1024" loading="eager"></div>
     <p class="story-cap">Sometimes it looks like a place that can no longer hold still.</p>
     <div class="story-reading-pause" aria-hidden="true"></div>
     <div class="story-text"><p>No one here was walking toward the same place.</p><p>On September 2, 2026, a report from eastern Chad described dozens of Sudanese refugees from Marra camp walking roughly twenty kilometers through heavy rain and strong winds to the town of Amliouna, demanding aid after four months without food or cash support — days after a storm tore through shelters at nearby Mile camp and left children and the elderly without cover.</p><p>What I kept returning to wasn’t the distance they covered, but a place too unsettled to resolve into a single direction.</p></div>
@@ -423,7 +447,7 @@
   </footer>
 </div>
 
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork enlarged" tabindex="-1"><button class="lightbox-close" id="lightbox-close" aria-label="Close enlarged artwork" type="button">&times;</button><img id="lightbox-img" src="" alt=""></div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork enlarged" tabindex="-1"><button class="lightbox-close" id="lightbox-close" aria-label="Close enlarged artwork" type="button">&times;</button><img id="lightbox-img" alt=""></div>
 
 <script>
 (function () {
@@ -444,7 +468,7 @@
   }
   function closeLightbox() {
     lightbox.classList.remove("open");
-    lightboxImg.src = "";
+    lightboxImg.removeAttribute("src");
     document.body.style.overflow = "";
     if (page) page.inert = false;
     if (lastFocus && document.contains(lastFocus)) lastFocus.focus();

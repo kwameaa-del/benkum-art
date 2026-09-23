@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" href="/assets/brand/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <title>Wonder &amp; Dread — Benkum Art</title>
 <meta name="description" content="Wonder and dread can share the same breath. Most days do.">
 <link rel="canonical" href="https://benkum.art/art/wonder-dread/">
@@ -397,8 +400,29 @@
     text-decoration: none;
   }
   .art-back:hover { color: var(--ink); }
+
+  /* ---------- Image loading ---------- */
+  /* Dark mat inside the frame shows while the image loads, instead of bare white. */
+  .piece-frame, .story-frame {
+    background: linear-gradient(#1F1D1A, #1F1D1A) content-box, #FAFAF6;
+  }
+  .js-fade .piece-img { opacity: 0; transition: opacity 0.45s ease; }
+  .js-fade .piece-img.is-loaded { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) {
+    .js-fade .piece-img { transition: none; }
+  }
 </style>
 
+<script>
+// Fade artwork in once decoded, so frames never flash a half-drawn image.
+document.documentElement.classList.add("js-fade");
+document.addEventListener("load", markLoaded, true);
+document.addEventListener("error", markLoaded, true);
+function markLoaded(e) {
+  var t = e.target;
+  if (t && t.classList && t.classList.contains("piece-img")) t.classList.add("is-loaded");
+}
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -409,7 +433,7 @@
   <main class="story-view">
     <a class="story-back" href="/">&larr; Back to gallery</a>
     <h2 class="story-title">Wonder &amp; Dread</h2>
-    <div class="story-frame"><img class="piece-img" data-full="/assets/art/wonder-dread.jpg" src="/assets/art/wonder-dread.jpg" alt="A stadium crowd looks up in golden light as two fighter jets fly low overhead against a stormy sky." width="1024" height="767" loading="eager"></div>
+    <div class="story-frame"><img class="piece-img" data-full="/assets/art/wonder-dread.jpg" src="/assets/art/wonder-dread.jpg" srcset="/assets/art/wonder-dread.webp 1000w, /assets/art/wonder-dread.jpg 1536w" sizes="(max-width: 900px) 92vw, 860px" alt="A stadium crowd looks up in golden light as two fighter jets fly low overhead against a stormy sky." width="1024" height="767" loading="eager"></div>
     <p class="story-cap">Wonder and dread can share the same breath. Most days do.</p>
     <div class="story-reading-pause" aria-hidden="true"></div>
     <div class="story-text"><p>Thousands of people looked up at once.</p><p>On August 29, two Airlink jets crossed low over DHL Stadium in Cape Town before the Springboks–All Blacks Test — flight-tracking analysis put the lead aircraft at roughly 41–46 feet above the roof. Some watched in delight. Others didn't like how close it felt.</p><p>I wasn't interested in recreating the flyover itself. I was interested in the half-second where wonder and worry occupy the exact same body.</p></div>
@@ -423,7 +447,7 @@
   </footer>
 </div>
 
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork enlarged" tabindex="-1"><button class="lightbox-close" id="lightbox-close" aria-label="Close enlarged artwork" type="button">&times;</button><img id="lightbox-img" src="" alt=""></div>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork enlarged" tabindex="-1"><button class="lightbox-close" id="lightbox-close" aria-label="Close enlarged artwork" type="button">&times;</button><img id="lightbox-img" alt=""></div>
 
 <script>
 (function () {
@@ -444,7 +468,7 @@
   }
   function closeLightbox() {
     lightbox.classList.remove("open");
-    lightboxImg.src = "";
+    lightboxImg.removeAttribute("src");
     document.body.style.overflow = "";
     if (page) page.inert = false;
     if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
