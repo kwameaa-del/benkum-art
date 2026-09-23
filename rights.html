@@ -25,7 +25,13 @@
     a:hover { color:var(--accent); }
     a:focus-visible { outline:2px solid var(--accent); outline-offset:5px; }
     main { width:min(760px, calc(100% - 40px)); margin:0 auto; padding:72px 0 96px; }
-    .back { display:inline-block; margin-bottom:54px; font-family:"Archivo",sans-serif; font-size:12px; font-weight:600; letter-spacing:.09em; text-transform:uppercase; color:var(--soft); text-decoration:none; }
+    .site-head { display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:54px; }
+    .site-head a { text-decoration:none; }
+    .site-head-title { font-family:"Archivo",sans-serif; font-weight:600; font-size:13px; letter-spacing:.14em; text-transform:uppercase; color:var(--soft); }
+    .site-head-link:hover .site-head-title { color:var(--accent); }
+    .site-nav { display:flex; gap:22px; }
+    .site-nav a { font-family:"Archivo",sans-serif; font-weight:600; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--soft); padding:10px 0; }
+    .site-nav a:hover { color:var(--accent); }
     h1 { margin:0 0 8px; font-family:"Archivo",sans-serif; font-size:clamp(34px,6vw,56px); line-height:1.05; letter-spacing:-.035em; }
     .owner { margin:0 0 42px; color:var(--accent); font-style:italic; }
     .summary { margin:0 0 40px; padding:18px 0 18px 22px; border-left:2px solid var(--accent); font-size:20px; line-height:1.6; }
@@ -40,12 +46,15 @@
     .disclosure { display:inline-block; padding:7px 10px; border:1px solid var(--line); font-family:"Archivo",sans-serif; font-size:12px; letter-spacing:.055em; }
     .updated { margin-top:50px; color:var(--faint); font-size:14px; font-style:italic; }
     footer { border-top:1px solid var(--line); padding-top:28px; margin-top:48px; color:var(--faint); font-size:13px; line-height:1.6; }
-    @media (max-width:600px) { main { padding-top:42px; } body { font-size:17px; } .back { margin-bottom:38px; } }
+    @media (max-width:600px) { main { padding-top:42px; } body { font-size:17px; } .site-head { margin-bottom:38px; } .site-nav { gap:16px; } .site-nav a { font-size:11px; } }
   </style>
 </head>
 <body>
   <main>
-    <a class="back" href="index.html">← Back to Benkum Art</a>
+    <header class="site-head">
+      <a class="site-head-link" href="/"><span class="site-head-title">Benkum Art</span></a>
+      <nav class="site-nav" aria-label="Site"><a href="/#about">about</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
+    </header>
     <h1>Rights &amp; Usage</h1>
     <p class="owner"><strong>Benkum Art · © 2026 Kwame Asiedu</strong></p>
     <p class="summary"><strong>In short:</strong> you’re welcome to look, and to share links to anything here. Please don’t repost the work as your own, sell copies, or use it to train AI. For anything else — prints, publishing, exhibitions — ask me first: <a href="mailto:ka.benkum.art@gmail.com">ka.benkum.art@gmail.com</a></p>
