@@ -82,13 +82,18 @@
     font-style: italic;
     font-size: 15px;
     color: var(--accent);
-    background: none;
-    border: none;
-    border-bottom: 1px solid rgba(234, 174, 69, 0.35);
+    background: rgba(234, 174, 69, 0.08);
+    border: 1px solid rgba(234, 174, 69, 0.45);
+    border-radius: 999px;
     cursor: pointer;
-    padding: 4px 2px;
+    padding: 10px 28px;
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
   }
-  .load-more-btn:hover { border-bottom-color: var(--accent); }
+  .load-more-btn:hover {
+    background: rgba(234, 174, 69, 0.16);
+    border-color: var(--accent);
+    color: var(--ink);
+  }
   .piece-title {
     margin: 0 2px 18px;
     font-family: "Newsreader", serif;
@@ -118,16 +123,16 @@
     margin: 18px auto 0;
     font-size: 15px;
     font-style: italic;
-    color: var(--ink-soft);
+    color: var(--ink);
     max-width: 62ch;
     text-align: center;
     cursor: pointer;
     text-decoration: underline;
-    text-decoration-color: rgba(234, 174, 69, 0.3);
+    text-decoration-color: rgba(234, 174, 69, 0.55);
     text-underline-offset: 3px;
     transition: color 0.35s ease, text-decoration-color 0.35s ease;
   }
-  .piece-cap:hover { color: var(--ink); text-decoration-color: rgba(234, 174, 69, 0.75); }
+  .piece-cap:hover { color: var(--accent); text-decoration-color: rgba(234, 174, 69, 0.9); }
   .piece-cap.is-active {
     color: var(--accent);
     text-decoration-color: var(--accent);
@@ -450,7 +455,7 @@
   <header class="site-head">
     <a class="site-head-link" href="/"><h1 class="site-head-title">Benkum Art</h1></a>
   </header>
-  <main id="view-root"><div class="stack"><article class="piece"><h2 class="piece-title">Between the Marks</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/between-the-marks.jpg" src="/assets/art/between-the-marks.jpg" alt="A man crouches at the edge of a small irrigation canal, one hand braced against a weathered concrete gauge post marked with old repainted bands, a solar-powered lamp glowing faintly above it, his other hand reaching toward the water where the level sits between two of the post’s marks; a tin kettle, tea glass, and woven basket rest on the muddy bank among reeds and a distant palm." width="1536" height="1024" loading="eager" fetchpriority="high"></div><a class="piece-cap" data-id="between-the-marks" href="/art/between-the-marks/">Two marks, one river. It still won’t pick a side.</a></article><article class="piece"><h2 class="piece-title">One More</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/one-more.jpg" src="/assets/art/one-more.jpg" alt="A figure kneels on the floor of a bare, lamplit room beside a nearly full cardboard parcel box — folded cloth, a bundle, and a single shoe already inside — while a hand rests on the floor beside the shoe’s unpacked match, a work uniform and bag hanging on the wall, a lit lantern and a woven basket nearby, city lights visible through a window at dusk." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="one-more" href="/art/one-more/">Everything else made the cut. One thing still being weighed.</a></article><article class="piece"><h2 class="piece-title">Already Landed</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/already-landed.jpg" src="/assets/art/already-landed.jpg" alt="A woman steps from a weathered stone jetty onto a wooden boat at dawn, her back foot lifting clear of the stone as her front foot plants flat on the deck, coral-stone buildings and a minaret rising along the shore behind her, the water below dark and unsettled." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="already-landed" href="/art/already-landed/">The water hasn’t settled.</a></article><article class="piece"><h2 class="piece-title">Steady Without Me</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/steady-without-me.jpg" src="/assets/art/steady-without-me.jpg" alt="A woman in a deep orange boubou stands calm and grounded in the raw, unfinished interior of a concrete building, lit by daylight through an unglazed window opening, as bare columns recede into shadow behind her." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="steady-without-me" href="/art/steady-without-me/">This room isn’t finished yet. I already am.</a></article><article class="piece"><h2 class="piece-title">Nothing Left to Tie</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/nothing-left-to-tie.jpg" src="/assets/art/nothing-left-to-tie.jpg" alt="A figure kneels beside a sealed burlap sack of grain, testing its tied knot, as more stacked sacks fade into shadow behind." width="1024" height="1536" loading="lazy"></div><a class="piece-cap" data-id="nothing-left-to-tie" href="/art/nothing-left-to-tie/">I’ve checked the same knot three times now.</a></article><article class="piece"><h2 class="piece-title">Yet to Let Go</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/yet-to-let-go.jpg" src="/assets/art/yet-to-let-go.jpg" alt="A silhouetted figure grips a weathered doorframe, looking out at an empty, rain-slicked market of covered stalls beneath a stormy sky." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="yet-to-let-go" href="/art/yet-to-let-go/">Seconds to the hand. Time to the day.</a></article></div><div class="gallery-more"><button class="load-more-btn" type="button">View earlier work</button></div></main>
+  <main id="view-root"><div class="stack"><article class="piece"><h2 class="piece-title">Between the Marks</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/between-the-marks.jpg" src="/assets/art/grid/between-the-marks.webp" alt="A man crouches at the edge of a small irrigation canal, one hand braced against a weathered concrete gauge post marked with old repainted bands, a solar-powered lamp glowing faintly above it, his other hand reaching toward the water where the level sits between two of the post’s marks; a tin kettle, tea glass, and woven basket rest on the muddy bank among reeds and a distant palm." width="1536" height="1024" loading="eager" fetchpriority="high"></div><a class="piece-cap" data-id="between-the-marks" href="/art/between-the-marks/">Two marks, one river. It still won’t pick a side.</a></article><article class="piece"><h2 class="piece-title">One More</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/one-more.jpg" src="/assets/art/grid/one-more.webp" alt="A figure kneels on the floor of a bare, lamplit room beside a nearly full cardboard parcel box — folded cloth, a bundle, and a single shoe already inside — while a hand rests on the floor beside the shoe’s unpacked match, a work uniform and bag hanging on the wall, a lit lantern and a woven basket nearby, city lights visible through a window at dusk." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="one-more" href="/art/one-more/">Everything else made the cut. One thing still being weighed.</a></article><article class="piece"><h2 class="piece-title">Already Landed</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/already-landed.jpg" src="/assets/art/grid/already-landed.webp" alt="A woman steps from a weathered stone jetty onto a wooden boat at dawn, her back foot lifting clear of the stone as her front foot plants flat on the deck, coral-stone buildings and a minaret rising along the shore behind her, the water below dark and unsettled." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="already-landed" href="/art/already-landed/">The water hasn’t settled.</a></article><article class="piece"><h2 class="piece-title">Steady Without Me</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/steady-without-me.jpg" src="/assets/art/grid/steady-without-me.webp" alt="A woman in a deep orange boubou stands calm and grounded in the raw, unfinished interior of a concrete building, lit by daylight through an unglazed window opening, as bare columns recede into shadow behind her." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="steady-without-me" href="/art/steady-without-me/">This room isn’t finished yet. I already am.</a></article><article class="piece"><h2 class="piece-title">Nothing Left to Tie</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/nothing-left-to-tie.jpg" src="/assets/art/grid/nothing-left-to-tie.webp" alt="A figure kneels beside a sealed burlap sack of grain, testing its tied knot, as more stacked sacks fade into shadow behind." width="1024" height="1536" loading="lazy"></div><a class="piece-cap" data-id="nothing-left-to-tie" href="/art/nothing-left-to-tie/">I’ve checked the same knot three times now.</a></article><article class="piece"><h2 class="piece-title">Yet to Let Go</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/yet-to-let-go.jpg" src="/assets/art/grid/yet-to-let-go.webp" alt="A silhouetted figure grips a weathered doorframe, looking out at an empty, rain-slicked market of covered stalls beneath a stormy sky." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="yet-to-let-go" href="/art/yet-to-let-go/">Seconds to the hand. Time to the day.</a></article></div><div class="gallery-more"><button class="load-more-btn" type="button">View earlier work</button></div></main>
 
   <footer class="site-foot">
     <p class="signature">
@@ -470,6 +475,7 @@
     {
       id: "wonder-dread",
       image: "/assets/art/wonder-dread.jpg",
+      gridImage: "/assets/art/grid/wonder-dread.webp",
       title: "Wonder & Dread",
       caption: "Wonder and dread can share the same breath. Most days do.",
       alt: "A stadium crowd looks up in golden light as two fighter jets fly low overhead against a stormy sky.",
@@ -482,6 +488,7 @@
     {
       id: "second-wind",
       image: "/assets/art/second-wind.jpg",
+      gridImage: "/assets/art/grid/second-wind.webp",
       title: "Second Wind",
       caption: "Tired is not the same as stopped. Some days you find out how much further the body was always willing to go.",
       alt: "Children in wet school uniforms walk through a rain-soaked street toward a lit iron gate at dusk.",
@@ -494,6 +501,7 @@
     {
       id: "no-fixed-point",
       image: "/assets/art/no-fixed-point.jpg",
+      gridImage: "/assets/art/grid/no-fixed-point.webp",
       title: "No Fixed Point",
       caption: "Sometimes it looks like a place that can no longer hold still.",
       alt: "Figures move through a dark, rain-swept camp of tents and lanterns at night, one shrouded bundle resting in the mud.",
@@ -506,6 +514,7 @@
     {
       id: "enough",
       image: "/assets/art/enough.jpg",
+      gridImage: "/assets/art/grid/enough.webp",
       title: "Enough",
       caption: "Peace isn't the absence of hunger. It's not having to think about it.",
       alt: "A man sits in warm lamplight beside bowls of grain and produce on a woven mat in a bare room.",
@@ -518,6 +527,7 @@
     {
       id: "before-it-works",
       image: "/assets/art/before-it-works.jpg",
+      gridImage: "/assets/art/grid/before-it-works.webp",
       title: "Before It Works",
       caption: "Hope is not proof. Sometimes it is the room made ready before proof arrives.",
       alt: "Hands and faces gather in near-darkness around a small lit structure of sticks and paper beneath a hanging lamp.",
@@ -530,6 +540,7 @@
     {
       id: "bound-to-outlast",
       image: "/assets/art/bound-to-outlast.jpg",
+      gridImage: "/assets/art/grid/bound-to-outlast.webp",
       title: "Bound to Outlast",
       caption: "Satisfaction wasn't finishing the register. It was knowing whose hands would open it next.",
       alt: "Two weathered hands stitch the woven spine of a thick book with a needle and thread against near-total darkness.",
@@ -542,6 +553,7 @@
     {
       id: "yet-to-let-go",
       image: "/assets/art/yet-to-let-go.jpg",
+      gridImage: "/assets/art/grid/yet-to-let-go.webp",
       title: "Yet to Let Go",
       caption: "Seconds to the hand. Time to the day.",
       alt: "A silhouetted figure grips a weathered doorframe, looking out at an empty, rain-slicked market of covered stalls beneath a stormy sky.",
@@ -554,6 +566,7 @@
     {
       id: "nothing-left-to-tie",
       image: "/assets/art/nothing-left-to-tie.jpg",
+      gridImage: "/assets/art/grid/nothing-left-to-tie.webp",
       title: "Nothing Left to Tie",
       caption: "I’ve checked the same knot three times now.",
       alt: "A figure kneels beside a sealed burlap sack of grain, testing its tied knot, as more stacked sacks fade into shadow behind.",
@@ -566,6 +579,7 @@
     {
       id: "steady-without-me",
       image: "/assets/art/steady-without-me.jpg",
+      gridImage: "/assets/art/grid/steady-without-me.webp",
       title: "Steady Without Me",
       caption: "This room isn’t finished yet. I already am.",
       alt: "A woman in a deep orange boubou stands calm and grounded in the raw, unfinished interior of a concrete building, lit by daylight through an unglazed window opening, as bare columns recede into shadow behind her.",
@@ -578,6 +592,7 @@
     {
       id: "already-landed",
       image: "/assets/art/already-landed.jpg",
+      gridImage: "/assets/art/grid/already-landed.webp",
       title: "Already Landed",
       caption: "The water hasn’t settled.",
       alt: "A woman steps from a weathered stone jetty onto a wooden boat at dawn, her back foot lifting clear of the stone as her front foot plants flat on the deck, coral-stone buildings and a minaret rising along the shore behind her, the water below dark and unsettled.",
@@ -590,6 +605,7 @@
     {
       id: "one-more",
       image: "/assets/art/one-more.jpg",
+      gridImage: "/assets/art/grid/one-more.webp",
       title: "One More",
       caption: "Everything else made the cut. One thing still being weighed.",
       alt: "A figure kneels on the floor of a bare, lamplit room beside a nearly full cardboard parcel box — folded cloth, a bundle, and a single shoe already inside — while a hand rests on the floor beside the shoe’s unpacked match, a work uniform and bag hanging on the wall, a lit lantern and a woven basket nearby, city lights visible through a window at dusk.",
@@ -602,6 +618,7 @@
     {
       id: "between-the-marks",
       image: "/assets/art/between-the-marks.jpg",
+      gridImage: "/assets/art/grid/between-the-marks.webp",
       title: "Between the Marks",
       caption: "Two marks, one river. It still won’t pick a side.",
       alt: "A man crouches at the edge of a small irrigation canal, one hand braced against a weathered concrete gauge post marked with old repainted bands, a solar-powered lamp glowing faintly above it, his other hand reaching toward the water where the level sits between two of the post’s marks; a tin kettle, tea glass, and woven basket rest on the muddy bank among reeds and a distant palm.",
@@ -738,7 +755,7 @@
     return (
       '<article class="piece">' +
         '<h2 class="piece-title">' + esc(item.title) + '</h2>' +
-        '<div class="' + frameCls + '"><img class="piece-img" data-full="' + item.image + '" src="' + item.image + '" alt="' + esc(item.alt || item.title) + '" width="' + item.width + '" height="' + item.height + '" loading="' + (loadingMode || 'lazy') + '"' + priorityAttr + '></div>' +
+        '<div class="' + frameCls + '"><img class="piece-img" data-full="' + item.image + '" src="' + (item.gridImage || item.image) + '" alt="' + esc(item.alt || item.title) + '" width="' + item.width + '" height="' + item.height + '" loading="' + (loadingMode || 'lazy') + '"' + priorityAttr + '></div>' +
         '<a class="piece-cap" data-id="' + esc(item.id) + '" href="/art/' + esc(item.id) + '/">' + esc(item.caption) + '</a>' +
       '</article>'
     );
