@@ -684,6 +684,10 @@ function markLoaded(e) {
   .write-view .inquiry { margin: 0; padding: 0; border: 0; }
   .write-view .inquiry-lead .signup { max-width: none; margin: 40px 0 0; padding-top: 32px; }
   .write-view .about-back { margin-top: 72px; }
+  @media (max-width: 999px) {
+    /* Stacked: give the form its own space below the signup. */
+    .write-view .inquiry-lead { margin-bottom: 44px; padding-bottom: 40px; border-bottom: 1px solid var(--border); }
+  }
   /* Phones: a short gold hairline between the poem and the hand. */
   .about-hand { position: relative; }
   .about-hand::before {
@@ -702,7 +706,9 @@ function markLoaded(e) {
     }
     .about-row-intro .about-hand::before { display: none; }
     .write-view { max-width: 1080px; }
-    .write-view .about-row-write { margin: 0; padding: 0; border: 0; }
+    .write-view .about-row-write { margin: 0; padding: 0; border: 0; align-items: start; }
+    /* Heading's cap line sits level with the form's first labels. */
+    .write-view .inquiry-heading { margin-top: -0.2em; }
   }
 
   /* ---------- Story links row, big type, compact About on phones ---------- */
@@ -720,7 +726,7 @@ function markLoaded(e) {
   /* Titles carry the page: large italic serif against the quiet body text. */
   .story-title { font-size: clamp(40px, 5vw, 68px); line-height: 1.05; letter-spacing: -0.01em; margin-bottom: 36px; }
   .piece-title { font-size: clamp(28px, 2.4vw, 34px); line-height: 1.15; }
-  .inquiry-heading { font-size: clamp(36px, 4vw, 52px); line-height: 1.05; margin-bottom: 16px; }
+  .inquiry-heading { font-size: 30px; line-height: 1.1; margin-bottom: 12px; }
   @media (min-width: 760px) {
     .story-links { display: grid; grid-template-columns: 1fr auto 1fr; align-items: baseline; gap: 24px; }
     .story-links .story-return { order: 0; justify-self: start; }
