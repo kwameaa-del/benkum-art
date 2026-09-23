@@ -678,6 +678,32 @@ function markLoaded(e) {
     .inquiry-pair { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
     .about-view > .signup { max-width: 46ch; }
   }
+
+  /* ---------- Write page + gold hairlines + one form style ---------- */
+  .write-view { position: relative; max-width: 46ch; margin: 0 auto; padding: 96px 0 80px; text-align: center; }
+  .write-view .inquiry { margin: 0; padding: 0; border: 0; }
+  .write-view .inquiry-lead .signup { max-width: none; margin: 40px 0 0; padding-top: 32px; }
+  .write-view .about-back { margin-top: 72px; }
+  /* Phones: a short gold hairline between the poem and the hand. */
+  .about-hand { position: relative; }
+  .about-hand::before {
+    content: ""; position: absolute; left: 50%; top: -30px; width: 56px; height: 1px;
+    transform: translateX(-50%); background: var(--accent); opacity: 0.6;
+  }
+  /* Both forms share one input shape and one button size. */
+  .signup-form input { border-radius: 10px; font-size: 16px; }
+  .signup-form button, .inquiry-form button { min-height: 44px; padding: 0 28px; font: italic 16px "Newsreader", serif; }
+  @media (min-width: 1000px) {
+    /* A thin gold line down the middle of each two-sided row. */
+    .about-row::before {
+      content: ""; position: absolute; left: 50%; top: 4%; bottom: 4%; width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--accent) 18%, var(--accent) 82%, transparent);
+      opacity: 0.55; pointer-events: none;
+    }
+    .about-row-intro .about-hand::before { display: none; }
+    .write-view { max-width: 1080px; }
+    .write-view .about-row-write { margin: 0; padding: 0; border: 0; }
+  }
 </style>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Archivo:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400..500&display=swap">
@@ -685,7 +711,7 @@ function markLoaded(e) {
 <div class="wrap">
   <header class="site-head">
     <a class="site-head-link" href="/"><h1 class="site-head-title">Benkum Art</h1></a>
-    <nav class="site-nav" aria-label="Site"><a href="/#about">about</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
+    <nav class="site-nav" aria-label="Site"><a href="/#about">about</a><a href="/#write">write</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
   </header>
   <main id="view-root"><div class="stack"><article class="piece"><h2 class="piece-title">Always Left Open</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/always-left-open.jpg" src="/assets/art/always-left-open.webp" alt="A wooden gate stands ajar between two walled family compounds under a fiery dusk sky, an iron slide-bolt freshly thrown shut across a pale, unweathered strip of wood where it has always rested open before; through the gap, a man walks away with his back turned, past a small lit, barred window, into the darkening courtyard beyond." width="1536" height="1024" loading="eager" fetchpriority="high"></div><a class="piece-cap" data-id="always-left-open" href="/art/always-left-open/">The wood under the bolt has never seen the sun. Tonight it does.</a></article><article class="piece"><h2 class="piece-title">Between the Marks</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/between-the-marks.jpg" src="/assets/art/between-the-marks.webp" alt="A man crouches at the edge of a small irrigation canal, one hand braced against a weathered concrete gauge post marked with old repainted bands, a solar-powered lamp glowing faintly above it, his other hand reaching toward the water where the level sits between two of the post’s marks; a tin kettle, tea glass, and woven basket rest on the muddy bank among reeds and a distant palm." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="between-the-marks" href="/art/between-the-marks/">Two marks, one river. It still won’t pick a side.</a></article><article class="piece"><h2 class="piece-title">One More</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/one-more.jpg" src="/assets/art/one-more.webp" alt="A figure kneels on the floor of a bare, lamplit room beside a nearly full cardboard parcel box — folded cloth, a bundle, and a single shoe already inside — while a hand rests on the floor beside the shoe’s unpacked match, a work uniform and bag hanging on the wall, a lit lantern and a woven basket nearby, city lights visible through a window at dusk." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="one-more" href="/art/one-more/">Everything else made the cut. One thing still being weighed.</a></article><article class="piece"><h2 class="piece-title">Already Landed</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/already-landed.jpg" src="/assets/art/already-landed.webp" alt="A woman steps from a weathered stone jetty onto a wooden boat at dawn, her back foot lifting clear of the stone as her front foot plants flat on the deck, coral-stone buildings and a minaret rising along the shore behind her, the water below dark and unsettled." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="already-landed" href="/art/already-landed/">The water hasn’t settled.</a></article></div><nav class="gallery-more" aria-label="More work"><button class="load-more-btn" id="gallery-earlier" type="button">Earlier work &rarr;</button></nav></main>
 
@@ -1056,7 +1082,7 @@ function markLoaded(e) {
     return item ? item.title : "";
   }
 
-  function inquiryHTML(workTitle) {
+  function inquiryHTML(workTitle, leadExtra) {
     var options = INQUIRY_TOPICS.map(function (t, i) {
       var selected = (workTitle ? i === 0 : i === INQUIRY_TOPICS.length - 1) ? " selected" : "";
       return '<option' + selected + '>' + esc(t) + '</option>';
@@ -1069,6 +1095,7 @@ function markLoaded(e) {
           '<h2 class="inquiry-heading" id="inquiry-heading">Write to me</h2>' +
           '<p class="inquiry-intro">About a print, a story, a show, or anything the work stirred. It comes straight to me, and I reply myself.</p>' +
           '<p class="about-contact"><a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + '</a> &middot; <a href="https://www.instagram.com/' + INSTAGRAM_HANDLE + '/" target="_blank" rel="me noopener">Instagram @' + INSTAGRAM_HANDLE + '</a></p>' +
+          (leadExtra || '') +
         '</div>' +
         '<form class="inquiry-form" action="https://api.web3forms.com/submit" method="post">' +
           '<input type="hidden" name="access_key" value="' + WEB3FORMS_KEY + '">' +
@@ -1125,16 +1152,25 @@ function markLoaded(e) {
     return (
       '<div class="about-view">' +
         '<div class="about-glyph-fragment" aria-hidden="true">' + glyphSVG("benkum-about-fragment") + '</div>' +
-        // Wide screens: hand | poem, then a centred letter (bio + "now"),
-        // then write-to-me lead | form. Phones stack in reading order.
+        // Only about the artist. Wide screens: hand | poem (gold hairline
+        // between), then a centred letter (bio + "now"). Phones stack.
         '<div class="about-row about-row-intro">' +
           '<div class="about-poem">' + paras + '</div>' +
           '<figure class="about-hand"><img src="/assets/brand/benkum-hand.webp" alt="The artist’s left hand, resting on a pale table." width="560" height="700" loading="lazy"></figure>' +
         '</div>' +
         '<div class="about-prose">' + prose + '</div>' +
         '<div class="about-now"><p class="about-now-label">' + esc(ABOUT_NOW.label) + '</p><p>' + esc(ABOUT_NOW.text) + '</p></div>' +
-        inquiryHTML(inquiryWork()) +
-        '<section class="signup" aria-label="Print launch signup"><p class="signup-line">Prints are coming. Get one email when they launch.</p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">One email at launch. No spam, unsubscribe anytime.</p></section>' +
+        '<a class="about-back" href="#">&larr; Back to gallery</a>' +
+      '</div>'
+    );
+  }
+
+  // The Write page (#write): ways to reach the artist on the left (intro,
+  // email/Instagram, prints signup), the message form on the right.
+  function writeHTML() {
+    return (
+      '<div class="write-view">' +
+        inquiryHTML(inquiryWork(), '<section class="signup" aria-label="Print launch signup"><p class="signup-line">Prints are coming. Get one email when they launch.</p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">One email at launch. No spam, unsubscribe anytime.</p></section>') +
         '<a class="about-back" href="#">&larr; Back to gallery</a>' +
       '</div>'
     );
@@ -1298,18 +1334,21 @@ function markLoaded(e) {
   function render() {
     var root = document.getElementById("view-root");
 
+    // Older "write about this work" links pointed at #about; send them on.
+    if (window.location.hash === "#about" && inquiryWork()) {
+      history.replaceState(null, "", window.location.pathname + window.location.search + "#write");
+    }
+
     if (window.location.hash === "#about") {
       root.innerHTML = aboutHTML();
-      wireInquiry();
-      // Arriving from "Write to me about this work" goes straight to the form.
-      // Deferred so the browser's own scroll restoration on load can't undo it.
       window.scrollTo(0, 0);
-      if (inquiryWork()) {
-        window.setTimeout(function () {
-          var write = document.getElementById("write");
-          if (write) write.scrollIntoView({ block: "start" });
-        }, 60);
-      }
+      return;
+    }
+
+    if (window.location.hash === "#write") {
+      root.innerHTML = writeHTML();
+      wireInquiry();
+      window.scrollTo(0, 0);
       return;
     }
 
