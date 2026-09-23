@@ -1058,7 +1058,7 @@ function markLoaded(e) {
         .then(function (res) {
           if (!res.success) throw new Error(res.message || "failed");
           form.reset();
-          status.textContent = "Thank you. It’s with me now, and I’ll write back.";
+          status.textContent = "Meda wo ase. It’s with me now, and I’ll write back.";
         })
         .catch(function () {
           status.textContent = "That didn’t go through. Please try again, or write to " + CONTACT_EMAIL + ".";
