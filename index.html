@@ -608,6 +608,31 @@ function markLoaded(e) {
   @media (max-width: 420px) {
     .site-nav a { font-size: 12px; }
   }
+
+  /* ---------- Write to me (inquiry form) ---------- */
+  .inquiry { position: relative; z-index: 1; margin: 56px auto 0; padding-top: 44px; border-top: 1px solid var(--border); text-align: left; }
+  .inquiry-heading { margin: 0 0 10px; text-align: center; font: italic 500 26px "Newsreader", serif; color: var(--ink); }
+  .inquiry-intro { margin: 0 0 28px; text-align: center; font-size: 17px; font-style: italic; line-height: 1.6; color: var(--ink-soft); }
+  .inquiry-form { display: grid; gap: 6px; }
+  .inquiry-form label { margin-top: 12px; font: 600 11px "Archivo", sans-serif; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
+  .inquiry-optional { font-weight: 500; letter-spacing: 0.04em; text-transform: none; color: var(--ink-faint); }
+  .inquiry-form input:not([type=hidden]):not([type=checkbox]), .inquiry-form select, .inquiry-form textarea {
+    width: 100%; min-height: 44px; padding: 10px 14px;
+    font: 17px "Newsreader", Georgia, serif; color: var(--ink);
+    background: rgba(237, 234, 226, 0.05); border: 1px solid var(--border); border-radius: 10px;
+  }
+  .inquiry-form select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--ink-soft) 50%), linear-gradient(135deg, var(--ink-soft) 50%, transparent 50%); background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%; background-size: 6px 6px; background-repeat: no-repeat; padding-right: 40px; }
+  .inquiry-form select option { background: #1F1D1A; color: var(--ink); }
+  .inquiry-form textarea { resize: vertical; line-height: 1.6; }
+  .inquiry-form input:focus-visible, .inquiry-form select:focus-visible, .inquiry-form textarea:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .inquiry-form button {
+    justify-self: center; margin-top: 20px; min-height: 44px; padding: 0 34px; cursor: pointer;
+    font: italic 16px "Newsreader", serif; color: var(--accent);
+    background: rgba(234, 174, 69, 0.08); border: 1px solid rgba(234, 174, 69, 0.45); border-radius: 999px;
+  }
+  .inquiry-form button:hover { background: rgba(234, 174, 69, 0.16); border-color: var(--accent); color: var(--ink); }
+  .inquiry-form button:disabled { opacity: 0.6; cursor: default; }
+  .inquiry-status { min-height: 1.5em; margin: 10px 0 0; text-align: center; font-style: italic; font-size: 16px; color: var(--accent); }
 </style>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Archivo:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400..500&display=swap">
@@ -974,6 +999,74 @@ function markLoaded(e) {
   var CONTACT_EMAIL = "hello@benkum.art";
   var INSTAGRAM_HANDLE = "benkum.art";
 
+  // "Write to me" inquiry form. Web3Forms relays submissions to the artist's
+  // inbox; the access key is public by design (it can only send to that inbox).
+  var WEB3FORMS_KEY = "bd6bf1bd-d56a-4270-aa36-f139a120b537";
+  var INQUIRY_TOPICS = ["A print", "Licensing or publishing", "An exhibition or collaboration", "Just to say something"];
+
+  // Artwork pages link here as /?work=<slug>#about to prefill the work.
+  function inquiryWork() {
+    var slug = new URLSearchParams(window.location.search).get("work");
+    var item = slug ? findById(slug) : null;
+    return item ? item.title : "";
+  }
+
+  function inquiryHTML(workTitle) {
+    var options = INQUIRY_TOPICS.map(function (t, i) {
+      var selected = (workTitle ? i === 0 : i === INQUIRY_TOPICS.length - 1) ? " selected" : "";
+      return '<option' + selected + '>' + esc(t) + '</option>';
+    }).join("");
+    return (
+      '<section class="inquiry" id="write" aria-labelledby="inquiry-heading">' +
+        '<h2 class="inquiry-heading" id="inquiry-heading">Write to me</h2>' +
+        '<p class="inquiry-intro">About a print, a story, a show, or anything the work stirred. It comes straight to me, and I reply myself.</p>' +
+        '<form class="inquiry-form" action="https://api.web3forms.com/submit" method="post">' +
+          '<input type="hidden" name="access_key" value="' + WEB3FORMS_KEY + '">' +
+          '<input type="hidden" name="from_name" value="benkum.art">' +
+          '<input type="checkbox" name="botcheck" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">' +
+          '<label for="inq-name">Name</label>' +
+          '<input id="inq-name" type="text" name="name" required autocomplete="name">' +
+          '<label for="inq-email">Email</label>' +
+          '<input id="inq-email" type="email" name="email" required autocomplete="email">' +
+          '<label for="inq-topic">What’s this about?</label>' +
+          '<select id="inq-topic" name="topic">' + options + '</select>' +
+          '<label for="inq-work">Which work? <span class="inquiry-optional">(optional)</span></label>' +
+          '<input id="inq-work" type="text" name="work" value="' + esc(workTitle).replace(/"/g, "&quot;") + '">' +
+          '<label for="inq-message">Message</label>' +
+          '<textarea id="inq-message" name="message" rows="5" required></textarea>' +
+          '<button type="submit">Send</button>' +
+          '<p class="inquiry-status" role="status" aria-live="polite"></p>' +
+        '</form>' +
+      '</section>'
+    );
+  }
+
+  function wireInquiry() {
+    var form = document.querySelector(".inquiry-form");
+    if (!form) return;
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var status = form.querySelector(".inquiry-status");
+      var button = form.querySelector("button");
+      var data = new FormData(form);
+      var work = (data.get("work") || "").trim();
+      data.append("subject", "Benkum Art: " + data.get("topic") + (work ? " — " + work : ""));
+      button.disabled = true;
+      status.textContent = "Sending…";
+      fetch(form.action, { method: "POST", body: data, headers: { Accept: "application/json" } })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (!res.success) throw new Error(res.message || "failed");
+          form.reset();
+          status.textContent = "Thank you. It’s with me now, and I’ll write back.";
+        })
+        .catch(function () {
+          status.textContent = "That didn’t go through. Please try again, or write to " + CONTACT_EMAIL + ".";
+        })
+        .then(function () { button.disabled = false; });
+    });
+  }
+
   function aboutHTML() {
     var paras = ABOUT_STANZAS.map(function (stanza) {
       return "<p>" + esc(stanza).replace(/\n/g, "<br>") + "</p>";
@@ -989,6 +1082,7 @@ function markLoaded(e) {
           prose +
         '</div>' +
         '<div class="about-now"><p class="about-now-label">' + esc(ABOUT_NOW.label) + '</p><p>' + esc(ABOUT_NOW.text) + '</p></div>' +
+        inquiryHTML(inquiryWork()) +
         '<p class="about-contact"><a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + '</a> &middot; <a href="https://www.instagram.com/' + INSTAGRAM_HANDLE + '/" target="_blank" rel="me noopener">Instagram @' + INSTAGRAM_HANDLE + '</a></p>' +
         '<section class="signup" aria-label="Print launch signup"><p class="signup-line">Prints are coming. Get one email when they launch.</p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">One email at launch. No spam, unsubscribe anytime.</p></section>' +
         '<a class="about-back" href="#">&larr; Back to gallery</a>' +
@@ -1153,7 +1247,16 @@ function markLoaded(e) {
 
     if (window.location.hash === "#about") {
       root.innerHTML = aboutHTML();
+      wireInquiry();
+      // Arriving from "Write to me about this work" goes straight to the form.
+      // Deferred so the browser's own scroll restoration on load can't undo it.
       window.scrollTo(0, 0);
+      if (inquiryWork()) {
+        window.setTimeout(function () {
+          var write = document.getElementById("write");
+          if (write) write.scrollIntoView({ block: "start" });
+        }, 60);
+      }
       return;
     }
 
