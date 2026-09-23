@@ -424,6 +424,27 @@
   @media (prefers-reduced-motion: reduce) {
     .js-fade .piece-img { transition: none; }
   }
+
+  /* ---------- Top links ---------- */
+  .site-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .site-nav { display: flex; gap: 22px; }
+  .site-nav a {
+    font-family: "Archivo", sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding: 10px 0;
+  }
+  .site-nav a:hover { color: var(--accent); }
+  @media (max-width: 420px) { .site-nav { gap: 16px; } .site-nav a { font-size: 11px; } }
 </style>
 
 <script>
@@ -441,6 +462,7 @@ function markLoaded(e) {
 <div class="wrap">
   <header class="site-head">
     <a class="site-head-link" href="/"><h1 class="site-head-title">Benkum Art</h1></a>
+    <nav class="site-nav" aria-label="Site"><a href="/#about">about</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
   </header>
 
   <main class="story-view">
