@@ -305,7 +305,7 @@ function markLoaded(e) {
   }
   .about-hand {
     width: min(260px, 72%);
-    margin: 0 auto 44px;
+    margin: 56px auto 0;
     padding: 14px;
     background: #FAFAF6;
     box-shadow: 0 18px 40px rgba(0,0,0,0.45);
@@ -613,8 +613,12 @@ function markLoaded(e) {
   .inquiry { position: relative; z-index: 1; margin: 56px auto 0; padding-top: 44px; border-top: 1px solid var(--border); text-align: left; }
   .inquiry-heading { margin: 0 0 10px; text-align: center; font: italic 500 26px "Newsreader", serif; color: var(--ink); }
   .inquiry-intro { margin: 0 0 28px; text-align: center; font-size: 17px; font-style: italic; line-height: 1.6; color: var(--ink-soft); }
-  .inquiry-form { display: grid; gap: 6px; }
-  .inquiry-form label { margin-top: 12px; font: 600 11px "Archivo", sans-serif; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
+  .inquiry-lead { text-align: center; }
+  .inquiry-lead .about-contact { margin: 0 0 28px; }
+  .inquiry-form { display: grid; gap: 16px; }
+  .inquiry-form .field { display: grid; gap: 6px; }
+  .inquiry-pair { display: grid; gap: 16px; }
+  .inquiry-form label { font: 600 11px "Archivo", sans-serif; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
   .inquiry-optional { font-weight: 500; letter-spacing: 0.04em; text-transform: none; color: var(--ink-faint); }
   .inquiry-form input:not([type=hidden]):not([type=checkbox]), .inquiry-form select, .inquiry-form textarea {
     width: 100%; min-height: 44px; padding: 10px 14px;
@@ -626,7 +630,7 @@ function markLoaded(e) {
   .inquiry-form textarea { resize: vertical; line-height: 1.6; }
   .inquiry-form input:focus-visible, .inquiry-form select:focus-visible, .inquiry-form textarea:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
   .inquiry-form button {
-    justify-self: center; margin-top: 20px; min-height: 44px; padding: 0 34px; cursor: pointer;
+    justify-self: center; margin-top: 8px; min-height: 44px; padding: 0 34px; cursor: pointer;
     font: italic 16px "Newsreader", serif; color: var(--accent);
     background: rgba(234, 174, 69, 0.08); border: 1px solid rgba(234, 174, 69, 0.45); border-radius: 999px;
   }
@@ -654,23 +658,24 @@ function markLoaded(e) {
     .story-layout .story-glyph { justify-content: flex-start; }
     .story-layout .story-nav { margin: 48px 0 0; text-align: left; }
 
-    .about-view { max-width: 1120px; }
+    /* About: balanced rows, each pair vertically centred on the same axis. */
+    .about-view { max-width: 1080px; }
     .about-row {
       position: relative;
       z-index: 1;
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 80px;
-      align-items: start;
+      gap: 88px;
+      align-items: center;
     }
-    .about-row-intro .about-poem { padding-top: 12px; }
-    .about-row-intro .about-prose { margin: 0; padding: 0; border: 0; text-align: left; }
-    .about-row-intro .about-hand { margin: 0 0 36px; }
-    .about-row-write { margin-top: 88px; padding-top: 56px; border-top: 1px solid var(--border); }
-    .about-row-write .about-now { margin: 0; text-align: left; }
-    .about-row-write .about-contact { margin-top: 28px; text-align: left; }
-    .about-row-write .inquiry { margin: 0; padding: 0; border: 0; }
-    .about-row-write .inquiry-heading, .about-row-write .inquiry-intro { text-align: left; }
+    .about-row-intro .about-hand { grid-column: 1; grid-row: 1; width: min(340px, 100%); margin: 0 auto; }
+    .about-row-intro .about-poem { grid-column: 2; grid-row: 1; }
+    .about-view > .about-prose { max-width: 60ch; margin: 96px auto 0; }
+    .about-view > .about-now { max-width: 60ch; }
+    .about-row-write { margin-top: 96px; padding-top: 72px; }
+    .about-row-write .inquiry-lead { text-align: center; }
+    .about-row-write .inquiry-intro { margin-bottom: 20px; }
+    .inquiry-pair { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
     .about-view > .signup { max-width: 46ch; }
   }
 </style>
@@ -1056,24 +1061,28 @@ function markLoaded(e) {
       var selected = (workTitle ? i === 0 : i === INQUIRY_TOPICS.length - 1) ? " selected" : "";
       return '<option' + selected + '>' + esc(t) + '</option>';
     }).join("");
+    // Lead (heading, intro, direct contact) and form sit side by side on wide
+    // screens; fields pair up so the form stays about as tall as the lead.
     return (
-      '<section class="inquiry" id="write" aria-labelledby="inquiry-heading">' +
-        '<h2 class="inquiry-heading" id="inquiry-heading">Write to me</h2>' +
-        '<p class="inquiry-intro">About a print, a story, a show, or anything the work stirred. It comes straight to me, and I reply myself.</p>' +
+      '<section class="inquiry about-row about-row-write" id="write" aria-labelledby="inquiry-heading">' +
+        '<div class="inquiry-lead">' +
+          '<h2 class="inquiry-heading" id="inquiry-heading">Write to me</h2>' +
+          '<p class="inquiry-intro">About a print, a story, a show, or anything the work stirred. It comes straight to me, and I reply myself.</p>' +
+          '<p class="about-contact"><a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + '</a> &middot; <a href="https://www.instagram.com/' + INSTAGRAM_HANDLE + '/" target="_blank" rel="me noopener">Instagram @' + INSTAGRAM_HANDLE + '</a></p>' +
+        '</div>' +
         '<form class="inquiry-form" action="https://api.web3forms.com/submit" method="post">' +
           '<input type="hidden" name="access_key" value="' + WEB3FORMS_KEY + '">' +
           '<input type="hidden" name="from_name" value="benkum.art">' +
           '<input type="checkbox" name="botcheck" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">' +
-          '<label for="inq-name">Name</label>' +
-          '<input id="inq-name" type="text" name="name" required autocomplete="name">' +
-          '<label for="inq-email">Email</label>' +
-          '<input id="inq-email" type="email" name="email" required autocomplete="email">' +
-          '<label for="inq-topic">What’s this about?</label>' +
-          '<select id="inq-topic" name="topic">' + options + '</select>' +
-          '<label for="inq-work">Which work? <span class="inquiry-optional">(optional)</span></label>' +
-          '<input id="inq-work" type="text" name="work" value="' + esc(workTitle).replace(/"/g, "&quot;") + '">' +
-          '<label for="inq-message">Message</label>' +
-          '<textarea id="inq-message" name="message" rows="5" required></textarea>' +
+          '<div class="inquiry-pair">' +
+            '<div class="field"><label for="inq-name">Name</label><input id="inq-name" type="text" name="name" required autocomplete="name"></div>' +
+            '<div class="field"><label for="inq-email">Email</label><input id="inq-email" type="email" name="email" required autocomplete="email"></div>' +
+          '</div>' +
+          '<div class="inquiry-pair">' +
+            '<div class="field"><label for="inq-topic">What’s this about?</label><select id="inq-topic" name="topic">' + options + '</select></div>' +
+            '<div class="field"><label for="inq-work">Which work? <span class="inquiry-optional">(optional)</span></label><input id="inq-work" type="text" name="work" value="' + esc(workTitle).replace(/"/g, "&quot;") + '"></div>' +
+          '</div>' +
+          '<div class="field"><label for="inq-message">Message</label><textarea id="inq-message" name="message" rows="5" required></textarea></div>' +
           '<button type="submit">Send</button>' +
           '<p class="inquiry-status" role="status" aria-live="polite"></p>' +
         '</form>' +
@@ -1116,21 +1125,15 @@ function markLoaded(e) {
     return (
       '<div class="about-view">' +
         '<div class="about-glyph-fragment" aria-hidden="true">' + glyphSVG("benkum-about-fragment") + '</div>' +
-        // Two rows that sit side by side on wide screens and stack on phones.
+        // Wide screens: hand | poem, then a centred letter (bio + "now"),
+        // then write-to-me lead | form. Phones stack in reading order.
         '<div class="about-row about-row-intro">' +
           '<div class="about-poem">' + paras + '</div>' +
-          '<div class="about-prose">' +
-            '<figure class="about-hand"><img src="/assets/brand/benkum-hand.webp" alt="The artist’s left hand, resting on a pale table." width="560" height="700" loading="lazy"></figure>' +
-            prose +
-          '</div>' +
+          '<figure class="about-hand"><img src="/assets/brand/benkum-hand.webp" alt="The artist’s left hand, resting on a pale table." width="560" height="700" loading="lazy"></figure>' +
         '</div>' +
-        '<div class="about-row about-row-write">' +
-          '<div class="about-side">' +
-            '<div class="about-now"><p class="about-now-label">' + esc(ABOUT_NOW.label) + '</p><p>' + esc(ABOUT_NOW.text) + '</p></div>' +
-            '<p class="about-contact"><a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + '</a> &middot; <a href="https://www.instagram.com/' + INSTAGRAM_HANDLE + '/" target="_blank" rel="me noopener">Instagram @' + INSTAGRAM_HANDLE + '</a></p>' +
-          '</div>' +
-          inquiryHTML(inquiryWork()) +
-        '</div>' +
+        '<div class="about-prose">' + prose + '</div>' +
+        '<div class="about-now"><p class="about-now-label">' + esc(ABOUT_NOW.label) + '</p><p>' + esc(ABOUT_NOW.text) + '</p></div>' +
+        inquiryHTML(inquiryWork()) +
         '<section class="signup" aria-label="Print launch signup"><p class="signup-line">Prints are coming. Get one email when they launch.</p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">One email at launch. No spam, unsubscribe anytime.</p></section>' +
         '<a class="about-back" href="#">&larr; Back to gallery</a>' +
       '</div>'
