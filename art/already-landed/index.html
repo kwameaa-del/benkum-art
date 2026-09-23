@@ -496,6 +496,30 @@
   /* ---------- Write to me link ---------- */
   .write-about { display: block; margin: 40px auto 0; text-align: center; font: italic 17px "Newsreader", serif; color: var(--ink-soft); text-decoration: underline; text-decoration-color: rgba(234, 174, 69, 0.55); text-underline-offset: 3px; }
   .write-about:hover { color: var(--accent); }
+
+  /* ---------- Two-sided layout on wide screens ---------- */
+  /* Phones keep the single column; from 1000px the artwork sits on the left
+     and the story reads beside it on the right. */
+  @media (min-width: 1000px) {
+    .wrap { max-width: 1400px; }
+    .story-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 64px;
+      align-items: start;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+    .story-layout .story-frame { max-width: none; margin: 0 0 20px; }
+    .story-layout .story-cap { text-align: left; margin: 0; }
+    .story-layout .story-reading-pause { display: none; }
+    .story-layout .story-text { margin: 0; max-width: 60ch; }
+    .story-layout .story-glyph { justify-content: flex-start; }
+    .story-layout .story-nav { margin: 48px 0 0; text-align: left; }
+    .story-layout .write-about { margin: 36px 0 0; text-align: left; }
+    .story-layout .signup { margin: 48px 0 0; text-align: left; }
+    .story-layout .signup-form { justify-content: flex-start; }
+  }
 </style>
 
 <script>
@@ -519,13 +543,19 @@ function markLoaded(e) {
   <main class="story-view">
     <a class="story-back" href="/">&larr; Back to gallery</a>
     <h2 class="story-title">Already Landed</h2>
+    <div class="story-layout">
+    <div class="story-visual">
     <div class="story-frame marked"><img class="piece-img" data-full="/assets/art/already-landed.jpg" src="/assets/art/already-landed.jpg" srcset="/assets/art/already-landed.webp 1000w, /assets/art/already-landed.jpg 1536w" sizes="(max-width: 900px) 92vw, 860px" alt="A woman steps from a weathered stone jetty onto a wooden boat at dawn, her back foot lifting clear of the stone as her front foot plants flat on the deck, coral-stone buildings and a minaret rising along the shore behind her, the water below dark and unsettled." width="1536" height="1024" loading="eager"></div>
     <p class="story-cap">The water hasn’t settled.</p>
+    </div>
+    <div class="story-body">
     <div class="story-reading-pause" aria-hidden="true"></div>
     <div class="story-text"><p>One foot is still on the stone. The other already carries all of me.</p><p>On September 17, 2026, the U.S. national emergency declared during the war in northern Ethiopia expired. The next day, sanctions tied to it were removed, including those on Eritrea’s ruling party, defense forces, Red Sea Trading Corporation and senior officials. Eritrea welcomed the move. But an expiration doesn’t answer what comes after it. What this changes between the two countries remains unsettled.</p><p>My back foot hasn’t caught up yet. It already knows where it’s going.</p></div>
     <div class="story-glyph" aria-hidden="true"><svg viewBox="0 0 100 100" width="68" height="68" fill="none" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(1.4 54.9 52.5)"><path d="M 54.9 48.0 Q 60.9 66.2 73.5 80.7" stroke="#EAAE45" stroke-width="3.28" stroke-linecap="round" fill="none" opacity="0.43"/><path d="M 67.9 73.1 Q 70.7 76.9 73.5 80.7" stroke="#EAAE45" stroke-width="1.38" stroke-linecap="round" fill="none" opacity="0.30"/><line x1="71.4" y1="65.5" x2="60.7" y2="69.6" stroke="#EAAE45" stroke-width="1.51" stroke-linecap="round" opacity="0.65"/><path d="M 56.5 53.7 Q 51.6 65.4 43.1 74.9" stroke="#EAAE45" stroke-width="1.48" stroke-linecap="round" fill="none" opacity="0.54"/><path d="M 47.0 69.9 Q 45.1 72.4 43.1 74.9" stroke="#EAAE45" stroke-width="0.62" stroke-linecap="round" fill="none" opacity="0.38"/><line x1="53.5" y1="68.7" x2="45.1" y2="61.5" stroke="#EAAE45" stroke-width="1.47" stroke-linecap="round" opacity="0.45"/><path d="M 53.6 48.4 Q 56.5 38.1 49.1 30.4" stroke="#EAAE45" stroke-width="1.36" stroke-linecap="round" fill="none" opacity="0.63"/><path d="M 51.7 34.5 Q 50.4 32.4 49.1 30.4" stroke="#EAAE45" stroke-width="0.57" stroke-linecap="round" fill="none" opacity="0.44"/><path d="M 55.7 48.9 Q 72.1 57.1 86.2 68.9" stroke="#EAAE45" stroke-width="3.03" stroke-linecap="round" fill="none" opacity="0.62"/><path d="M 78.9 63.4 Q 82.6 66.2 86.2 68.9" stroke="#EAAE45" stroke-width="1.27" stroke-linecap="round" fill="none" opacity="0.43"/></g></svg></div><nav class="story-nav" aria-label="Artwork navigation"><a class="story-next" href="/art/steady-without-me/">Continue &rarr; Steady Without Me</a><a class="story-return" href="/">Return to the archive</a></nav>
     <a class="write-about" href="/?work=already-landed#about">Write to me about this work &rarr;</a>
     <section class="signup" aria-label="Print launch signup"><p class="signup-line">Prints are coming. Get one email when they launch.</p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">One email at launch. No spam, unsubscribe anytime.</p></section>
+    </div>
+    </div>
   </main>
 
   <footer class="site-foot">

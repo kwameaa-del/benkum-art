@@ -496,6 +496,30 @@
   /* ---------- Write to me link ---------- */
   .write-about { display: block; margin: 40px auto 0; text-align: center; font: italic 17px "Newsreader", serif; color: var(--ink-soft); text-decoration: underline; text-decoration-color: rgba(234, 174, 69, 0.55); text-underline-offset: 3px; }
   .write-about:hover { color: var(--accent); }
+
+  /* ---------- Two-sided layout on wide screens ---------- */
+  /* Phones keep the single column; from 1000px the artwork sits on the left
+     and the story reads beside it on the right. */
+  @media (min-width: 1000px) {
+    .wrap { max-width: 1400px; }
+    .story-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 64px;
+      align-items: start;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+    .story-layout .story-frame { max-width: none; margin: 0 0 20px; }
+    .story-layout .story-cap { text-align: left; margin: 0; }
+    .story-layout .story-reading-pause { display: none; }
+    .story-layout .story-text { margin: 0; max-width: 60ch; }
+    .story-layout .story-glyph { justify-content: flex-start; }
+    .story-layout .story-nav { margin: 48px 0 0; text-align: left; }
+    .story-layout .write-about { margin: 36px 0 0; text-align: left; }
+    .story-layout .signup { margin: 48px 0 0; text-align: left; }
+    .story-layout .signup-form { justify-content: flex-start; }
+  }
 </style>
 
 <script>
@@ -519,13 +543,19 @@ function markLoaded(e) {
   <main class="story-view">
     <a class="story-back" href="/">&larr; Back to gallery</a>
     <h2 class="story-title">Nothing Left to Tie</h2>
+    <div class="story-layout">
+    <div class="story-visual">
     <div class="story-frame marked"><img class="piece-img" data-full="/assets/art/nothing-left-to-tie.jpg" src="/assets/art/nothing-left-to-tie.jpg" srcset="/assets/art/nothing-left-to-tie.webp 1000w, /assets/art/nothing-left-to-tie.jpg 1536w" sizes="(max-width: 900px) 92vw, 860px" alt="A figure kneels beside a sealed burlap sack of grain, testing its tied knot, as more stacked sacks fade into shadow behind." width="1024" height="1536" loading="eager"></div>
     <p class="story-cap">I’ve checked the same knot three times now.</p>
+    </div>
+    <div class="story-body">
     <div class="story-reading-pause" aria-hidden="true"></div>
     <div class="story-text"><p>The knot’s already tight. I check it again anyway.</p><p>On September 1, 2026, Mathews Mulenga, head of Restoration for Community Justice, warned that Zambia’s record 5-million-metric-ton maize harvest this year could be undone within months — “This is not a Kanchibiya problem or a Muchinga problem,” he said. “This is a national emergency in the making.” Forecasters expect a punishing El Niño to peak by December, pushing the October 2026–March 2027 rainy season well below normal, echoing a 2023–24 drought that erased a similarly strong harvest almost as fast as it arrived. More than two million smallholder farmers are being urged to hold back part of this year’s grain instead of selling it, and to plant hardier, faster crops before the rains — if they come at all — fall short again.</p><p>I’ve checked the same knot three times now. My hands keep finding reasons to stay busy with the one thing they can still fix.</p></div>
     <div class="story-glyph" aria-hidden="true"><svg viewBox="0 0 100 100" width="68" height="68" fill="none" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(-14.5 43.2 46.6)"><path d="M 43.4 44.3 Q 32.1 47.1 29.9 58.6" stroke="#EAAE45" stroke-width="1.94" stroke-linecap="round" fill="none" opacity="0.85"/><path d="M 31.9 53.7 Q 30.9 56.1 29.9 58.6" stroke="#EAAE45" stroke-width="0.81" stroke-linecap="round" fill="none" opacity="0.59"/><line x1="36.8" y1="55.6" x2="32.4" y2="51.6" stroke="#EAAE45" stroke-width="1.13" stroke-linecap="round" opacity="0.47"/><path d="M 47.3 45.5 Q 44.5 60.9 30.1 67.0" stroke="#EAAE45" stroke-width="2.06" stroke-linecap="round" fill="none" opacity="0.67"/><path d="M 36.1 63.0 Q 33.1 65.0 30.1 67.0" stroke="#EAAE45" stroke-width="0.87" stroke-linecap="round" fill="none" opacity="0.47"/><line x1="40.0" y1="59.6" x2="35.6" y2="55.0" stroke="#EAAE45" stroke-width="1.82" stroke-linecap="round" opacity="0.40"/><path d="M 40.1 47.8 Q 22.0 54.6 8.6 68.5" stroke="#EAAE45" stroke-width="3.20" stroke-linecap="round" fill="none" opacity="0.66"/><path d="M 15.8 62.2 Q 12.2 65.4 8.6 68.5" stroke="#EAAE45" stroke-width="1.34" stroke-linecap="round" fill="none" opacity="0.46"/><line x1="28.3" y1="60.3" x2="23.9" y2="53.7" stroke="#EAAE45" stroke-width="1.07" stroke-linecap="round" opacity="0.37"/><path d="M 47.8 47.8 Q 64.4 47.7 76.3 59.2" stroke="#EAAE45" stroke-width="2.15" stroke-linecap="round" fill="none" opacity="0.69"/><path d="M 69.9 54.6 Q 73.1 56.9 76.3 59.2" stroke="#EAAE45" stroke-width="0.90" stroke-linecap="round" fill="none" opacity="0.48"/></g></svg></div><nav class="story-nav" aria-label="Artwork navigation"><a class="story-next" href="/art/yet-to-let-go/">Continue &rarr; Yet to Let Go</a><a class="story-return" href="/">Return to the archive</a></nav>
     <a class="write-about" href="/?work=nothing-left-to-tie#about">Write to me about this work &rarr;</a>
     <section class="signup" aria-label="Print launch signup"><p class="signup-line">Prints are coming. Get one email when they launch.</p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">One email at launch. No spam, unsubscribe anytime.</p></section>
+    </div>
+    </div>
   </main>
 
   <footer class="site-foot">

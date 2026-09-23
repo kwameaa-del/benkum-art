@@ -496,6 +496,30 @@
   /* ---------- Write to me link ---------- */
   .write-about { display: block; margin: 40px auto 0; text-align: center; font: italic 17px "Newsreader", serif; color: var(--ink-soft); text-decoration: underline; text-decoration-color: rgba(234, 174, 69, 0.55); text-underline-offset: 3px; }
   .write-about:hover { color: var(--accent); }
+
+  /* ---------- Two-sided layout on wide screens ---------- */
+  /* Phones keep the single column; from 1000px the artwork sits on the left
+     and the story reads beside it on the right. */
+  @media (min-width: 1000px) {
+    .wrap { max-width: 1400px; }
+    .story-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 64px;
+      align-items: start;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+    .story-layout .story-frame { max-width: none; margin: 0 0 20px; }
+    .story-layout .story-cap { text-align: left; margin: 0; }
+    .story-layout .story-reading-pause { display: none; }
+    .story-layout .story-text { margin: 0; max-width: 60ch; }
+    .story-layout .story-glyph { justify-content: flex-start; }
+    .story-layout .story-nav { margin: 48px 0 0; text-align: left; }
+    .story-layout .write-about { margin: 36px 0 0; text-align: left; }
+    .story-layout .signup { margin: 48px 0 0; text-align: left; }
+    .story-layout .signup-form { justify-content: flex-start; }
+  }
 </style>
 
 <script>
@@ -519,13 +543,19 @@ function markLoaded(e) {
   <main class="story-view">
     <a class="story-back" href="/">&larr; Back to gallery</a>
     <h2 class="story-title">Steady Without Me</h2>
+    <div class="story-layout">
+    <div class="story-visual">
     <div class="story-frame marked"><img class="piece-img" data-full="/assets/art/steady-without-me.jpg" src="/assets/art/steady-without-me.jpg" srcset="/assets/art/steady-without-me.webp 1000w, /assets/art/steady-without-me.jpg 1536w" sizes="(max-width: 900px) 92vw, 860px" alt="A woman in a deep orange boubou stands calm and grounded in the raw, unfinished interior of a concrete building, lit by daylight through an unglazed window opening, as bare columns recede into shadow behind her." width="1536" height="1024" loading="eager"></div>
     <p class="story-cap">This room isn’t finished yet. I already am.</p>
+    </div>
+    <div class="story-body">
     <div class="story-reading-pause" aria-hidden="true"></div>
     <div class="story-text"><p>The walls around me aren’t finished. I am.</p><p>On September 14, 2026, the Youth Olympic flame — lit four days earlier at Athens’ Panathenaic Stadium — arrived in Senegal, escorted by one hundred Senegalese women in bright orange boubous to Place du Souvenir, where it lit a cauldron for the first Olympic event ever held on African soil. “All of Africa is watching Senegal with confidence,” President Bassirou Diomaye Diakhar Faye said, as the flame began a six-week relay through all fourteen of the country’s regions before the Games open on October 31.</p><p>Let the walls catch up. I already know exactly where I’m standing.</p></div>
     <div class="story-glyph" aria-hidden="true"><svg viewBox="0 0 100 100" width="68" height="68" fill="none" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(12.3 55.1 44.6)"><path d="M 55.4 48.7 Q 58.9 67.7 58.3 87.0" stroke="#EAAE45" stroke-width="1.64" stroke-linecap="round" fill="none" opacity="0.81"/><path d="M 58.2 77.4 Q 58.2 82.2 58.3 87.0" stroke="#EAAE45" stroke-width="0.69" stroke-linecap="round" fill="none" opacity="0.57"/><line x1="60.7" y1="66.1" x2="52.8" y2="67.3" stroke="#EAAE45" stroke-width="0.82" stroke-linecap="round" opacity="0.58"/><path d="M 58.4 43.8 Q 45.9 47.8 32.8 47.7" stroke="#EAAE45" stroke-width="2.26" stroke-linecap="round" fill="none" opacity="0.73"/><path d="M 39.3 47.3 Q 36.0 47.5 32.8 47.7" stroke="#EAAE45" stroke-width="0.95" stroke-linecap="round" fill="none" opacity="0.51"/><line x1="49.0" y1="48.3" x2="46.8" y2="42.5" stroke="#EAAE45" stroke-width="0.89" stroke-linecap="round" opacity="0.51"/><path d="M 53.6 40.0 Q 65.9 54.2 62.0 72.5" stroke="#EAAE45" stroke-width="2.10" stroke-linecap="round" fill="none" opacity="0.67"/><path d="M 62.3 63.7 Q 62.2 68.1 62.0 72.5" stroke="#EAAE45" stroke-width="0.88" stroke-linecap="round" fill="none" opacity="0.47"/><path d="M 57.5 44.2 Q 70.1 45.4 69.8 58.0" stroke="#EAAE45" stroke-width="1.70" stroke-linecap="round" fill="none" opacity="0.84"/><path d="M 68.7 52.8 Q 69.2 55.4 69.8 58.0" stroke="#EAAE45" stroke-width="0.71" stroke-linecap="round" fill="none" opacity="0.59"/><line x1="66.1" y1="45.9" x2="58.3" y2="52.9" stroke="#EAAE45" stroke-width="0.83" stroke-linecap="round" opacity="0.52"/><path d="M 55.3 45.1 Q 69.8 47.7 84.2 44.3" stroke="#EAAE45" stroke-width="1.27" stroke-linecap="round" fill="none" opacity="0.45"/><path d="M 77.0 45.4 Q 80.6 44.8 84.2 44.3" stroke="#EAAE45" stroke-width="0.53" stroke-linecap="round" fill="none" opacity="0.32"/><line x1="68.9" y1="39.3" x2="68.7" y2="50.1" stroke="#EAAE45" stroke-width="1.10" stroke-linecap="round" opacity="0.57"/></g></svg></div><nav class="story-nav" aria-label="Artwork navigation"><a class="story-next" href="/art/before-it-works/">Continue &rarr; Before It Works</a><a class="story-return" href="/">Return to the archive</a></nav>
     <a class="write-about" href="/?work=steady-without-me#about">Write to me about this work &rarr;</a>
     <section class="signup" aria-label="Print launch signup"><p class="signup-line">Prints are coming. Get one email when they launch.</p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">One email at launch. No spam, unsubscribe anytime.</p></section>
+    </div>
+    </div>
   </main>
 
   <footer class="site-foot">

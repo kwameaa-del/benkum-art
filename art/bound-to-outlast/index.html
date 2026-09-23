@@ -483,6 +483,30 @@
   /* ---------- Write to me link ---------- */
   .write-about { display: block; margin: 40px auto 0; text-align: center; font: italic 17px "Newsreader", serif; color: var(--ink-soft); text-decoration: underline; text-decoration-color: rgba(234, 174, 69, 0.55); text-underline-offset: 3px; }
   .write-about:hover { color: var(--accent); }
+
+  /* ---------- Two-sided layout on wide screens ---------- */
+  /* Phones keep the single column; from 1000px the artwork sits on the left
+     and the story reads beside it on the right. */
+  @media (min-width: 1000px) {
+    .wrap { max-width: 1400px; }
+    .story-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 64px;
+      align-items: start;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+    .story-layout .story-frame { max-width: none; margin: 0 0 20px; }
+    .story-layout .story-cap { text-align: left; margin: 0; }
+    .story-layout .story-reading-pause { display: none; }
+    .story-layout .story-text { margin: 0; max-width: 60ch; }
+    .story-layout .story-glyph { justify-content: flex-start; }
+    .story-layout .story-nav { margin: 48px 0 0; text-align: left; }
+    .story-layout .write-about { margin: 36px 0 0; text-align: left; }
+    .story-layout .signup { margin: 48px 0 0; text-align: left; }
+    .story-layout .signup-form { justify-content: flex-start; }
+  }
 </style>
 
 <script>
@@ -506,13 +530,19 @@ function markLoaded(e) {
   <main class="story-view">
     <a class="story-back" href="/">&larr; Back to gallery</a>
     <h2 class="story-title">Bound to Outlast</h2>
+    <div class="story-layout">
+    <div class="story-visual">
     <div class="story-frame"><img class="piece-img" data-full="/assets/art/bound-to-outlast.jpg" src="/assets/art/bound-to-outlast.jpg" srcset="/assets/art/bound-to-outlast.webp 1000w, /assets/art/bound-to-outlast.jpg 1536w" sizes="(max-width: 900px) 92vw, 860px" alt="Two weathered hands stitch the woven spine of a thick book with a needle and thread against near-total darkness." width="1536" height="1024" loading="eager"></div>
     <p class="story-cap">Satisfaction wasn't finishing the register. It was knowing whose hands would open it next.</p>
+    </div>
+    <div class="story-body">
     <div class="story-reading-pause" aria-hidden="true"></div>
     <div class="story-text"><p>On September 8, 2026, President Mahama swore in Ghana’s first Independent Fiscal Council — five members, a four-year mandate, tasked under new law with scrutinizing government spending before it goes wrong rather than explaining it after. He called it a moral obligation to present and future generations. It comes three years after Ghana defaulted on its external debt and asked its own bondholders, many of them ordinary savers and pensioners, to accept less than they were owed.</p><p>I kept the oath out of the frame. What’s here instead is the part that happens with no one in the room — a new ledger, hand-bound to outlast whoever’s currently in office. One hand is still stitching, building something for hands not yet in the room. The other has finally earned the right to just rest.</p></div>
     <div class="story-glyph" aria-hidden="true"><svg viewBox="0 0 100 100" width="68" height="68" fill="none" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(-2.8 48.2 46.7)"><path d="M 45.6 44.9 Q 38.3 58.9 36.1 74.5" stroke="#EAAE45" stroke-width="1.95" stroke-linecap="round" fill="none" opacity="0.70"/><path d="M 37.7 66.8 Q 36.9 70.7 36.1 74.5" stroke="#EAAE45" stroke-width="0.82" stroke-linecap="round" fill="none" opacity="0.49"/><line x1="45.2" y1="56.7" x2="38.9" y2="55.1" stroke="#EAAE45" stroke-width="1.47" stroke-linecap="round" opacity="0.45"/><path d="M 47.7 45.0 Q 41.6 29.3 36.1 13.4" stroke="#EAAE45" stroke-width="1.92" stroke-linecap="round" fill="none" opacity="0.72"/><path d="M 38.9 21.3 Q 37.5 17.3 36.1 13.4" stroke="#EAAE45" stroke-width="0.81" stroke-linecap="round" fill="none" opacity="0.50"/><line x1="34.2" y1="28.0" x2="46.8" y2="22.8" stroke="#EAAE45" stroke-width="0.92" stroke-linecap="round" opacity="0.46"/><path d="M 44.6 42.7 Q 32.3 39.7 20.5 35.0" stroke="#EAAE45" stroke-width="1.25" stroke-linecap="round" fill="none" opacity="0.41"/><path d="M 26.5 37.2 Q 23.5 36.1 20.5 35.0" stroke="#EAAE45" stroke-width="0.53" stroke-linecap="round" fill="none" opacity="0.29"/><path d="M 51.3 45.9 Q 64.0 30.7 71.3 12.3" stroke="#EAAE45" stroke-width="1.91" stroke-linecap="round" fill="none" opacity="0.59"/><path d="M 67.1 21.2 Q 69.2 16.7 71.3 12.3" stroke="#EAAE45" stroke-width="0.80" stroke-linecap="round" fill="none" opacity="0.41"/><line x1="61.5" y1="22.1" x2="68.4" y2="23.8" stroke="#EAAE45" stroke-width="1.56" stroke-linecap="round" opacity="0.51"/><path d="M 48.4 50.5 Q 32.4 61.5 14.3 68.3" stroke="#EAAE45" stroke-width="1.15" stroke-linecap="round" fill="none" opacity="0.81"/><path d="M 23.2 64.5 Q 18.7 66.4 14.3 68.3" stroke="#EAAE45" stroke-width="0.48" stroke-linecap="round" fill="none" opacity="0.57"/><line x1="35.8" y1="60.9" x2="31.3" y2="55.7" stroke="#EAAE45" stroke-width="1.80" stroke-linecap="round" opacity="0.59"/></g></svg></div><nav class="story-nav" aria-label="Artwork navigation"><a class="story-next" href="/art/wonder-dread/">Continue &rarr; Wonder & Dread</a><a class="story-return" href="/">Return to the archive</a></nav>
     <a class="write-about" href="/?work=bound-to-outlast#about">Write to me about this work &rarr;</a>
     <section class="signup" aria-label="Print launch signup"><p class="signup-line">Prints are coming. Get one email when they launch.</p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">One email at launch. No spam, unsubscribe anytime.</p></section>
+    </div>
+    </div>
   </main>
 
   <footer class="site-foot">

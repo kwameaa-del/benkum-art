@@ -633,6 +633,46 @@ function markLoaded(e) {
   .inquiry-form button:hover { background: rgba(234, 174, 69, 0.16); border-color: var(--accent); color: var(--ink); }
   .inquiry-form button:disabled { opacity: 0.6; cursor: default; }
   .inquiry-status { min-height: 1.5em; margin: 10px 0 0; text-align: center; font-style: italic; font-size: 16px; color: var(--accent); }
+
+  /* ---------- Two-sided layout on wide screens ---------- */
+  /* Phones keep the single column. From 1000px, story views put the artwork
+     left and the story right; the About page pairs poem | hand + bio, and
+     "now" + contact | write-to-me. */
+  @media (min-width: 1000px) {
+    .story-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 64px;
+      align-items: start;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+    .story-layout .story-frame { max-width: none; margin: 0 0 20px; }
+    .story-layout .story-cap { text-align: left; margin: 0; }
+    .story-layout .story-reading-pause { display: none; }
+    .story-layout .story-text { margin: 0; max-width: 60ch; }
+    .story-layout .story-glyph { justify-content: flex-start; }
+    .story-layout .story-nav { margin: 48px 0 0; text-align: left; }
+
+    .about-view { max-width: 1120px; }
+    .about-row {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 80px;
+      align-items: start;
+    }
+    .about-row-intro .about-poem { padding-top: 12px; }
+    .about-row-intro .about-prose { margin: 0; padding: 0; border: 0; text-align: left; }
+    .about-row-intro .about-hand { margin: 0 0 36px; }
+    .about-row-write { margin-top: 88px; padding-top: 56px; border-top: 1px solid var(--border); }
+    .about-row-write .about-now { margin: 0; text-align: left; }
+    .about-row-write .about-contact { margin-top: 28px; text-align: left; }
+    .about-row-write .inquiry { margin: 0; padding: 0; border: 0; }
+    .about-row-write .inquiry-heading, .about-row-write .inquiry-intro { text-align: left; }
+    .about-view > .signup { max-width: 46ch; }
+  }
 </style>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Archivo:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400..500&display=swap">
@@ -1076,14 +1116,21 @@ function markLoaded(e) {
     return (
       '<div class="about-view">' +
         '<div class="about-glyph-fragment" aria-hidden="true">' + glyphSVG("benkum-about-fragment") + '</div>' +
-        '<div class="about-poem">' + paras + '</div>' +
-        '<div class="about-prose">' +
-          '<figure class="about-hand"><img src="/assets/brand/benkum-hand.webp" alt="The artist’s left hand, resting on a pale table." width="560" height="700" loading="lazy"></figure>' +
-          prose +
+        // Two rows that sit side by side on wide screens and stack on phones.
+        '<div class="about-row about-row-intro">' +
+          '<div class="about-poem">' + paras + '</div>' +
+          '<div class="about-prose">' +
+            '<figure class="about-hand"><img src="/assets/brand/benkum-hand.webp" alt="The artist’s left hand, resting on a pale table." width="560" height="700" loading="lazy"></figure>' +
+            prose +
+          '</div>' +
         '</div>' +
-        '<div class="about-now"><p class="about-now-label">' + esc(ABOUT_NOW.label) + '</p><p>' + esc(ABOUT_NOW.text) + '</p></div>' +
-        inquiryHTML(inquiryWork()) +
-        '<p class="about-contact"><a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + '</a> &middot; <a href="https://www.instagram.com/' + INSTAGRAM_HANDLE + '/" target="_blank" rel="me noopener">Instagram @' + INSTAGRAM_HANDLE + '</a></p>' +
+        '<div class="about-row about-row-write">' +
+          '<div class="about-side">' +
+            '<div class="about-now"><p class="about-now-label">' + esc(ABOUT_NOW.label) + '</p><p>' + esc(ABOUT_NOW.text) + '</p></div>' +
+            '<p class="about-contact"><a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + '</a> &middot; <a href="https://www.instagram.com/' + INSTAGRAM_HANDLE + '/" target="_blank" rel="me noopener">Instagram @' + INSTAGRAM_HANDLE + '</a></p>' +
+          '</div>' +
+          inquiryHTML(inquiryWork()) +
+        '</div>' +
         '<section class="signup" aria-label="Print launch signup"><p class="signup-line">Prints are coming. Get one email when they launch.</p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">One email at launch. No spam, unsubscribe anytime.</p></section>' +
         '<a class="about-back" href="#">&larr; Back to gallery</a>' +
       '</div>'
@@ -1120,14 +1167,17 @@ function markLoaded(e) {
       '<div class="story-view">' +
         '<a class="story-back" href="#">&larr; Back to gallery</a>' +
         '<h2 class="story-title">' + esc(item.title) + '</h2>' +
-        '<div class="' + frameCls + '"><img class="piece-img" data-full="' + item.image + '" src="' + item.image + '" alt="' + esc(item.alt || item.title) + '" width="' + item.width + '" height="' + item.height + '" loading="eager"></div>' +
-        '<p class="story-cap">' + esc(item.caption) + '</p>' +
-        '<div class="story-reading-pause" aria-hidden="true"></div>' +
-        '<div class="story-text">' + storyParagraphs(item.story) + '</div>' +
-        (item.glyph ?
-          '<div class="story-glyph" aria-hidden="true">' + glyphSVG(item.glyph) + '</div>'
-        : '') +
-        storyNavHTML(item) +
+        '<div class="story-layout"><div class="story-visual">' +
+          '<div class="' + frameCls + '"><img class="piece-img" data-full="' + item.image + '" src="' + item.image + '" alt="' + esc(item.alt || item.title) + '" width="' + item.width + '" height="' + item.height + '" loading="eager"></div>' +
+          '<p class="story-cap">' + esc(item.caption) + '</p>' +
+        '</div><div class="story-body">' +
+          '<div class="story-reading-pause" aria-hidden="true"></div>' +
+          '<div class="story-text">' + storyParagraphs(item.story) + '</div>' +
+          (item.glyph ?
+            '<div class="story-glyph" aria-hidden="true">' + glyphSVG(item.glyph) + '</div>'
+          : '') +
+          storyNavHTML(item) +
+        '</div></div>' +
       '</div>'
     );
   }
