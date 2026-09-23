@@ -546,6 +546,32 @@ function markLoaded(e) {
   }
   .site-nav a:hover { color: var(--accent); }
   @media (max-width: 420px) { .site-nav { gap: 16px; } .site-nav a { font-size: 11px; } }
+
+  /* ---------- Print launch signup ---------- */
+  .signup { max-width: 46ch; margin: 64px auto 0; padding-top: 36px; border-top: 1px solid var(--border); text-align: center; }
+  .signup-line { margin: 0 0 16px; font-family: "Newsreader", serif; font-style: italic; font-size: 17px; color: var(--ink); }
+  .signup-form { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .signup-form input {
+    flex: 1 1 200px; max-width: 280px; min-height: 44px; padding: 0 14px;
+    font: 15px "Newsreader", Georgia, serif; color: var(--ink);
+    background: rgba(237, 234, 226, 0.05); border: 1px solid var(--border); border-radius: 999px;
+  }
+  .signup-form input::placeholder { color: var(--ink-faint); font-style: italic; }
+  .signup-form input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .signup-form button {
+    min-height: 44px; padding: 0 22px; cursor: pointer;
+    font: italic 15px "Newsreader", serif; color: var(--accent);
+    background: rgba(234, 174, 69, 0.08); border: 1px solid rgba(234, 174, 69, 0.45); border-radius: 999px;
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  }
+  .signup-form button:hover { background: rgba(234, 174, 69, 0.16); border-color: var(--accent); color: var(--ink); }
+  .signup-notice {
+    margin: 28px auto 0; padding: 14px 20px; max-width: 46ch; text-align: center;
+    font-style: italic; font-size: 16px; color: var(--accent);
+    border: 1px solid rgba(234, 174, 69, 0.45); border-radius: 999px;
+  }
+  .signup-note { margin: 12px 0 0; font-size: 13px; font-style: italic; color: var(--ink-faint); }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 </style>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Archivo:wght@500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400;1,500&display=swap">
@@ -920,6 +946,7 @@ function markLoaded(e) {
         '</div>' +
         '<div class="about-now"><p class="about-now-label">' + esc(ABOUT_NOW.label) + '</p><p>' + esc(ABOUT_NOW.text) + '</p></div>' +
         '<p class="about-contact"><a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + '</a> &middot; <a href="https://www.instagram.com/' + INSTAGRAM_HANDLE + '/" target="_blank" rel="me noopener">Instagram @' + INSTAGRAM_HANDLE + '</a></p>' +
+        '<section class="signup" aria-label="Print launch signup"><p class="signup-line">Prints are coming. Get one email when they launch.</p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">One email at launch. No spam, unsubscribe anytime.</p></section>' +
         '<a class="about-back" href="#">&larr; Back to gallery</a>' +
       '</div>'
     );
@@ -1091,8 +1118,26 @@ function markLoaded(e) {
     window.scrollTo(0, 0);
   }
 
+  // Kit redirects back here after signup (?subscribed=1) and after the
+  // confirmation click (?confirmed=1). Show a quiet note, then tidy the URL.
+  function showSignupNotice() {
+    var params = new URLSearchParams(window.location.search);
+    var text = params.has("confirmed") ? "You’re on the list. You’ll hear from me when prints launch."
+      : params.has("subscribed") ? "Almost there. Check your email to confirm."
+      : null;
+    if (!text) return;
+    var note = document.createElement("p");
+    note.className = "signup-notice";
+    note.setAttribute("role", "status");
+    note.textContent = text;
+    var head = document.querySelector(".site-head");
+    head.parentNode.insertBefore(note, head.nextSibling);
+    history.replaceState(null, "", window.location.pathname + window.location.hash);
+  }
+
   window.addEventListener("hashchange", render);
   render();
+  showSignupNotice();
 })();
 </script>
 

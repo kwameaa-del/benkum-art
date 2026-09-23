@@ -445,6 +445,27 @@
   }
   .site-nav a:hover { color: var(--accent); }
   @media (max-width: 420px) { .site-nav { gap: 16px; } .site-nav a { font-size: 11px; } }
+
+  /* ---------- Print launch signup ---------- */
+  .signup { max-width: 46ch; margin: 64px auto 0; padding-top: 36px; border-top: 1px solid var(--border); text-align: center; }
+  .signup-line { margin: 0 0 16px; font-family: "Newsreader", serif; font-style: italic; font-size: 17px; color: var(--ink); }
+  .signup-form { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .signup-form input {
+    flex: 1 1 200px; max-width: 280px; min-height: 44px; padding: 0 14px;
+    font: 15px "Newsreader", Georgia, serif; color: var(--ink);
+    background: rgba(237, 234, 226, 0.05); border: 1px solid var(--border); border-radius: 999px;
+  }
+  .signup-form input::placeholder { color: var(--ink-faint); font-style: italic; }
+  .signup-form input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .signup-form button {
+    min-height: 44px; padding: 0 22px; cursor: pointer;
+    font: italic 15px "Newsreader", serif; color: var(--accent);
+    background: rgba(234, 174, 69, 0.08); border: 1px solid rgba(234, 174, 69, 0.45); border-radius: 999px;
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  }
+  .signup-form button:hover { background: rgba(234, 174, 69, 0.16); border-color: var(--accent); color: var(--ink); }
+  .signup-note { margin: 12px 0 0; font-size: 13px; font-style: italic; color: var(--ink-faint); }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 </style>
 
 <script>
@@ -473,6 +494,7 @@ function markLoaded(e) {
     <div class="story-reading-pause" aria-hidden="true"></div>
     <div class="story-text"><p>Others have held this frame.</p><p>By September 7, 2026, merchants across Omdurman were hoarding goods rather than selling them, afraid the currency would fall further before they could restock — in a market that has stood in roughly this spot since the 1880s, through a catastrophic military defeat in 1898 and every hardship since. Economic researchers pointed to the collapsing exchange rate driving up the price of sugar, beans, lentils, and onions week to week — civil servants, teachers, health workers, and pensioners were absorbing the gap directly, cutting spending on food, medicine, and school, or going into debt to cover what’s left.</p><p>My hand is yet to let go.</p></div>
     <div class="story-glyph" aria-hidden="true"><svg viewBox="0 0 100 100" width="68" height="68" fill="none" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(-8.2 42.3 47.5)"><path d="M 42.1 45.9 Q 57.1 59.2 58.8 79.2" stroke="#EAAE45" stroke-width="2.62" stroke-linecap="round" fill="none" opacity="0.56"/><path d="M 56.6 69.9 Q 57.7 74.6 58.8 79.2" stroke="#EAAE45" stroke-width="1.10" stroke-linecap="round" fill="none" opacity="0.39"/><line x1="54.2" y1="56.7" x2="43.5" y2="62.1" stroke="#EAAE45" stroke-width="1.52" stroke-linecap="round" opacity="0.72"/><path d="M 43.8 45.0 Q 35.8 37.7 25.9 42.3" stroke="#EAAE45" stroke-width="2.92" stroke-linecap="round" fill="none" opacity="0.83"/><path d="M 30.7 41.2 Q 28.3 41.7 25.9 42.3" stroke="#EAAE45" stroke-width="1.23" stroke-linecap="round" fill="none" opacity="0.58"/><line x1="30.7" y1="49.1" x2="36.0" y2="37.7" stroke="#EAAE45" stroke-width="1.00" stroke-linecap="round" opacity="0.52"/><path d="M 45.9 48.6 Q 56.6 42.7 56.6 30.5" stroke="#EAAE45" stroke-width="2.15" stroke-linecap="round" fill="none" opacity="0.80"/><path d="M 55.5 36.0 Q 56.0 33.2 56.6 30.5" stroke="#EAAE45" stroke-width="0.90" stroke-linecap="round" fill="none" opacity="0.56"/><path d="M 44.0 47.5 Q 25.7 56.8 5.2 54.8" stroke="#EAAE45" stroke-width="2.64" stroke-linecap="round" fill="none" opacity="0.43"/><path d="M 15.2 54.7 Q 10.2 54.8 5.2 54.8" stroke="#EAAE45" stroke-width="1.11" stroke-linecap="round" fill="none" opacity="0.30"/><path d="M 44.8 45.9 Q 33.9 62.9 29.7 82.7" stroke="#EAAE45" stroke-width="1.43" stroke-linecap="round" fill="none" opacity="0.42"/><path d="M 32.4 73.0 Q 31.1 77.9 29.7 82.7" stroke="#EAAE45" stroke-width="0.60" stroke-linecap="round" fill="none" opacity="0.29"/><line x1="41.1" y1="67.4" x2="33.2" y2="61.5" stroke="#EAAE45" stroke-width="1.55" stroke-linecap="round" opacity="0.39"/><path d="M 46.7 51.5 Q 56.2 46.1 60.9 36.3" stroke="#EAAE45" stroke-width="1.15" stroke-linecap="round" fill="none" opacity="0.48"/><path d="M 58.1 40.7 Q 59.5 38.5 60.9 36.3" stroke="#EAAE45" stroke-width="0.48" stroke-linecap="round" fill="none" opacity="0.34"/></g></svg></div><nav class="story-nav" aria-label="Artwork navigation"><a class="story-next" href="/art/bound-to-outlast/">Continue &rarr; Bound to Outlast</a><a class="story-return" href="/">Return to the archive</a></nav>
+    <section class="signup" aria-label="Print launch signup"><p class="signup-line">Prints are coming. Get one email when they launch.</p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">One email at launch. No spam, unsubscribe anytime.</p></section>
   </main>
 
   <footer class="site-foot">

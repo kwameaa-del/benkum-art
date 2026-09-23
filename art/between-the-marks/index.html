@@ -445,6 +445,27 @@
   }
   .site-nav a:hover { color: var(--accent); }
   @media (max-width: 420px) { .site-nav { gap: 16px; } .site-nav a { font-size: 11px; } }
+
+  /* ---------- Print launch signup ---------- */
+  .signup { max-width: 46ch; margin: 64px auto 0; padding-top: 36px; border-top: 1px solid var(--border); text-align: center; }
+  .signup-line { margin: 0 0 16px; font-family: "Newsreader", serif; font-style: italic; font-size: 17px; color: var(--ink); }
+  .signup-form { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .signup-form input {
+    flex: 1 1 200px; max-width: 280px; min-height: 44px; padding: 0 14px;
+    font: 15px "Newsreader", Georgia, serif; color: var(--ink);
+    background: rgba(237, 234, 226, 0.05); border: 1px solid var(--border); border-radius: 999px;
+  }
+  .signup-form input::placeholder { color: var(--ink-faint); font-style: italic; }
+  .signup-form input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .signup-form button {
+    min-height: 44px; padding: 0 22px; cursor: pointer;
+    font: italic 15px "Newsreader", serif; color: var(--accent);
+    background: rgba(234, 174, 69, 0.08); border: 1px solid rgba(234, 174, 69, 0.45); border-radius: 999px;
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  }
+  .signup-form button:hover { background: rgba(234, 174, 69, 0.16); border-color: var(--accent); color: var(--ink); }
+  .signup-note { margin: 12px 0 0; font-size: 13px; font-style: italic; color: var(--ink-faint); }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 </style>
 
 <script>
@@ -473,6 +494,7 @@ function markLoaded(e) {
     <div class="story-reading-pause" aria-hidden="true"></div>
     <div class="story-text"><p>My hand hasn’t left the post. Not because I don’t trust what I’m seeing — because the post doesn’t agree with itself.</p><p>On September 21, 2026, Egypt’s irrigation minister told foreign press in Cairo that the Grand Ethiopian Renaissance Dam is illegitimate, and that Egypt retains every measure available under international law to protect its interests. The next day, Ethiopia’s Ministry of Water and Energy called that a crude colonial mentality and urged Cairo to retire its old ambitions. Two governments, the same river, and neither one reads it the way the other does.</p><p>Down here the disagreement is smaller, but it’s mine: an old gauge repainted by hands I never met, and a waterline that won’t sit cleanly on any of their marks. My hand is still on the post. It hasn’t picked a mark yet either.</p></div>
     <div class="story-glyph" aria-hidden="true"><svg viewBox="0 0 100 100" width="68" height="68" fill="none" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(-13.8 43.2 43.6)"><path d="M 47.3 44.9 Q 29.8 40.1 22.4 23.6" stroke="#EAAE45" stroke-width="2.40" stroke-linecap="round" fill="none" opacity="0.63"/><path d="M 27.1 30.7 Q 24.7 27.1 22.4 23.6" stroke="#EAAE45" stroke-width="1.01" stroke-linecap="round" fill="none" opacity="0.44"/><path d="M 38.8 44.1 Q 50.0 55.6 65.9 57.0" stroke="#EAAE45" stroke-width="3.25" stroke-linecap="round" fill="none" opacity="0.61"/><path d="M 58.4 55.3 Q 62.2 56.2 65.9 57.0" stroke="#EAAE45" stroke-width="1.36" stroke-linecap="round" fill="none" opacity="0.43"/><line x1="60.3" y1="49.1" x2="54.7" y2="57.0" stroke="#EAAE45" stroke-width="1.50" stroke-linecap="round" opacity="0.46"/><path d="M 47.6 46.4 Q 60.7 54.4 75.2 59.7" stroke="#EAAE45" stroke-width="2.33" stroke-linecap="round" fill="none" opacity="0.73"/><path d="M 68.1 56.8 Q 71.6 58.2 75.2 59.7" stroke="#EAAE45" stroke-width="0.98" stroke-linecap="round" fill="none" opacity="0.51"/><path d="M 42.1 40.2 Q 51.1 41.1 60.0 40.1" stroke="#EAAE45" stroke-width="3.18" stroke-linecap="round" fill="none" opacity="0.75"/><path d="M 55.5 40.4 Q 57.8 40.2 60.0 40.1" stroke="#EAAE45" stroke-width="1.34" stroke-linecap="round" fill="none" opacity="0.52"/><path d="M 48.2 41.7 Q 51.5 54.5 39.0 58.9" stroke="#EAAE45" stroke-width="2.33" stroke-linecap="round" fill="none" opacity="0.50"/><path d="M 43.7 55.8 Q 41.3 57.4 39.0 58.9" stroke="#EAAE45" stroke-width="0.98" stroke-linecap="round" fill="none" opacity="0.35"/></g></svg></div><nav class="story-nav" aria-label="Artwork navigation"><a class="story-next" href="/art/already-landed/">Continue &rarr; Already Landed</a><a class="story-return" href="/">Return to the archive</a></nav>
+    <section class="signup" aria-label="Print launch signup"><p class="signup-line">Prints are coming. Get one email when they launch.</p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">One email at launch. No spam, unsubscribe anytime.</p></section>
   </main>
 
   <footer class="site-foot">
