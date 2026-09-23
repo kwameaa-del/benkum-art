@@ -524,6 +524,28 @@
   /* One form style site-wide */
   .signup-form input { border-radius: 10px; font-size: 16px; }
   .signup-form button { min-height: 44px; padding: 0 28px; font: italic 16px "Newsreader", serif; }
+
+  /* ---------- Story links row + big titles ---------- */
+  /* Return | Write | Continue in one mirrored line under the artwork and
+     story; stacked (Continue first) on phones. */
+  .story-links {
+    display: flex; flex-direction: column; align-items: center; gap: 18px;
+    max-width: 1320px; margin: 64px auto 0; padding-top: 32px;
+    border-top: 1px solid rgba(234, 174, 69, 0.35);
+    font: italic 17px "Newsreader", serif;
+  }
+  .story-links a { color: var(--ink-soft); text-decoration: none; }
+  .story-links a:hover { color: var(--accent); }
+  .story-links .story-next { order: 1; color: var(--ink); font-size: 19px; margin: 0; }
+  .story-links .write-about { order: 2; margin: 0; text-decoration: underline; text-decoration-color: rgba(234, 174, 69, 0.55); text-underline-offset: 3px; }
+  .story-links .story-return { order: 3; font-size: 16px; }
+  .story-title { font-size: clamp(40px, 5vw, 68px); line-height: 1.05; letter-spacing: -0.01em; margin-bottom: 36px; }
+  @media (min-width: 760px) {
+    .story-links { display: grid; grid-template-columns: 1fr auto 1fr; align-items: baseline; gap: 24px; }
+    .story-links .story-return { order: 0; justify-self: start; }
+    .story-links .write-about { order: 0; justify-self: center; }
+    .story-links .story-next, .story-links .story-next-empty { order: 0; justify-self: end; }
+  }
 </style>
 
 <script>
@@ -555,11 +577,11 @@ function markLoaded(e) {
     <div class="story-body">
     <div class="story-reading-pause" aria-hidden="true"></div>
     <div class="story-text"><p>I’ve never thrown this bolt before. The gate between our yard and the neighbors’ has stood open as long as I can remember — meals, tools, and children passing straight through the gap instead of around the block. Tonight I drag it shut, and it leaves a paler stripe of wood behind it, sun and rain never once having reached the spot it’s always rested on, open.</p><p>On September 23, 2026, in The Hague, the ICC’s Trial Chamber VI delivers its judgment in the case of Mahamat Said Abdel Kani, who became director of Bangui’s OCRB in April 2013 — a bureau meant on paper to fight organized crime, that prosecutors say was instead used to detain and question ordinary people suspected of loyalty to whoever had just lost power. I won’t know which way the judgment falls until after I’ve written this. I do know the bureau ran a few streets from here thirteen years ago, and that hearing its name again this week put a feeling back in the neighborhood most of us had stopped naming.</p><p>Nobody has asked me why the gate is shut. I haven’t offered a reason either. It stays bolted past the hour I’d usually open it back up.</p></div>
-    <div class="story-glyph" aria-hidden="true"><svg viewBox="0 0 100 100" width="68" height="68" fill="none" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(-14.2 56.2 42.5)"><path d="M 57.9 43.9 Q 71.8 42.3 84.1 48.9" stroke="#EAAE45" stroke-width="2.53" stroke-linecap="round" fill="none" opacity="0.57"/><path d="M 77.8 46.4 Q 81.0 47.7 84.1 48.9" stroke="#EAAE45" stroke-width="1.06" stroke-linecap="round" fill="none" opacity="0.40"/><path d="M 59.9 46.2 Q 51.9 52.7 48.7 62.5" stroke="#EAAE45" stroke-width="1.24" stroke-linecap="round" fill="none" opacity="0.63"/><path d="M 50.8 58.0 Q 49.8 60.2 48.7 62.5" stroke="#EAAE45" stroke-width="0.52" stroke-linecap="round" fill="none" opacity="0.44"/><path d="M 53.7 40.7 Q 54.2 20.7 64.0 3.3" stroke="#EAAE45" stroke-width="2.31" stroke-linecap="round" fill="none" opacity="0.57"/><path d="M 60.0 12.3 Q 62.0 7.8 64.0 3.3" stroke="#EAAE45" stroke-width="0.97" stroke-linecap="round" fill="none" opacity="0.40"/><line x1="56.9" y1="13.5" x2="65.4" y2="13.7" stroke="#EAAE45" stroke-width="1.36" stroke-linecap="round" opacity="0.39"/><path d="M 53.7 37.7 Q 68.8 42.2 79.9 53.4" stroke="#EAAE45" stroke-width="2.24" stroke-linecap="round" fill="none" opacity="0.61"/><path d="M 73.9 48.4 Q 76.9 50.9 79.9 53.4" stroke="#EAAE45" stroke-width="0.94" stroke-linecap="round" fill="none" opacity="0.43"/></g></svg></div><nav class="story-nav" aria-label="Artwork navigation"><a class="story-next" href="/art/yet-to-let-go/">Continue &rarr; Yet to Let Go</a><a class="story-return" href="/">Return to the archive</a></nav>
-    <a class="write-about" href="/?work=always-left-open#write">Write to me about this work &rarr;</a>
+    <div class="story-glyph" aria-hidden="true"><svg viewBox="0 0 100 100" width="68" height="68" fill="none" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(-14.2 56.2 42.5)"><path d="M 57.9 43.9 Q 71.8 42.3 84.1 48.9" stroke="#EAAE45" stroke-width="2.53" stroke-linecap="round" fill="none" opacity="0.57"/><path d="M 77.8 46.4 Q 81.0 47.7 84.1 48.9" stroke="#EAAE45" stroke-width="1.06" stroke-linecap="round" fill="none" opacity="0.40"/><path d="M 59.9 46.2 Q 51.9 52.7 48.7 62.5" stroke="#EAAE45" stroke-width="1.24" stroke-linecap="round" fill="none" opacity="0.63"/><path d="M 50.8 58.0 Q 49.8 60.2 48.7 62.5" stroke="#EAAE45" stroke-width="0.52" stroke-linecap="round" fill="none" opacity="0.44"/><path d="M 53.7 40.7 Q 54.2 20.7 64.0 3.3" stroke="#EAAE45" stroke-width="2.31" stroke-linecap="round" fill="none" opacity="0.57"/><path d="M 60.0 12.3 Q 62.0 7.8 64.0 3.3" stroke="#EAAE45" stroke-width="0.97" stroke-linecap="round" fill="none" opacity="0.40"/><line x1="56.9" y1="13.5" x2="65.4" y2="13.7" stroke="#EAAE45" stroke-width="1.36" stroke-linecap="round" opacity="0.39"/><path d="M 53.7 37.7 Q 68.8 42.2 79.9 53.4" stroke="#EAAE45" stroke-width="2.24" stroke-linecap="round" fill="none" opacity="0.61"/><path d="M 73.9 48.4 Q 76.9 50.9 79.9 53.4" stroke="#EAAE45" stroke-width="0.94" stroke-linecap="round" fill="none" opacity="0.43"/></g></svg></div>
     <section class="signup" aria-label="Print launch signup"><p class="signup-line">Prints are coming. Get one email when they launch.</p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">One email at launch. No spam, unsubscribe anytime.</p></section>
     </div>
     </div>
+    <nav class="story-links" aria-label="Artwork navigation"><a class="story-return" href="/">&larr; Return to the archive</a><a class="write-about" href="/?work=always-left-open#write">Write to me about this work</a><a class="story-next" href="/art/yet-to-let-go/">Continue &rarr; Yet to Let Go</a></nav>
   </main>
 
   <footer class="site-foot">
