@@ -293,6 +293,14 @@ function markLoaded(e) {
     line-height: 1.8;
     color: var(--ink);
   }
+  .about-hand {
+    width: min(260px, 72%);
+    margin: 0 auto 44px;
+    padding: 14px;
+    background: #FAFAF6;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+  }
+  .about-hand img { display: block; width: 100%; height: auto; }
   .about-prose p { margin: 0 0 1.3em; }
   .about-prose p:last-child { margin-bottom: 0; }
   .about-prose em { color: var(--accent); }
@@ -884,7 +892,10 @@ function markLoaded(e) {
       '<div class="about-view">' +
         '<div class="about-glyph-fragment" aria-hidden="true">' + glyphSVG("benkum-about-fragment") + '</div>' +
         '<div class="about-poem">' + paras + '</div>' +
-        '<div class="about-prose">' + prose + '</div>' +
+        '<div class="about-prose">' +
+          '<figure class="about-hand"><img src="/assets/brand/benkum-hand.webp" alt="The artist’s left hand, resting on a pale table." width="560" height="700" loading="lazy"></figure>' +
+          prose +
+        '</div>' +
         '<div class="about-now"><p class="about-now-label">' + esc(ABOUT_NOW.label) + '</p><p>' + esc(ABOUT_NOW.text) + '</p></div>' +
         '<p class="about-contact"><a href="mailto:' + CONTACT_EMAIL + '">' + CONTACT_EMAIL + '</a> &middot; <a href="https://www.instagram.com/' + INSTAGRAM_HANDLE + '/" target="_blank" rel="me noopener">Instagram @' + INSTAGRAM_HANDLE + '</a></p>' +
         '<a class="about-back" href="#">&larr; Back to gallery</a>' +
