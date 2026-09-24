@@ -2,34 +2,48 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="/favicon.ico?v=2" sizes="48x48">
 <link rel="icon" href="/assets/brand/favicon-32.png?v=2" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
-<title>Nothing Left to Tie — a piece on Zambia’s maize harvest | Benkum Art</title>
-<meta name="description" content="I’ve checked the same knot three times now. A piece and story on Zambian farmers holding back grain as drought threatens a record harvest.">
-<link rel="canonical" href="https://benkum.art/art/nothing-left-to-tie/">
-<meta property="og:title" content="Nothing Left to Tie — Benkum Art">
-<meta property="og:description" content="I’ve checked the same knot three times now.">
-<meta property="og:image" content="https://benkum.art/assets/art/nothing-left-to-tie.jpg">
-<meta property="og:url" content="https://benkum.art/art/nothing-left-to-tie/">
-<meta property="og:type" content="website">
+<title>About — Kwame Asiedu | Benkum Art</title>
+<meta name="description" content="Kwame Asiedu is a left-handed artist born in Accra, Ghana. Benkum Art is rooted in Africa: real moments, the small human gesture underneath the headline.">
+<link rel="canonical" href="https://benkum.art/about/">
+<meta property="og:title" content="About — Benkum Art">
+<meta property="og:description" content="A visual archive of artwork, stories, and interpretation.">
+<meta property="og:image" content="https://benkum.art/assets/social/benkum-art-share.jpg">
+<meta property="og:url" content="https://benkum.art/about/">
+<meta property="og:type" content="profile">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "VisualArtwork",
-  "name": "Nothing Left to Tie",
-  "url": "https://benkum.art/art/nothing-left-to-tie/",
-  "image": "https://benkum.art/assets/art/nothing-left-to-tie.jpg",
-  "description": "I’ve checked the same knot three times now. A piece and story on Zambian farmers holding back grain as drought threatens a record harvest.",
-  "artist": {
+  "@type": "AboutPage",
+  "url": "https://benkum.art/about/",
+  "name": "About — Benkum Art",
+  "mainEntity": {
     "@type": "Person",
-    "name": "Kwame Asiedu"
+    "name": "Kwame Asiedu",
+    "url": "https://benkum.art/about/",
+    "birthPlace": "Accra, Ghana",
+    "sameAs": [
+      "https://www.instagram.com/benkum.art/"
+    ]
   }
 }
 </script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Archivo:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400..500&display=swap">
+<script>
+// Fade artwork in once decoded, so frames never flash a half-drawn image.
+document.documentElement.classList.add("js-fade");
+document.addEventListener("load", markLoaded, true);
+document.addEventListener("error", markLoaded, true);
+function markLoaded(e) {
+  var t = e.target;
+  if (t && t.classList && t.classList.contains("piece-img")) t.classList.add("is-loaded");
+}
+</script>
+</head>
+<body>
 <style>
   :root {
     --bg: #141414;
@@ -53,14 +67,54 @@
   a { color: inherit; }
   button:focus-visible, a:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
 
-  .wrap { max-width: 980px; margin: 0 auto; padding: 0 32px; }
+  .wrap { width: min(90vw, 1650px); margin: 0 auto; padding: 0 32px; }
 
   /* ---------- Gallery ---------- */
   .stack {
+    column-count: 1;
+    column-gap: 56px;
+    padding: 72px 0 0;
+  }
+  @media (min-width: 780px) {
+    .stack { column-count: 2; }
+  }
+  .stack .piece {
+    break-inside: avoid;
+    margin: 0 0 56px;
+  }
+  .gallery-more {
     display: flex;
-    flex-direction: column;
-    gap: 96px;
-    padding: 72px 0 48px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 28px;
+    padding: 8px 0 56px;
+  }
+  .gallery-newer {
+    font: italic 16px "Newsreader", serif;
+    color: var(--ink-soft);
+    background: none;
+    border: 0;
+    padding: 10px 4px;
+    cursor: pointer;
+  }
+  .gallery-newer:hover { color: var(--accent); }
+  .load-more-btn {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--accent);
+    background: rgba(234, 174, 69, 0.08);
+    border: 1px solid rgba(234, 174, 69, 0.45);
+    border-radius: 999px;
+    cursor: pointer;
+    padding: 10px 28px;
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  }
+  .load-more-btn:hover {
+    background: rgba(234, 174, 69, 0.16);
+    border-color: var(--accent);
+    color: var(--ink);
   }
   .piece-title {
     margin: 0 2px 18px;
@@ -70,8 +124,10 @@
     font-size: 26px;
     letter-spacing: 0.005em;
     color: var(--ink);
+    text-align: center;
   }
   .piece-frame {
+    position: relative;
     background: #FAFAF6;
     padding: clamp(12px, 2.4vw, 26px);
     box-shadow: 0 18px 40px rgba(0,0,0,0.45);
@@ -85,26 +141,25 @@
     cursor: zoom-in;
   }
   .piece-cap {
-    margin: 18px 2px 0;
+    display: block;
+    margin: 18px auto 0;
     font-size: 15px;
     font-style: italic;
-    color: var(--ink-soft);
+    color: var(--ink);
     max-width: 62ch;
-  }
-  .piece-story-link {
-    display: inline-block;
-    margin: 12px 2px 0;
-    font-family: "Newsreader", serif;
-    font-style: italic;
-    font-size: 13px;
-    color: var(--accent);
-    text-decoration: none;
-    border-bottom: 1px solid rgba(234, 174, 69, 0.35);
+    text-align: center;
     cursor: pointer;
-    background: none;
-    padding: 0;
+    text-decoration: underline;
+    text-decoration-color: rgba(234, 174, 69, 0.55);
+    text-underline-offset: 3px;
+    transition: color 0.35s ease, text-decoration-color 0.35s ease;
   }
-  .piece-story-link:hover { border-bottom-color: var(--accent); }
+  .piece-cap:hover { color: var(--accent); text-decoration-color: rgba(234, 174, 69, 0.9); }
+  .piece-cap.is-active {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
+  }
 
   /* ---------- Story view ---------- */
   .story-view {
@@ -150,6 +205,7 @@
     display: block;
     cursor: zoom-in;
   }
+  .piece-frame.marked::before,
   .story-frame.marked::before {
     content: "";
     position: absolute;
@@ -236,6 +292,60 @@
   }
   .about-poem p { margin: 0 0 1.6em; }
   .about-poem p:last-child { margin-bottom: 0; color: var(--accent); }
+  .about-prose {
+    position: relative;
+    z-index: 1;
+    margin: 64px auto 0;
+    padding-top: 48px;
+    border-top: 1px solid var(--border);
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--ink);
+  }
+  .about-hand {
+    width: min(260px, 72%);
+    margin: 56px auto 0;
+    padding: 14px;
+    background: #FAFAF6;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+  }
+  .about-hand img { display: block; width: 100%; height: auto; }
+  .about-prose p { margin: 0 0 1.3em; }
+  .about-prose p:last-child { margin-bottom: 0; }
+  .about-prose em { color: var(--accent); }
+  .about-now {
+    position: relative;
+    z-index: 1;
+    margin: 48px auto 0;
+    padding: 22px 24px;
+    border: 1px solid var(--border);
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+  .about-now p { margin: 0; }
+  .about-now .about-now-label {
+    margin-bottom: 8px;
+    font-family: "Archivo", sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .about-contact {
+    position: relative;
+    z-index: 1;
+    margin: 40px 0 0;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+  .about-contact a {
+    text-decoration: none;
+    border-bottom: 1px solid rgba(234, 174, 69, 0.55);
+  }
+  .about-contact a:hover { color: var(--accent); }
   .about-glyph-fragment {
     position: absolute;
     z-index: 0;
@@ -464,6 +574,11 @@
     transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
   }
   .signup-form button:hover { background: rgba(234, 174, 69, 0.16); border-color: var(--accent); color: var(--ink); }
+  .signup-notice {
+    margin: 28px auto 0; padding: 14px 20px; max-width: 46ch; text-align: center;
+    font-style: italic; font-size: 16px; color: var(--accent);
+    border: 1px solid rgba(234, 174, 69, 0.45); border-radius: 999px;
+  }
   .signup-note { margin: 12px 0 0; font-size: 13px; font-style: italic; color: var(--ink-faint); }
   .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
@@ -493,15 +608,40 @@
     .site-nav a { font-size: 12px; }
   }
 
-  /* ---------- Write to me link ---------- */
-  .write-about { display: block; margin: 40px auto 0; text-align: center; font: italic 17px "Newsreader", serif; color: var(--ink-soft); text-decoration: underline; text-decoration-color: rgba(234, 174, 69, 0.55); text-underline-offset: 3px; }
-  .write-about:hover { color: var(--accent); }
+  /* ---------- Write to me (inquiry form) ---------- */
+  .inquiry { position: relative; z-index: 1; margin: 56px auto 0; padding-top: 44px; border-top: 1px solid var(--border); text-align: left; }
+  .inquiry-heading { margin: 0 0 10px; text-align: center; font: italic 500 26px "Newsreader", serif; color: var(--ink); }
+  .inquiry-intro { margin: 0 0 28px; text-align: center; font-size: 17px; font-style: italic; line-height: 1.6; color: var(--ink-soft); }
+  .inquiry-lead { text-align: center; }
+  .inquiry-lead .about-contact { margin: 0 0 28px; }
+  .inquiry-form { display: grid; gap: 16px; }
+  .inquiry-form .field { display: grid; gap: 6px; }
+  .inquiry-pair { display: grid; gap: 16px; }
+  .inquiry-form label { font: 600 11px "Archivo", sans-serif; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
+  .inquiry-optional { font-weight: 500; letter-spacing: 0.04em; text-transform: none; color: var(--ink-faint); }
+  .inquiry-form input:not([type=hidden]):not([type=checkbox]), .inquiry-form select, .inquiry-form textarea {
+    width: 100%; min-height: 44px; padding: 10px 14px;
+    font: 17px "Newsreader", Georgia, serif; color: var(--ink);
+    background: rgba(237, 234, 226, 0.05); border: 1px solid var(--border); border-radius: 10px;
+  }
+  .inquiry-form select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--ink-soft) 50%), linear-gradient(135deg, var(--ink-soft) 50%, transparent 50%); background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%; background-size: 6px 6px; background-repeat: no-repeat; padding-right: 40px; }
+  .inquiry-form select option { background: #1F1D1A; color: var(--ink); }
+  .inquiry-form textarea { resize: vertical; line-height: 1.6; }
+  .inquiry-form input:focus-visible, .inquiry-form select:focus-visible, .inquiry-form textarea:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .inquiry-form button {
+    justify-self: center; margin-top: 8px; min-height: 44px; padding: 0 34px; cursor: pointer;
+    font: italic 16px "Newsreader", serif; color: var(--accent);
+    background: rgba(234, 174, 69, 0.08); border: 1px solid rgba(234, 174, 69, 0.45); border-radius: 999px;
+  }
+  .inquiry-form button:hover { background: rgba(234, 174, 69, 0.16); border-color: var(--accent); color: var(--ink); }
+  .inquiry-form button:disabled { opacity: 0.6; cursor: default; }
+  .inquiry-status { min-height: 1.5em; margin: 10px 0 0; text-align: center; font-style: italic; font-size: 16px; color: var(--accent); }
 
   /* ---------- Two-sided layout on wide screens ---------- */
-  /* Phones keep the single column; from 1000px the artwork sits on the left
-     and the story reads beside it on the right. */
+  /* Phones keep the single column. From 1000px, story views put the artwork
+     left and the story right; the About page pairs poem | hand + bio, and
+     "now" + contact | write-to-me. */
   @media (min-width: 1000px) {
-    .wrap { max-width: 1400px; }
     .story-layout {
       display: grid;
       grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
@@ -516,18 +656,61 @@
     .story-layout .story-text { margin: 0; max-width: 60ch; }
     .story-layout .story-glyph { justify-content: flex-start; }
     .story-layout .story-nav { margin: 48px 0 0; text-align: left; }
-    .story-layout .write-about { margin: 36px 0 0; text-align: left; }
-    .story-layout .signup { margin: 48px 0 0; text-align: left; }
-    .story-layout .signup-form { justify-content: flex-start; }
+
+    /* About: balanced rows, each pair vertically centred on the same axis. */
+    .about-view { max-width: 1080px; }
+    .about-row {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 88px;
+      align-items: center;
+    }
+    .about-row-intro .about-hand { grid-column: 1; grid-row: 1; width: min(340px, 100%); margin: 0 auto; }
+    .about-row-intro .about-poem { grid-column: 2; grid-row: 1; }
+    .about-view > .about-prose { max-width: 60ch; margin: 96px auto 0; }
+    .about-view > .about-now { max-width: 60ch; }
+    .about-row-write { margin-top: 96px; padding-top: 72px; }
+    .about-row-write .inquiry-lead { text-align: center; }
+    .about-row-write .inquiry-intro { margin-bottom: 20px; }
+    .inquiry-pair { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .about-view > .signup { max-width: 46ch; }
   }
 
-  /* One form style site-wide */
+  /* ---------- Write page + gold hairlines + one form style ---------- */
+  .write-view { position: relative; max-width: 46ch; margin: 0 auto; padding: 96px 0 80px; text-align: center; }
+  .write-view .inquiry { margin: 0; padding: 0; border: 0; }
+  .write-view .inquiry-lead .signup { max-width: none; margin: 40px 0 0; padding-top: 32px; }
+  .write-view .about-back { margin-top: 72px; }
+  @media (max-width: 999px) {
+    /* Stacked: give the form its own space below the signup. */
+    .write-view .inquiry-lead { margin-bottom: 44px; padding-bottom: 40px; border-bottom: 1px solid var(--border); }
+  }
+  /* Phones: a short gold hairline between the poem and the hand. */
+  .about-hand { position: relative; }
+  .about-hand::before {
+    content: ""; position: absolute; left: 50%; top: -30px; width: 56px; height: 1px;
+    transform: translateX(-50%); background: var(--accent); opacity: 0.6;
+  }
+  /* Both forms share one input shape and one button size. */
   .signup-form input { border-radius: 10px; font-size: 16px; }
-  .signup-form button { min-height: 44px; padding: 0 28px; font: italic 16px "Newsreader", serif; }
+  .signup-form button, .inquiry-form button { min-height: 44px; padding: 0 28px; font: italic 16px "Newsreader", serif; }
+  @media (min-width: 1000px) {
+    /* A thin gold line down the middle of each two-sided row. */
+    .about-row::before {
+      content: ""; position: absolute; left: 50%; top: 4%; bottom: 4%; width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--accent) 18%, var(--accent) 82%, transparent);
+      opacity: 0.55; pointer-events: none;
+    }
+    .about-row-intro .about-hand::before { display: none; }
+    .write-view { max-width: 1080px; }
+    .write-view .about-row-write { margin: 0; padding: 0; border: 0; align-items: start; }
+    /* Heading's cap line sits level with the form's first labels. */
+    .write-view .inquiry-heading { margin-top: -0.2em; }
+  }
 
-  /* ---------- Story links row + big titles ---------- */
-  /* Return | Write | Continue in one mirrored line under the artwork and
-     story; stacked (Continue first) on phones. */
+  /* ---------- Story links row, big type, compact About on phones ---------- */
   .story-links {
     display: flex; flex-direction: column; align-items: center; gap: 18px;
     max-width: 1320px; margin: 64px auto 0; padding-top: 32px;
@@ -539,115 +722,49 @@
   .story-links .story-next { order: 1; color: var(--ink); font-size: 19px; margin: 0; }
   .story-links .write-about { order: 2; margin: 0; text-decoration: underline; text-decoration-color: rgba(234, 174, 69, 0.55); text-underline-offset: 3px; }
   .story-links .story-return { order: 3; font-size: 16px; }
+  /* Titles carry the page: large italic serif against the quiet body text. */
   .story-title { font-size: clamp(40px, 5vw, 68px); line-height: 1.05; letter-spacing: -0.01em; margin-bottom: 36px; }
+  .piece-title { font-size: clamp(28px, 2.4vw, 34px); line-height: 1.15; }
+  .inquiry-heading { font-size: 30px; line-height: 1.1; margin-bottom: 12px; }
   @media (min-width: 760px) {
     .story-links { display: grid; grid-template-columns: 1fr auto 1fr; align-items: baseline; gap: 24px; }
     .story-links .story-return { order: 0; justify-self: start; }
     .story-links .write-about { order: 0; justify-self: center; }
     .story-links .story-next, .story-links .story-next-empty { order: 0; justify-self: end; }
   }
+  @media (max-width: 600px) {
+    .about-view { padding: 64px 0 56px; }
+    .about-poem { line-height: 1.7; }
+    .about-poem p { margin-bottom: 1.1em; }
+    .about-hand { width: min(200px, 60%); margin-top: 44px; }
+    .about-hand::before { top: -22px; }
+    .about-view > .about-prose { margin-top: 44px; padding-top: 36px; }
+    .about-view > .about-now { margin-top: 36px; }
+    .about-back { margin-top: 44px; }
+  }
 </style>
 
-<script>
-// Fade artwork in once decoded, so frames never flash a half-drawn image.
-document.documentElement.classList.add("js-fade");
-document.addEventListener("load", markLoaded, true);
-document.addEventListener("error", markLoaded, true);
-function markLoaded(e) {
-  var t = e.target;
-  if (t && t.classList && t.classList.contains("piece-img")) t.classList.add("is-loaded");
-}
-</script>
-</head>
-<body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Archivo:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400..500&display=swap">
+
 <div class="wrap">
   <header class="site-head">
     <a class="site-head-link" href="/"><h1 class="site-head-title">Benkum Art</h1></a>
     <nav class="site-nav" aria-label="Site"><a href="/about/">about</a><a href="/#write">write</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
   </header>
-
-  <main class="story-view">
-    <a class="story-back" href="/">&larr; Back to gallery</a>
-    <h2 class="story-title">Nothing Left to Tie</h2>
-    <div class="story-layout">
-    <div class="story-visual">
-    <div class="story-frame marked"><img class="piece-img" data-full="/assets/art/nothing-left-to-tie.jpg" src="/assets/art/nothing-left-to-tie.jpg" srcset="/assets/art/nothing-left-to-tie.webp 1000w, /assets/art/nothing-left-to-tie.jpg 1536w" sizes="(max-width: 900px) 92vw, 860px" alt="A figure kneels beside a sealed burlap sack of grain, testing its tied knot, as more stacked sacks fade into shadow behind." width="1024" height="1536" loading="eager"></div>
-    <p class="story-cap">I’ve checked the same knot three times now.</p>
-    </div>
-    <div class="story-body">
-    <div class="story-reading-pause" aria-hidden="true"></div>
-    <div class="story-text"><p>The knot’s already tight. I check it again anyway.</p><p>On September 1, 2026, Mathews Mulenga, head of Restoration for Community Justice, warned that Zambia’s record 5-million-metric-ton maize harvest this year could be undone within months — “This is not a Kanchibiya problem or a Muchinga problem,” he said. “This is a national emergency in the making.” Forecasters expect a punishing El Niño to peak by December, pushing the October 2026–March 2027 rainy season well below normal, echoing a 2023–24 drought that erased a similarly strong harvest almost as fast as it arrived. More than two million smallholder farmers are being urged to hold back part of this year’s grain instead of selling it, and to plant hardier, faster crops before the rains — if they come at all — fall short again.</p><p>I’ve checked the same knot three times now. My hands keep finding reasons to stay busy with the one thing they can still fix.</p></div>
-    <div class="story-glyph" aria-hidden="true"><svg viewBox="0 0 100 100" width="68" height="68" fill="none" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(-14.5 43.2 46.6)"><path d="M 43.4 44.3 Q 32.1 47.1 29.9 58.6" stroke="#EAAE45" stroke-width="1.94" stroke-linecap="round" fill="none" opacity="0.85"/><path d="M 31.9 53.7 Q 30.9 56.1 29.9 58.6" stroke="#EAAE45" stroke-width="0.81" stroke-linecap="round" fill="none" opacity="0.59"/><line x1="36.8" y1="55.6" x2="32.4" y2="51.6" stroke="#EAAE45" stroke-width="1.13" stroke-linecap="round" opacity="0.47"/><path d="M 47.3 45.5 Q 44.5 60.9 30.1 67.0" stroke="#EAAE45" stroke-width="2.06" stroke-linecap="round" fill="none" opacity="0.67"/><path d="M 36.1 63.0 Q 33.1 65.0 30.1 67.0" stroke="#EAAE45" stroke-width="0.87" stroke-linecap="round" fill="none" opacity="0.47"/><line x1="40.0" y1="59.6" x2="35.6" y2="55.0" stroke="#EAAE45" stroke-width="1.82" stroke-linecap="round" opacity="0.40"/><path d="M 40.1 47.8 Q 22.0 54.6 8.6 68.5" stroke="#EAAE45" stroke-width="3.20" stroke-linecap="round" fill="none" opacity="0.66"/><path d="M 15.8 62.2 Q 12.2 65.4 8.6 68.5" stroke="#EAAE45" stroke-width="1.34" stroke-linecap="round" fill="none" opacity="0.46"/><line x1="28.3" y1="60.3" x2="23.9" y2="53.7" stroke="#EAAE45" stroke-width="1.07" stroke-linecap="round" opacity="0.37"/><path d="M 47.8 47.8 Q 64.4 47.7 76.3 59.2" stroke="#EAAE45" stroke-width="2.15" stroke-linecap="round" fill="none" opacity="0.69"/><path d="M 69.9 54.6 Q 73.1 56.9 76.3 59.2" stroke="#EAAE45" stroke-width="0.90" stroke-linecap="round" fill="none" opacity="0.48"/></g></svg></div>
-    <section class="signup" aria-label="Print launch signup"><p class="signup-line">Prints are coming. Get one email when they launch.</p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">One email at launch. No spam, unsubscribe anytime.</p></section>
-    </div>
-    </div>
-    <nav class="story-links" aria-label="Artwork navigation"><a class="story-return" href="/">&larr; Return to the archive</a><a class="write-about" href="/?work=nothing-left-to-tie#write">Write to me about this work</a><a class="story-next" href="/art/yet-to-let-go/">Continue &rarr; Yet to Let Go</a></nav>
-  </main>
+  <main id="view-root"><div class="about-view"><div class="about-glyph-fragment" aria-hidden="true"><svg viewBox="0 0 100 100" width="68" height="68" fill="none" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(-14.6 48.5 44.6)"><path d="M 50.9 39.8 Q 41.7 26.3 50.1 12.3" stroke="#EAAE45" stroke-width="1.83" stroke-linecap="round" fill="none" opacity="0.62"></path><path d="M 47.7 19.2 Q 48.9 15.8 50.1 12.3" stroke="#EAAE45" stroke-width="0.77" stroke-linecap="round" fill="none" opacity="0.43"></path><line x1="45.9" y1="28.3" x2="55.2" y2="29.3" stroke="#EAAE45" stroke-width="1.77" stroke-linecap="round" opacity="0.52"></line><path d="M 53.0 44.9 Q 60.7 51.0 70.1 48.4" stroke="#EAAE45" stroke-width="2.84" stroke-linecap="round" fill="none" opacity="0.70"></path><path d="M 65.6 48.8 Q 67.9 48.6 70.1 48.4" stroke="#EAAE45" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.49"></path><path d="M 45.3 40.6 Q 53.7 34.6 59.3 43.2" stroke="#EAAE45" stroke-width="1.12" stroke-linecap="round" fill="none" opacity="0.75"></path><path d="M 56.2 40.4 Q 57.7 41.8 59.3 43.2" stroke="#EAAE45" stroke-width="0.47" stroke-linecap="round" fill="none" opacity="0.52"></path><line x1="53.8" y1="35.5" x2="48.8" y2="48.1" stroke="#EAAE45" stroke-width="0.99" stroke-linecap="round" opacity="0.49"></line><path d="M 49.8 49.2 Q 49.7 61.3 56.2 71.7" stroke="#EAAE45" stroke-width="1.69" stroke-linecap="round" fill="none" opacity="0.43"></path><path d="M 53.6 66.3 Q 54.9 69.0 56.2 71.7" stroke="#EAAE45" stroke-width="0.71" stroke-linecap="round" fill="none" opacity="0.30"></path><line x1="57.0" y1="63.8" x2="51.7" y2="66.7" stroke="#EAAE45" stroke-width="1.08" stroke-linecap="round" opacity="0.59"></line><path d="M 47.1 46.8 Q 36.9 42.4 29.3 34.3" stroke="#EAAE45" stroke-width="1.30" stroke-linecap="round" fill="none" opacity="0.47"></path><path d="M 33.3 38.0 Q 31.3 36.1 29.3 34.3" stroke="#EAAE45" stroke-width="0.55" stroke-linecap="round" fill="none" opacity="0.33"></path><path d="M 45.9 48.9 Q 45.7 30.7 33.0 17.6" stroke="#EAAE45" stroke-width="1.94" stroke-linecap="round" fill="none" opacity="0.48"></path><path d="M 38.1 24.7 Q 35.6 21.1 33.0 17.6" stroke="#EAAE45" stroke-width="0.81" stroke-linecap="round" fill="none" opacity="0.34"></path></g></svg></div><div class="about-row about-row-intro"><div class="about-poem"><p>I thought I was making images.<br>Then stories appeared.<br>Then symbols.</p><p>Now I'm not completely sure what this is.</p><p>Somewhere there are fifty-four countries.<br>For now, that feels important.</p><p>The rest I am still figuring out.</p><p>yɛn kɔ</p></div><figure class="about-hand"><img src="/assets/brand/benkum-hand.webp" alt="The artist’s left hand, resting on a pale table." width="560" height="700"></figure></div><div class="about-prose"><p>I was born in Accra, GH. I am left-handed, and in Akan <em>benkum</em> means the left hand. This is the hand I create with.</p><p>Everything here is rooted in this continent. I come from a place where culture moves a person, and that is what I look for: not the headline, but the small human gesture underneath it. I start from what I feel, and let that be the guide.</p><p>I’ve loved art in all its forms for as long as I can remember, and always meant to one day pick up the tools myself. The means change from work to work - paint, draw, direct.</p><p>I don’t know exactly where this is going. That is the part I love. The work will continue as long as there is time.</p><p>The last line above, <em>yɛn kɔ</em>, means “let’s go.” Consider this the invitation.</p></div><div class="about-now"><p class="about-now-label">Now — Cycle I</p><p>One real event from each of Africa’s fifty-four countries, in the order feeling leads me, never returning to the same country twice. AI finds the stories, I bring the feeling, it brings the world, I decide what stays.</p></div><a class="about-back" href="/">← Back to gallery</a></div></main>
 
   <footer class="site-foot">
-    <p class="signature"><img class="sig-logo-img" src="/assets/brand/benkum-logo.png" alt="benkum art" width="647" height="130"></p>
+    <p class="signature">
+      <img class="sig-logo-img" src="/assets/brand/benkum-logo.png" alt="benkum art" width="647" height="130">
+    </p>
     <p class="foot-caption">self taught, figuring it out, yɛn kɔ &middot; <a class="foot-about-link" href="/about/">a note</a> &middot; <a class="foot-about-link" href="/rights.html">rights &amp; usage</a> &middot; <a class="foot-about-link" href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">instagram</a> &middot; <a class="foot-about-link" href="mailto:hello@benkum.art">email</a></p>
     <p class="foot-disclosure">&copy; 2026 Kwame Asiedu &middot; Benkum Art. All rights reserved.</p>
   </footer>
 </div>
 
-<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork enlarged" tabindex="-1"><button class="lightbox-close" id="lightbox-close" aria-label="Close enlarged artwork" type="button">&times;</button><img id="lightbox-img" alt=""></div>
 
-<script>
-(function () {
-  var lightbox = document.getElementById("lightbox");
-  var lightboxImg = document.getElementById("lightbox-img");
-  var lightboxClose = document.getElementById("lightbox-close");
-  var page = document.querySelector(".wrap");
-  var lastFocus = null;
 
-  function openLightbox(img) {
-    lastFocus = img;
-    lightboxImg.src = img.getAttribute("data-full");
-    lightboxImg.alt = img.alt;
-    lightbox.classList.add("open");
-    document.body.style.overflow = "hidden";
-    if (page) page.inert = true;
-    lightboxClose.focus();
-  }
-  function closeLightbox() {
-    lightbox.classList.remove("open");
-    lightboxImg.removeAttribute("src");
-    document.body.style.overflow = "";
-    if (page) page.inert = false;
-    if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
-  }
 
-  document.querySelectorAll(".piece-img").forEach(function (img) {
-    img.setAttribute("tabindex", "0");
-    img.setAttribute("role", "button");
-    img.setAttribute("aria-label", "Enlarge " + img.alt);
-    img.addEventListener("click", function () { openLightbox(img); });
-    img.addEventListener("keydown", function (e) {
-      if (e.key === "Enter" || e.key === " ") {
-        e.preventDefault();
-        openLightbox(img);
-      }
-    });
-  });
-  lightboxClose.addEventListener("click", closeLightbox);
-  lightbox.addEventListener("click", function (e) {
-    if (e.target === lightbox) closeLightbox();
-  });
-  document.addEventListener("keydown", function (e) {
-    if (!lightbox.classList.contains("open")) return;
-    if (e.key === "Escape") {
-      e.preventDefault();
-      closeLightbox();
-      return;
-    }
-    if (e.key === "Tab") {
-      // The close button is intentionally the only focusable control in the modal.
-      e.preventDefault();
-      lightboxClose.focus();
-    }
-  });
-})();
-</script>
+
 </body>
 </html>

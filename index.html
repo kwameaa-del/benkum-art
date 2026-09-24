@@ -6,8 +6,8 @@
 <link rel="icon" href="/favicon.ico?v=2" sizes="48x48">
 <link rel="icon" href="/assets/brand/favicon-32.png?v=2" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
-<title>Benkum Art — Kwame Asiedu</title>
-<meta name="description" content="Benkum Art — a visual archive of artwork, stories, and interpretation by Kwame Asiedu.">
+<title>Benkum Art — art and stories from across Africa, by Kwame Asiedu</title>
+<meta name="description" content="Benkum Art: art and stories drawn from real moments across Africa, by Ghanaian artist Kwame Asiedu.">
 <link rel="canonical" href="https://benkum.art/">
 <meta property="og:title" content="Benkum Art">
 <meta property="og:description" content="A visual archive of artwork, stories, and interpretation.">
@@ -750,7 +750,7 @@ function markLoaded(e) {
 <div class="wrap">
   <header class="site-head">
     <a class="site-head-link" href="/"><h1 class="site-head-title">Benkum Art</h1></a>
-    <nav class="site-nav" aria-label="Site"><a href="/#about">about</a><a href="/#write">write</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
+    <nav class="site-nav" aria-label="Site"><a href="/about/">about</a><a href="/#write">write</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
   </header>
   <main id="view-root"><div class="stack"><article class="piece"><h2 class="piece-title">Always Left Open</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/always-left-open.jpg" src="/assets/art/always-left-open.webp" alt="A wooden gate stands ajar between two walled family compounds under a fiery dusk sky, an iron slide-bolt freshly thrown shut across a pale, unweathered strip of wood where it has always rested open before; through the gap, a man walks away with his back turned, past a small lit, barred window, into the darkening courtyard beyond." width="1536" height="1024" loading="eager" fetchpriority="high"></div><a class="piece-cap" data-id="always-left-open" href="/art/always-left-open/">The wood under the bolt has never seen the sun. Tonight it does.</a></article><article class="piece"><h2 class="piece-title">Between the Marks</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/between-the-marks.jpg" src="/assets/art/between-the-marks.webp" alt="A man crouches at the edge of a small irrigation canal, one hand braced against a weathered concrete gauge post marked with old repainted bands, a solar-powered lamp glowing faintly above it, his other hand reaching toward the water where the level sits between two of the post’s marks; a tin kettle, tea glass, and woven basket rest on the muddy bank among reeds and a distant palm." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="between-the-marks" href="/art/between-the-marks/">Two marks, one river. It still won’t pick a side.</a></article><article class="piece"><h2 class="piece-title">One More</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/one-more.jpg" src="/assets/art/one-more.webp" alt="A figure kneels on the floor of a bare, lamplit room beside a nearly full cardboard parcel box — folded cloth, a bundle, and a single shoe already inside — while a hand rests on the floor beside the shoe’s unpacked match, a work uniform and bag hanging on the wall, a lit lantern and a woven basket nearby, city lights visible through a window at dusk." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="one-more" href="/art/one-more/">Everything else made the cut. One thing still being weighed.</a></article><article class="piece"><h2 class="piece-title">Already Landed</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/already-landed.jpg" src="/assets/art/already-landed.webp" alt="A woman steps from a weathered stone jetty onto a wooden boat at dawn, her back foot lifting clear of the stone as her front foot plants flat on the deck, coral-stone buildings and a minaret rising along the shore behind her, the water below dark and unsettled." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="already-landed" href="/art/already-landed/">The water hasn’t settled.</a></article></div><nav class="gallery-more" aria-label="More work"><button class="load-more-btn" id="gallery-earlier" type="button">Earlier work &rarr;</button></nav></main>
 
@@ -758,7 +758,7 @@ function markLoaded(e) {
     <p class="signature">
       <img class="sig-logo-img" src="/assets/brand/benkum-logo.png" alt="benkum art" width="647" height="130">
     </p>
-    <p class="foot-caption">self taught, figuring it out, yɛn kɔ &middot; <a class="foot-about-link" href="#about">a note</a> &middot; <a class="foot-about-link" href="/rights.html">rights &amp; usage</a> &middot; <a class="foot-about-link" href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">instagram</a> &middot; <a class="foot-about-link" href="mailto:hello@benkum.art">email</a></p>
+    <p class="foot-caption">self taught, figuring it out, yɛn kɔ &middot; <a class="foot-about-link" href="/about/">a note</a> &middot; <a class="foot-about-link" href="/rights.html">rights &amp; usage</a> &middot; <a class="foot-about-link" href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">instagram</a> &middot; <a class="foot-about-link" href="mailto:hello@benkum.art">email</a></p>
     <p class="foot-disclosure">&copy; 2026 Kwame Asiedu &middot; Benkum Art. All rights reserved.</p>
   </footer>
 </div>
@@ -1083,28 +1083,8 @@ function markLoaded(e) {
     return '<div class="empty"><p class="empty-sub">First piece coming soon.</p></div>';
   }
 
-  var ABOUT_STANZAS = [
-    "I thought I was making images.\nThen stories appeared.\nThen symbols.",
-    "Now I'm not completely sure what this is.",
-    "Somewhere there are fifty-four countries.\nFor now, that feels important.",
-    "The rest I am still figuring out.",
-    "yɛn kɔ"
-  ];
 
-  // Permanent "about me" - true across every cycle and body of work.
-  var ABOUT_PROSE = [
-    "I was born in Accra, GH. I am left-handed, and in Akan <em>benkum</em> means the left hand. This is the hand I create with.",
-    "Everything here is rooted in this continent. I come from a place where culture moves a person, and that is what I look for: not the headline, but the small human gesture underneath it. I start from what I feel, and let that be the guide.",
-    "I’ve loved art in all its forms for as long as I can remember, and always meant to one day pick up the tools myself. The means change from work to work - paint, draw, direct.",
-    "I don’t know exactly where this is going. That is the part I love. The work will continue as long as there is time.",
-    "The last line above, <em>yɛn kɔ</em>, means “let’s go.” Consider this the invitation."
-  ];
 
-  // Current body of work. Swap this out when a new cycle or series begins.
-  var ABOUT_NOW = {
-    label: "Now — Cycle I",
-    text: "One real event from each of Africa’s fifty-four countries, in the order feeling leads me, never returning to the same country twice. AI finds the stories, I bring the feeling, it brings the world, I decide what stays."
-  };
 
   var CONTACT_EMAIL = "hello@benkum.art";
   var INSTAGRAM_HANDLE = "benkum.art";
@@ -1182,27 +1162,6 @@ function markLoaded(e) {
     });
   }
 
-  function aboutHTML() {
-    var paras = ABOUT_STANZAS.map(function (stanza) {
-      return "<p>" + esc(stanza).replace(/\n/g, "<br>") + "</p>";
-    }).join("");
-    // ABOUT_PROSE is trusted, hand-written copy and may contain <em>.
-    var prose = ABOUT_PROSE.map(function (p) { return "<p>" + p + "</p>"; }).join("");
-    return (
-      '<div class="about-view">' +
-        '<div class="about-glyph-fragment" aria-hidden="true">' + glyphSVG("benkum-about-fragment") + '</div>' +
-        // Only about the artist. Wide screens: hand | poem (gold hairline
-        // between), then a centred letter (bio + "now"). Phones stack.
-        '<div class="about-row about-row-intro">' +
-          '<div class="about-poem">' + paras + '</div>' +
-          '<figure class="about-hand"><img src="/assets/brand/benkum-hand.webp" alt="The artist’s left hand, resting on a pale table." width="560" height="700" loading="lazy"></figure>' +
-        '</div>' +
-        '<div class="about-prose">' + prose + '</div>' +
-        '<div class="about-now"><p class="about-now-label">' + esc(ABOUT_NOW.label) + '</p><p>' + esc(ABOUT_NOW.text) + '</p></div>' +
-        '<a class="about-back" href="#">&larr; Back to gallery</a>' +
-      '</div>'
-    );
-  }
 
   // The Write page (#write): ways to reach the artist on the left (intro,
   // email/Instagram, prints signup), the message form on the right.
@@ -1380,9 +1339,9 @@ function markLoaded(e) {
       history.replaceState(null, "", window.location.pathname + window.location.search + "#write");
     }
 
+    // The About page now lives at /about/ (a real, crawlable page).
     if (window.location.hash === "#about") {
-      root.innerHTML = aboutHTML();
-      window.scrollTo(0, 0);
+      window.location.replace("/about/");
       return;
     }
 

@@ -1,48 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://benkum.art/</loc>
+  </url>
+  <url>
+    <loc>https://benkum.art/about/</loc>
+    <image:image><image:loc>https://benkum.art/assets/brand/benkum-hand.webp</image:loc></image:image>
   </url>
   <url>
     <loc>https://benkum.art/rights.html</loc>
   </url>
   <url>
     <loc>https://benkum.art/art/wonder-dread/</loc>
+    <image:image><image:loc>https://benkum.art/assets/art/wonder-dread.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://benkum.art/art/second-wind/</loc>
+    <image:image><image:loc>https://benkum.art/assets/art/second-wind.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://benkum.art/art/no-fixed-point/</loc>
+    <image:image><image:loc>https://benkum.art/assets/art/no-fixed-point.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://benkum.art/art/enough/</loc>
+    <image:image><image:loc>https://benkum.art/assets/art/enough.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://benkum.art/art/before-it-works/</loc>
+    <image:image><image:loc>https://benkum.art/assets/art/before-it-works.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://benkum.art/art/bound-to-outlast/</loc>
+    <image:image><image:loc>https://benkum.art/assets/art/bound-to-outlast.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://benkum.art/art/yet-to-let-go/</loc>
+    <image:image><image:loc>https://benkum.art/assets/art/yet-to-let-go.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://benkum.art/art/nothing-left-to-tie/</loc>
+    <image:image><image:loc>https://benkum.art/assets/art/nothing-left-to-tie.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://benkum.art/art/steady-without-me/</loc>
+    <image:image><image:loc>https://benkum.art/assets/art/steady-without-me.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://benkum.art/art/already-landed/</loc>
+    <image:image><image:loc>https://benkum.art/assets/art/already-landed.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://benkum.art/art/one-more/</loc>
+    <image:image><image:loc>https://benkum.art/assets/art/one-more.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://benkum.art/art/between-the-marks/</loc>
+    <image:image><image:loc>https://benkum.art/assets/art/between-the-marks.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://benkum.art/art/always-left-open/</loc>
+    <image:image><image:loc>https://benkum.art/assets/art/always-left-open.jpg</image:loc></image:image>
   </url>
 </urlset>
