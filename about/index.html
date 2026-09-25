@@ -743,9 +743,9 @@ function markLoaded(e) {
     .about-back { margin-top: 44px; }
   }
 
-  /* ---------- Pinned top bar + bottom bar ---------- */
-  /* The header and footer stay in place while the page scrolls under them.
-     Both are slim; the full-width dark strip comes from a ::before layer. */
+  /* ---------- Pinned top bar + slim footer ---------- */
+  /* The header stays in place while the page scrolls under it; the footer is
+     a slim bar at the end of the page. Full-width strips come from ::before. */
   .site-head {
     position: sticky; top: 0; z-index: 60;
     padding: 18px 0 14px;
@@ -757,7 +757,7 @@ function markLoaded(e) {
   }
   .site-head::before { border-bottom: 1px solid var(--border); }
   footer.site-foot {
-    position: sticky; bottom: 0; z-index: 60;
+    position: relative;
     display: flex; align-items: center; justify-content: space-between;
     flex-wrap: wrap; gap: 6px 24px;
     margin-top: 48px; padding: 12px 0; border-top: 0;
@@ -770,7 +770,6 @@ function markLoaded(e) {
   html, body { overflow-x: clip; }
   @media (max-width: 700px) {
     footer.site-foot { justify-content: center; padding: 10px 0; }
-    .site-foot .signature, .site-foot .foot-disclosure, .site-foot .foot-lead { display: none; }
     .site-foot .foot-caption { font-size: 13px; text-align: center; }
   }
 </style>
