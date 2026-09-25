@@ -71,17 +71,26 @@ function markLoaded(e) {
   .wrap { width: min(90vw, 1650px); margin: 0 auto; padding: 0 32px; }
 
   /* ---------- Gallery ---------- */
+  /* Each page is a small spread: 2x2 landscapes, or one portrait alone on
+     one side with two landscapes stacked beside it. The portrait's side
+     alternates from page to page. Phones get a single column. */
   .stack {
-    column-count: 1;
-    column-gap: 56px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 56px;
+    align-items: start;
     padding: 72px 0 0;
+    margin-bottom: 56px;
   }
   @media (min-width: 780px) {
-    .stack { column-count: 2; }
+    .stack { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .stack.p-left .is-portrait { grid-column: 1; grid-row: 1 / span 2; align-self: center; }
+    .stack.p-left .piece:not(.is-portrait) { grid-column: 2; }
+    .stack.p-right .is-portrait { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+    .stack.p-right .piece:not(.is-portrait) { grid-column: 1; }
   }
   .stack .piece {
-    break-inside: avoid;
-    margin: 0 0 56px;
+    margin: 0;
   }
   .gallery-more {
     display: flex;
@@ -752,7 +761,7 @@ function markLoaded(e) {
     <a class="site-head-link" href="/"><h1 class="site-head-title">Benkum Art</h1></a>
     <nav class="site-nav" aria-label="Site"><a href="/about/">about</a><a href="/#write">write</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
   </header>
-  <main id="view-root"><div class="stack"><article class="piece"><h2 class="piece-title">What Stayed Open</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/what-stayed-open.jpg" src="/assets/art/what-stayed-open.webp" alt="A close, warmly lit still life in thick oil impasto: in the foreground, an open, well-worn notebook with soft, stained pages catches the light, a hand with warm deep-brown skin resting quietly beside it, not turning a page; behind and in shadow, a closed, dust-settled book sits untouched at the edge of the same surface. The rest of the scene recedes into near-black shadow." width="1024" height="1536" loading="eager" fetchpriority="high"></div><a class="piece-cap" data-id="what-stayed-open" href="/art/what-stayed-open/">Some choices are made by what we keep returning to.</a></article><article class="piece"><h2 class="piece-title">A Second Behind</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/a-second-behind.jpg" src="/assets/art/a-second-behind.webp" alt="Two Black African women sit in a loose circle of mismatched plastic chairs and wooden benches in the packed-earth yard of a Zimbabwean community hall, several chairs around them left empty; the nearer woman, turned three-quarter toward the other, has a single tear tracked down her cheek as her composure gives way, while the second woman sits further back in soft shadow, head bowed, hands resting loose and open in her lap; the two are not touching." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="a-second-behind" href="/art/a-second-behind/">I feel it a second after she does. That’s still fast enough to break me.</a></article><article class="piece"><h2 class="piece-title">Always Left Open</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/always-left-open.jpg" src="/assets/art/always-left-open.webp" alt="A wooden gate stands ajar between two walled family compounds under a fiery dusk sky, an iron slide-bolt freshly thrown shut across a pale, unweathered strip of wood where it has always rested open before; through the gap, a man walks away with his back turned, past a small lit, barred window, into the darkening courtyard beyond." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="always-left-open" href="/art/always-left-open/">The wood under the bolt has never seen the sun. Tonight it does.</a></article><article class="piece"><h2 class="piece-title">Between the Marks</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/between-the-marks.jpg" src="/assets/art/between-the-marks.webp" alt="A man crouches at the edge of a small irrigation canal, one hand braced against a weathered concrete gauge post marked with old repainted bands, a solar-powered lamp glowing faintly above it, his other hand reaching toward the water where the level sits between two of the post’s marks; a tin kettle, tea glass, and woven basket rest on the muddy bank among reeds and a distant palm." width="1536" height="1024" loading="lazy"></div><a class="piece-cap" data-id="between-the-marks" href="/art/between-the-marks/">Two marks, one river. It still won’t pick a side.</a></article></div><nav class="gallery-more" aria-label="More work"><button class="load-more-btn" id="gallery-earlier" type="button">Earlier work &rarr;</button></nav></main>
+  <main id="view-root"><div class="stack p-left"><article class="piece is-portrait"><h2 class="piece-title">What Stayed Open</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/what-stayed-open.jpg" src="/assets/art/what-stayed-open.webp" alt="A close, warmly lit still life in thick oil impasto: in the foreground, an open, well-worn notebook with soft, stained pages catches the light, a hand with warm deep-brown skin resting quietly beside it, not turning a page; behind and in shadow, a closed, dust-settled book sits untouched at the edge of the same surface. The rest of the scene recedes into near-black shadow." width="1024" height="1536" style="aspect-ratio: 1024 / 1536" loading="eager" fetchpriority="high"></div><a class="piece-cap" data-id="what-stayed-open" href="/art/what-stayed-open/">Some choices are made by what we keep returning to.</a></article><article class="piece"><h2 class="piece-title">A Second Behind</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/a-second-behind.jpg" src="/assets/art/a-second-behind.webp" alt="Two Black African women sit in a loose circle of mismatched plastic chairs and wooden benches in the packed-earth yard of a Zimbabwean community hall, several chairs around them left empty; the nearer woman, turned three-quarter toward the other, has a single tear tracked down her cheek as her composure gives way, while the second woman sits further back in soft shadow, head bowed, hands resting loose and open in her lap; the two are not touching." width="1536" height="1024" style="aspect-ratio: 1536 / 1024" loading="lazy"></div><a class="piece-cap" data-id="a-second-behind" href="/art/a-second-behind/">I feel it a second after she does. That’s still fast enough to break me.</a></article><article class="piece"><h2 class="piece-title">Always Left Open</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/always-left-open.jpg" src="/assets/art/always-left-open.webp" alt="A wooden gate stands ajar between two walled family compounds under a fiery dusk sky, an iron slide-bolt freshly thrown shut across a pale, unweathered strip of wood where it has always rested open before; through the gap, a man walks away with his back turned, past a small lit, barred window, into the darkening courtyard beyond." width="1536" height="1024" style="aspect-ratio: 1536 / 1024" loading="lazy"></div><a class="piece-cap" data-id="always-left-open" href="/art/always-left-open/">The wood under the bolt has never seen the sun. Tonight it does.</a></article></div><nav class="gallery-more" aria-label="More work"><button class="load-more-btn" id="gallery-earlier" type="button">Earlier work &rarr;</button></nav></main>
 
   <footer class="site-foot">
     <p class="signature">
@@ -1066,7 +1075,6 @@ function markLoaded(e) {
   // Gallery paging: newest work first, a few pieces at a time. "Earlier work"
   // replaces the current set rather than appending, so a phone never holds
   // more than one small set. No page numbers are shown anywhere.
-  var GALLERY_PAGE_SIZE = 4;
   var GALLERY_PAGE_KEY = "benkum-gallery-page";
   var galleryPage = 0;
   function savedGalleryPage() {
@@ -1077,6 +1085,37 @@ function markLoaded(e) {
   }
   function galleryOrder() {
     return ARTWORKS.slice().reverse();
+  }
+  function isPortrait(item) { return item.height > item.width; }
+
+  // Split the newest-first list into spreads. A portrait never shares a
+  // column: it sits alone beside two stacked landscapes, alternating sides.
+  // Pages without a portrait are a 2x2 of landscapes. Order stays
+  // newest-first, with at most a one-place shuffle to complete a spread.
+  function galleryPages() {
+    var q = galleryOrder(), pages = [], portraitPages = 0;
+    function portraitPage(items) {
+      pages.push({ items: items, layout: portraitPages++ % 2 === 0 ? "p-left" : "p-right" });
+    }
+    while (q.length) {
+      var first3 = q.slice(0, 3), p3 = first3.filter(isPortrait).length;
+      if (p3 === 1) {
+        portraitPage(first3); q.splice(0, first3.length);
+      } else if (p3 === 0) {
+        var first4 = q.slice(0, 4);
+        if (first4.length === 4 && isPortrait(first4[3])) {
+          portraitPage([q[0], q[1], q[3]]); q.splice(3, 1); q.splice(0, 2);
+        } else {
+          pages.push({ items: first4, layout: "grid" }); q.splice(0, first4.length);
+        }
+      } else {
+        // Two portraits close together: show them side by side.
+        var pair = first3.filter(isPortrait).slice(0, 2);
+        pages.push({ items: pair, layout: "grid" });
+        q = q.filter(function (it) { return pair.indexOf(it) === -1; });
+      }
+    }
+    return pages;
   }
 
   var MARK_FROM_ID = "yet-to-let-go";
@@ -1096,9 +1135,9 @@ function markLoaded(e) {
     var frameCls = "piece-frame" + (isMarked(item.id) ? " marked" : "");
     var priorityAttr = loadingMode === "eager" ? ' fetchpriority="high"' : '';
     return (
-      '<article class="piece">' +
+      '<article class="piece' + (isPortrait(item) ? ' is-portrait' : '') + '">' +
         '<h2 class="piece-title">' + esc(item.title) + '</h2>' +
-        '<div class="' + frameCls + '"><img class="piece-img" data-full="' + item.image + '" src="' + (item.gridImage || item.image) + '" alt="' + esc(item.alt || item.title) + '" width="' + item.width + '" height="' + item.height + '" loading="' + (loadingMode || 'lazy') + '"' + priorityAttr + '></div>' +
+        '<div class="' + frameCls + '"><img class="piece-img" data-full="' + item.image + '" src="' + (item.gridImage || item.image) + '" alt="' + esc(item.alt || item.title) + '" width="' + item.width + '" height="' + item.height + '" style="aspect-ratio: ' + item.width + ' / ' + item.height + '" loading="' + (loadingMode || 'lazy') + '"' + priorityAttr + '></div>' +
         '<a class="piece-cap" data-id="' + esc(item.id) + '" href="/art/' + esc(item.id) + '/">' + esc(item.caption) + '</a>' +
       '</article>'
     );
@@ -1328,16 +1367,16 @@ function markLoaded(e) {
   }
 
   function renderGallery(root) {
-    var items = galleryOrder();
-    var lastPage = Math.max(0, Math.ceil(items.length / GALLERY_PAGE_SIZE) - 1);
+    var pages = galleryPages();
+    var lastPage = Math.max(0, pages.length - 1);
     galleryPage = Math.min(Math.max(galleryPage, 0), lastPage);
-    var start = galleryPage * GALLERY_PAGE_SIZE;
-    var visible = items.slice(start, start + GALLERY_PAGE_SIZE);
+    var page = pages[galleryPage] || { items: [], layout: "grid" };
+    var visible = page.items;
     var hasNewer = galleryPage > 0;
     var hasEarlier = galleryPage < lastPage;
     root.innerHTML =
-      '<div class="stack">' +
-        (items.length ? visible.map(function (item, idx) { return pieceHTML(item, idx === 0 ? "eager" : "lazy"); }).join("") : emptyHTML()) +
+      '<div class="stack' + (page.layout === "grid" ? "" : " " + page.layout) + '">' +
+        (visible.length ? visible.map(function (item, idx) { return pieceHTML(item, idx === 0 ? "eager" : "lazy"); }).join("") : emptyHTML()) +
       '</div>' +
       ((hasNewer || hasEarlier) ?
         '<nav class="gallery-more" aria-label="More work">' +
