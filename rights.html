@@ -51,6 +51,14 @@
     body { font-optical-sizing:auto; }
     footer { font-size:14px; }
     .updated { font-size:15px; }
+    /* Pinned top bar + bottom bar */
+    .site-head { position:sticky; top:0; z-index:60; padding:18px 0 14px; margin-bottom:40px; }
+    .site-head::before, main > footer::before { content:""; position:absolute; top:0; bottom:0; left:calc(50% - 50vw); right:calc(50% - 50vw); background:rgba(20,20,20,.94); z-index:-1; }
+    .site-head::before { border-bottom:1px solid var(--line); }
+    main > footer { position:sticky; bottom:0; z-index:60; border-top:0; padding:10px 0; margin-top:48px; font-size:12px; line-height:1.5; }
+    main > footer::before { border-top:1px solid var(--line); }
+    html, body { overflow-x: clip; }
+    @media (max-width:700px) { main > footer .foot-more { display:none; } }
   </style>
 </head>
 <body>
@@ -116,8 +124,7 @@
     </section>
 
     <footer>
-      © 2026 Kwame Asiedu · Benkum Art. All rights reserved.<br>
-      Artwork and original project materials may not be reproduced, modified, redistributed, or used commercially without permission.
+      © 2026 Kwame Asiedu · Benkum Art. All rights reserved.<span class="foot-more"><br>Artwork and original project materials may not be reproduced, modified, redistributed, or used commercially without permission.</span>
     </footer>
   </main>
 </body>

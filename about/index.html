@@ -742,6 +742,37 @@ function markLoaded(e) {
     .about-view > .about-now { margin-top: 36px; }
     .about-back { margin-top: 44px; }
   }
+
+  /* ---------- Pinned top bar + bottom bar ---------- */
+  /* The header and footer stay in place while the page scrolls under them.
+     Both are slim; the full-width dark strip comes from a ::before layer. */
+  .site-head {
+    position: sticky; top: 0; z-index: 60;
+    padding: 18px 0 14px;
+  }
+  .site-head::before, .site-foot::before {
+    content: ""; position: absolute; top: 0; bottom: 0;
+    left: calc(50% - 50vw); right: calc(50% - 50vw);
+    background: rgba(20, 20, 20, 0.94); z-index: -1;
+  }
+  .site-head::before { border-bottom: 1px solid var(--border); }
+  footer.site-foot {
+    position: sticky; bottom: 0; z-index: 60;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 6px 24px;
+    margin-top: 48px; padding: 12px 0; border-top: 0;
+  }
+  .site-foot::before { border-top: 1px solid var(--border); }
+  .site-foot .signature, .site-foot .foot-caption, .site-foot .foot-disclosure { margin: 0; }
+  .site-foot .sig-logo-img { height: 18px; }
+  .site-foot .foot-disclosure { font-size: 12px; }
+  #view-root, #write, main { scroll-margin-top: 80px; }
+  html, body { overflow-x: clip; }
+  @media (max-width: 700px) {
+    footer.site-foot { justify-content: center; padding: 10px 0; }
+    .site-foot .signature, .site-foot .foot-disclosure, .site-foot .foot-lead { display: none; }
+    .site-foot .foot-caption { font-size: 13px; text-align: center; }
+  }
 </style>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Archivo:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400..500&display=swap">
@@ -757,7 +788,7 @@ function markLoaded(e) {
     <p class="signature">
       <img class="sig-logo-img" src="/assets/brand/benkum-logo.png" alt="benkum art" width="647" height="130">
     </p>
-    <p class="foot-caption">self taught, figuring it out, yɛn kɔ &middot; <a class="foot-about-link" href="/about/">a note</a> &middot; <a class="foot-about-link" href="/rights.html">rights &amp; usage</a> &middot; <a class="foot-about-link" href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">instagram</a> &middot; <a class="foot-about-link" href="mailto:ka@benkum.art">email</a></p>
+    <p class="foot-caption"><span class="foot-lead">self taught, figuring it out, yɛn kɔ &middot; </span><a class="foot-about-link" href="/about/">a note</a> &middot; <a class="foot-about-link" href="/rights.html">rights &amp; usage</a> &middot; <a class="foot-about-link" href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">instagram</a> &middot; <a class="foot-about-link" href="mailto:ka@benkum.art">email</a></p>
     <p class="foot-disclosure">&copy; 2026 Kwame Asiedu &middot; Benkum Art. All rights reserved.</p>
   </footer>
 </div>
