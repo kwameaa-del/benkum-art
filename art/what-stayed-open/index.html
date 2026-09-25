@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/favicon.ico?v=2" sizes="48x48">
+<link rel="icon" href="/assets/brand/favicon-32.png?v=2" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
+<title>What Stayed Open — a piece on a baker in Namibia and the bet she made on herself | Benkum Art</title>
+<meta name="description" content="Some choices are made by what we keep returning to. A piece and story about a baker in Namibia who bet part of her study loan on a different life — and the one that’s still open.">
+<link rel="canonical" href="https://benkum.art/art/what-stayed-open/">
+<meta property="og:title" content="What Stayed Open — Benkum Art">
+<meta property="og:description" content="Some choices are made by what we keep returning to.">
+<meta property="og:image" content="https://benkum.art/assets/art/what-stayed-open.jpg">
+<meta property="og:url" content="https://benkum.art/art/what-stayed-open/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VisualArtwork",
+  "name": "What Stayed Open",
+  "url": "https://benkum.art/art/what-stayed-open/",
+  "image": "https://benkum.art/assets/art/what-stayed-open.jpg",
+  "description": "Some choices are made by what we keep returning to. A piece and story about a baker in Namibia who bet part of her study loan on a different life — and the one that’s still open.",
+  "artist": {
+    "@type": "Person",
+    "name": "Kwame Asiedu"
+  }
+}
+</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Archivo:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400..500&display=swap">
+<style>
+  :root {
+    --bg: #141414;
+    --ink: #EDEAE2;
+    --ink-soft: #ABA79E;
+    --ink-faint: #7A766D;
+    --border: rgba(237, 234, 226, 0.16);
+    --accent: #EAAE45;
+    --focus: #EAAE45;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  button:focus-visible, a:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 32px; }
+
+  /* ---------- Gallery ---------- */
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 96px;
+    padding: 72px 0 48px;
+  }
+  .piece-title {
+    margin: 0 2px 18px;
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 26px;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+  }
+  .piece-frame {
+    background: #FAFAF6;
+    padding: clamp(12px, 2.4vw, 26px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+  }
+  .piece-frame img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    aspect-ratio: auto;
+    display: block;
+    cursor: zoom-in;
+  }
+  .piece-cap {
+    margin: 18px 2px 0;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+  .piece-story-link {
+    display: inline-block;
+    margin: 12px 2px 0;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(234, 174, 69, 0.35);
+    cursor: pointer;
+    background: none;
+    padding: 0;
+  }
+  .piece-story-link:hover { border-bottom-color: var(--accent); }
+
+  /* ---------- Story view ---------- */
+  .story-view {
+    padding: 72px 0 64px;
+  }
+  .story-back {
+    display: inline-block;
+    margin-bottom: 56px;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .story-back:hover { color: var(--ink); }
+  .story-title {
+    margin: 0 2px 26px;
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 28px;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+    text-align: center;
+  }
+  .story-frame {
+    position: relative;
+    background: #FAFAF6;
+    padding: clamp(12px, 2.4vw, 26px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+    max-width: 860px;
+    margin: 0 auto 24px;
+  }
+  .story-frame img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    aspect-ratio: auto;
+    display: block;
+    cursor: zoom-in;
+  }
+  .story-frame.marked::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 14px;
+    height: 14px;
+    border-top: 1.5px solid var(--accent);
+    border-left: 1.5px solid var(--accent);
+    opacity: 0.85;
+    pointer-events: none;
+  }
+  .story-cap {
+    margin: 0 auto;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--ink-soft);
+    max-width: 52ch;
+    text-align: center;
+  }
+  .story-reading-pause {
+    height: clamp(48px, 7vw, 88px);
+  }
+  .story-text {
+    margin: 0 auto;
+    max-width: 60ch;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+  .story-text p { margin: 0 0 1.2em; }
+  .story-text p:last-child { margin-bottom: 0; }
+  .story-glyph {
+    display: flex;
+    justify-content: center;
+    margin: 48px auto 0;
+    cursor: default;
+  }
+  .story-glyph svg { display: block; }
+  .story-nav {
+    max-width: 60ch;
+    margin: 64px auto 0;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .story-next {
+    display: block;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink);
+    text-decoration: none;
+    margin-bottom: 20px;
+  }
+  .story-next:hover { color: var(--accent); }
+  .story-return {
+    display: inline-block;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .story-return:hover { color: var(--ink); }
+
+  /* ---------- About ---------- */
+  .about-view {
+    position: relative;
+    overflow: hidden;
+    padding: 96px 0 80px;
+    max-width: 46ch;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .about-poem {
+    position: relative;
+    z-index: 1;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 2;
+    color: var(--ink);
+  }
+  .about-poem p { margin: 0 0 1.6em; }
+  .about-poem p:last-child { margin-bottom: 0; color: var(--accent); }
+  .about-glyph-fragment {
+    position: absolute;
+    z-index: 0;
+    right: clamp(-140px, -22vw, -70px);
+    bottom: clamp(-120px, -18vw, -60px);
+    width: clamp(220px, 46vw, 360px);
+    aspect-ratio: 1;
+    color: var(--accent);
+    opacity: 0.08;
+    transform: rotate(-11deg);
+    pointer-events: none;
+    user-select: none;
+  }
+  .about-glyph-fragment svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  .about-back {
+    display: block;
+    margin-top: 64px;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .about-back:hover { color: var(--ink); }
+  .foot-about-link {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(171, 167, 158, 0.55);
+    cursor: pointer;
+  }
+  .foot-about-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* ---------- Lightbox ---------- */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.94);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+    z-index: 1000;
+    cursor: zoom-out;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    box-shadow: none;
+    display: block;
+  }
+  .lightbox-close {
+    position: absolute;
+    top: max(18px, env(safe-area-inset-top));
+    right: 22px;
+    min-width: 44px;
+    min-height: 44px;
+    background: none;
+    border: 0;
+    color: var(--ink);
+    font: 32px Georgia, serif;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .lightbox-close:hover { color: var(--accent); }
+
+  /* Empty state */
+  .empty {
+    padding: 120px 0;
+    text-align: center;
+  }
+  .empty-sub {
+    font-size: 15px;
+    font-style: italic;
+    color: var(--ink-faint);
+  }
+
+  footer.site-foot {
+    border-top: 1px solid var(--border);
+    padding: 26px 0 56px;
+  }
+  .signature {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    line-height: 1;
+  }
+  .sig-gold {
+    background: linear-gradient(160deg, #F5D48A 0%, #C89430 22%, #7A4E12 45%, #E8BE6A 62%, #B9791A 80%, #F0CE7E 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+  .sig-word {
+    font-family: "Archivo", sans-serif;
+    font-weight: 700;
+    font-size: 21px;
+    letter-spacing: 0.01em;
+    line-height: 1;
+  }
+  .sig-script {
+    font-family: "Alex Brush", cursive;
+    font-size: 30px;
+    line-height: 0.6;
+    margin-left: 3px;
+  }
+  .sig-logo-img {
+    height: 26px;
+    width: auto;
+    display: block;
+  }
+  .sig-attribution {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-faint);
+    margin-left: 6px;
+    line-height: 1;
+  }
+  .foot-caption {
+    margin: 3px 0 0;
+    line-height: 1.3;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-faint);
+  }
+  .foot-disclosure {
+    margin: 12px 0 0;
+    line-height: 1.3;
+    font-family: "Newsreader", serif;
+    font-size: 10px;
+    letter-spacing: 0.03em;
+    color: var(--ink-faint);
+    opacity: 0.62;
+  }
+
+  /* ---------- Site header (real, crawlable brand heading) ---------- */
+  .site-head {
+    padding: 40px 0 0;
+  }
+  .site-head-link {
+    display: inline-block;
+    text-decoration: none;
+  }
+  .site-head-title {
+    margin: 0;
+    font-family: "Archivo", sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .site-head-link:hover .site-head-title { color: var(--accent); }
+
+  /* ---------- Artwork page (standalone, non-hash pages) ---------- */
+  .art-back {
+    display: inline-block;
+    margin: 28px 0 0;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .art-back:hover { color: var(--ink); }
+
+  /* ---------- Image loading ---------- */
+  /* Dark mat inside the frame shows while the image loads, instead of bare white. */
+  .piece-frame, .story-frame {
+    background: linear-gradient(#1F1D1A, #1F1D1A) content-box, #FAFAF6;
+  }
+  .js-fade .piece-img { opacity: 0; transition: opacity 0.45s ease; }
+  .js-fade .piece-img.is-loaded { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) {
+    .js-fade .piece-img { transition: none; }
+  }
+
+  /* ---------- Top links ---------- */
+  .site-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .site-nav { display: flex; gap: 22px; }
+  .site-nav a {
+    font-family: "Archivo", sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding: 10px 0;
+  }
+  .site-nav a:hover { color: var(--accent); }
+  @media (max-width: 420px) { .site-nav { gap: 16px; } .site-nav a { font-size: 11px; } }
+
+  /* ---------- Print launch signup ---------- */
+  .signup { max-width: 46ch; margin: 64px auto 0; padding-top: 36px; border-top: 1px solid var(--border); text-align: center; }
+  .signup-line { margin: 0 0 16px; font-family: "Newsreader", serif; font-style: italic; font-size: 17px; color: var(--ink); }
+  .signup-form { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .signup-form input {
+    flex: 1 1 200px; max-width: 280px; min-height: 44px; padding: 0 14px;
+    font: 15px "Newsreader", Georgia, serif; color: var(--ink);
+    background: rgba(237, 234, 226, 0.05); border: 1px solid var(--border); border-radius: 999px;
+  }
+  .signup-form input::placeholder { color: var(--ink-faint); font-style: italic; }
+  .signup-form input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .signup-form button {
+    min-height: 44px; padding: 0 22px; cursor: pointer;
+    font: italic 15px "Newsreader", serif; color: var(--accent);
+    background: rgba(234, 174, 69, 0.08); border: 1px solid rgba(234, 174, 69, 0.45); border-radius: 999px;
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  }
+  .signup-form button:hover { background: rgba(234, 174, 69, 0.16); border-color: var(--accent); color: var(--ink); }
+  .signup-note { margin: 12px 0 0; font-size: 13px; font-style: italic; color: var(--ink-faint); }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* ---------- Readability ---------- */
+  /* Newsreader has a small x-height; sizes run ~2px larger than a typical
+     face would need, and the optical-size axis gives sturdier letters at
+     reading sizes. Faint grey lifted from 4.1:1 to ~6:1 contrast. */
+  :root { --ink-faint: #9A968D; }
+  body { font-optical-sizing: auto; }
+  .story-text { font-size: 19px; line-height: 1.7; }
+  .story-cap, .piece-cap { font-size: 17px; }
+  .story-back, .story-return { font-size: 15px; }
+  .story-next { font-size: 19px; }
+  .about-poem { font-size: 20px; }
+  .about-prose { font-size: 19px; }
+  .about-now { font-size: 16px; }
+  .about-contact { font-size: 16px; }
+  .signup-line { font-size: 18px; }
+  .signup-note, .foot-caption { font-size: 14px; }
+  .foot-disclosure { font-size: 12px; opacity: 1; }
+  .site-nav a { font-size: 13px; }
+  .load-more-btn { font-size: 16px; }
+  @media (max-width: 600px) {
+    .story-text, .about-prose { font-size: 18px; }
+  }
+  @media (max-width: 420px) {
+    .site-nav a { font-size: 12px; }
+  }
+
+  /* ---------- Write to me link ---------- */
+  .write-about { display: block; margin: 40px auto 0; text-align: center; font: italic 17px "Newsreader", serif; color: var(--ink-soft); text-decoration: underline; text-decoration-color: rgba(234, 174, 69, 0.55); text-underline-offset: 3px; }
+  .write-about:hover { color: var(--accent); }
+
+  /* ---------- Two-sided layout on wide screens ---------- */
+  /* Phones keep the single column; from 1000px the artwork sits on the left
+     and the story reads beside it on the right. */
+  @media (min-width: 1000px) {
+    .wrap { max-width: 1400px; }
+    .story-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 64px;
+      align-items: start;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+    .story-layout .story-frame { max-width: none; margin: 0 0 20px; }
+    .story-layout .story-cap { text-align: left; margin: 0; }
+    .story-layout .story-reading-pause { display: none; }
+    .story-layout .story-text { margin: 0; max-width: 60ch; }
+    .story-layout .story-glyph { justify-content: flex-start; }
+    .story-layout .story-nav { margin: 48px 0 0; text-align: left; }
+    .story-layout .write-about { margin: 36px 0 0; text-align: left; }
+    .story-layout .signup { margin: 48px 0 0; text-align: left; }
+    .story-layout .signup-form { justify-content: flex-start; }
+  }
+
+  /* One form style site-wide */
+  .signup-form input { border-radius: 10px; font-size: 16px; }
+  .signup-form button { min-height: 44px; padding: 0 28px; font: italic 16px "Newsreader", serif; }
+
+  /* ---------- Story links row + big titles ---------- */
+  /* Return | Write | Continue in one mirrored line under the artwork and
+     story; stacked (Continue first) on phones. */
+  .story-links {
+    display: flex; flex-direction: column; align-items: center; gap: 18px;
+    max-width: 1320px; margin: 64px auto 0; padding-top: 32px;
+    border-top: 1px solid rgba(234, 174, 69, 0.35);
+    font: italic 17px "Newsreader", serif;
+  }
+  .story-links a { color: var(--ink-soft); text-decoration: none; }
+  .story-links a:hover { color: var(--accent); }
+  .story-links .story-next { order: 1; color: var(--ink); font-size: 19px; margin: 0; }
+  .story-links .write-about { order: 2; margin: 0; text-decoration: underline; text-decoration-color: rgba(234, 174, 69, 0.55); text-underline-offset: 3px; }
+  .story-links .story-return { order: 3; font-size: 16px; }
+  .story-title { font-size: clamp(40px, 5vw, 68px); line-height: 1.05; letter-spacing: -0.01em; margin-bottom: 36px; }
+  @media (min-width: 760px) {
+    .story-links { display: grid; grid-template-columns: 1fr auto 1fr; align-items: baseline; gap: 24px; }
+    .story-links .story-return { order: 0; justify-self: start; }
+    .story-links .write-about { order: 0; justify-self: center; }
+    .story-links .story-next, .story-links .story-next-empty { order: 0; justify-self: end; }
+  }
+</style>
+
+<script>
+// Fade artwork in once decoded, so frames never flash a half-drawn image.
+document.documentElement.classList.add("js-fade");
+document.addEventListener("load", markLoaded, true);
+document.addEventListener("error", markLoaded, true);
+function markLoaded(e) {
+  var t = e.target;
+  if (t && t.classList && t.classList.contains("piece-img")) t.classList.add("is-loaded");
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+  <header class="site-head">
+    <a class="site-head-link" href="/"><h1 class="site-head-title">Benkum Art</h1></a>
+    <nav class="site-nav" aria-label="Site"><a href="/about/">about</a><a href="/#write">write</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
+  </header>
+
+  <main class="story-view">
+    <a class="story-back" href="/">&larr; Back to gallery</a>
+    <h2 class="story-title">What Stayed Open</h2>
+    <div class="story-layout">
+    <div class="story-visual">
+    <div class="story-frame marked"><img class="piece-img" data-full="/assets/art/what-stayed-open.jpg" src="/assets/art/what-stayed-open.jpg" srcset="/assets/art/what-stayed-open.webp 667w, /assets/art/what-stayed-open.jpg 1024w" sizes="(max-width: 900px) 92vw, 860px" alt="A close, warmly lit still life in thick oil impasto: in the foreground, an open, well-worn notebook with soft, stained pages catches the light, a hand with warm deep-brown skin resting quietly beside it, not turning a page; behind and in shadow, a closed, dust-settled book sits untouched at the edge of the same surface. The rest of the scene recedes into near-black shadow." width="1024" height="1536" loading="eager"><svg class="piece-mark" viewBox="0 0 100 100" width="40" height="40" aria-hidden="true" focusable="false" style="position:absolute;bottom:14px;left:14px;opacity:0.16;pointer-events:none;z-index:2;"><polygon points="30.51,90.16 30.36,88.67 30.36,87.20 30.37,85.70 30.43,84.21 30.52,82.71 30.57,81.20 30.65,79.66 30.75,78.14 30.83,76.62 30.89,75.10 31.01,73.57 31.08,72.04 31.18,70.48 31.31,68.96 31.46,67.41 31.59,65.88 31.79,64.35 31.96,62.82 32.14,61.28 32.32,59.71 32.52,58.11 32.71,56.52 32.92,54.94 33.10,53.35 33.33,51.76 33.54,50.16 33.75,48.61 33.98,46.99 34.26,45.36 34.51,43.80 34.79,42.20 35.08,40.57 35.34,39.01 35.61,37.41 35.94,35.77 36.28,34.15 36.63,32.55 36.99,30.91 37.35,29.30 37.70,27.67 38.03,26.05 38.36,24.37 38.73,22.69 39.10,21.04 39.45,19.36 39.84,17.69 40.24,16.04 39.75,15.95 39.30,17.60 38.85,19.26 38.40,20.90 37.98,22.55 37.57,24.19 37.15,25.82 36.76,27.43 36.38,29.06 36.00,30.68 35.61,32.31 35.25,33.92 34.87,35.54 34.50,37.14 34.15,38.75 33.81,40.35 33.45,41.97 33.13,43.57 32.79,45.17 32.45,46.77 32.11,48.35 31.79,49.91 31.46,51.47 31.16,53.04 30.83,54.61 30.55,56.17 30.26,57.73 29.98,59.32 29.71,60.86 29.47,62.40 29.22,63.97 28.98,65.52 28.74,67.06 28.48,68.63 28.22,70.18 28.00,71.70 27.77,73.22 27.56,74.77 27.35,76.29 27.14,77.82 26.93,79.34 26.72,80.87 26.52,82.36 26.34,83.85 26.17,85.36 25.99,86.85 25.80,88.34 25.48,89.84" fill="#EAAE45"/><polygon points="60.54,92.25 60.51,90.53 60.62,88.84 60.72,87.15 60.86,85.46 60.99,83.77 61.16,82.08 61.32,80.35 61.53,78.66 61.68,76.98 61.87,75.28 62.04,73.56 62.21,71.91 62.40,70.22 62.63,68.56 62.84,66.92 63.04,65.23 63.26,63.56 63.50,61.90 63.73,60.20 64.01,58.49 64.28,56.82 64.57,55.16 64.84,53.48 65.13,51.80 65.41,50.15 65.69,48.51 65.99,46.83 66.28,45.17 66.56,43.51 66.84,41.87 67.14,40.21 67.42,38.56 67.71,36.94 68.03,35.31 68.30,33.67 68.64,32.03 68.96,30.40 69.29,28.71 69.58,27.10 69.94,25.45 70.26,23.84 70.61,22.19 70.90,20.56 71.25,18.92 71.59,17.29 71.92,15.66 72.26,14.05 71.74,13.89 71.34,15.51 70.94,17.14 70.51,18.76 70.11,20.38 69.70,22.01 69.30,23.64 68.92,25.24 68.55,26.87 68.16,28.50 67.80,30.13 67.42,31.75 67.04,33.40 66.67,35.03 66.32,36.68 65.96,38.35 65.59,39.98 65.21,41.62 64.86,43.28 64.49,44.91 64.16,46.53 63.82,48.18 63.50,49.83 63.17,51.48 62.86,53.13 62.54,54.79 62.24,56.46 61.94,58.11 61.65,59.78 61.34,61.44 61.03,63.12 60.73,64.78 60.41,66.46 60.09,68.14 59.77,69.82 59.43,71.50 59.12,73.17 58.80,74.85 58.49,76.50 58.16,78.20 57.86,79.87 57.56,81.57 57.27,83.25 56.94,84.94 56.65,86.62 56.33,88.31 55.98,90.00 55.49,91.67" fill="#EAAE45"/></svg></div>
+    <p class="story-cap">Some choices are made by what we keep returning to.</p>
+    </div>
+    <div class="story-body">
+    <div class="story-reading-pause" aria-hidden="true"></div>
+    <div class="story-text"><p>There had been another plan. The closed book belonged to it — study, preparation, a future mapped out clearly enough to work toward. She never threw it away. Weeks passed between the times she opened it. Then months. Dust settled evenly across the cover and stayed there.</p><p>Another book didn’t collect dust. Its pages got opened, marked, corrected, stained, opened again — recipes at first, then adjustments in the margins, then whole pages in her own shorthand. She liked the smell of a kitchen an hour before anyone else was awake. She liked handing someone a cake and watching their face do the thing faces do when it’s exactly right. Somewhere in all that ordinary repetition, what she was practicing started to matter more than what she’d planned.</p><p>On September 23, 2026, Rindwine Amadhila, 30, of Oshakati, was profiled for exactly this: she’d used part of her university study loan on professional baking courses, and now runs the bakery alongside her studies. What she built from that decision, Kalindi Bakery, now makes the cakes for other people’s birthdays, weddings, graduations, baptisms. “Each order is special to me,” she says, “because behind every cake is a customer trusting me to be part of an important moment in their life.”</p><p>There was never one single moment of choosing between them. That’s why both books stay on the same shelf. One still belongs to the plan she’s still finishing. The other belongs to the life she actually gets up for every morning. Her hand doesn’t move between them. It rests on the open one, warm from the oven behind her, in no hurry to be anywhere else.</p></div>
+    <div class="story-glyph" aria-hidden="true"><svg viewBox="0 0 100 100" width="68" height="68" fill="none" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(-11.1 45.7 53.4)"><path d="M 42.0 52.6 Q 36.3 64.1 47.3 70.7" stroke="#EAAE45" stroke-width="3.27" stroke-linecap="round" fill="none" opacity="0.64"/><path d="M 43.5 66.9 Q 45.4 68.8 47.3 70.7" stroke="#EAAE45" stroke-width="1.37" stroke-linecap="round" fill="none" opacity="0.45"/><line x1="47.9" y1="62.2" x2="42.1" y2="63.8" stroke="#EAAE45" stroke-width="1.22" stroke-linecap="round" opacity="0.70"/><path d="M 50.1 51.4 Q 60.5 52.8 66.0 61.8" stroke="#EAAE45" stroke-width="2.84" stroke-linecap="round" fill="none" opacity="0.56"/><path d="M 62.8 58.1 Q 64.4 59.9 66.0 61.8" stroke="#EAAE45" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.39"/><path d="M 45.1 51.1 Q 41.2 38.9 30.1 32.4" stroke="#EAAE45" stroke-width="2.20" stroke-linecap="round" fill="none" opacity="0.71"/><path d="M 34.9 36.2 Q 32.5 34.3 30.1 32.4" stroke="#EAAE45" stroke-width="0.92" stroke-linecap="round" fill="none" opacity="0.50"/><path d="M 41.8 54.4 Q 49.2 61.0 45.3 70.0" stroke="#EAAE45" stroke-width="3.05" stroke-linecap="round" fill="none" opacity="0.64"/><path d="M 46.1 65.8 Q 45.7 67.9 45.3 70.0" stroke="#EAAE45" stroke-width="1.28" stroke-linecap="round" fill="none" opacity="0.45"/><line x1="49.6" y1="62.0" x2="38.2" y2="65.6" stroke="#EAAE45" stroke-width="1.57" stroke-linecap="round" opacity="0.45"/></g></svg></div>
+    <section class="signup" aria-label="Print launch signup"><p class="signup-line">Prints are coming. Get one email when they launch.</p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">One email at launch. No spam, unsubscribe anytime.</p></section>
+    </div>
+    </div>
+    <nav class="story-links" aria-label="Artwork navigation"><a class="story-return" href="/">&larr; Return to the archive</a><a class="write-about" href="/?work=what-stayed-open#write">Write to me about this work</a><span class="story-next-empty" aria-hidden="true"></span></nav>
+  </main>
+
+  <footer class="site-foot">
+    <p class="signature"><img class="sig-logo-img" src="/assets/brand/benkum-logo.png" alt="benkum art" width="647" height="130"></p>
+    <p class="foot-caption">self taught, figuring it out, yɛn kɔ &middot; <a class="foot-about-link" href="/about/">a note</a> &middot; <a class="foot-about-link" href="/rights.html">rights &amp; usage</a> &middot; <a class="foot-about-link" href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">instagram</a> &middot; <a class="foot-about-link" href="mailto:hello@benkum.art">email</a></p>
+    <p class="foot-disclosure">&copy; 2026 Kwame Asiedu &middot; Benkum Art. All rights reserved.</p>
+  </footer>
+</div>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork enlarged" tabindex="-1"><button class="lightbox-close" id="lightbox-close" aria-label="Close enlarged artwork" type="button">&times;</button><img id="lightbox-img" alt=""></div>
+
+<script>
+(function () {
+  var lightbox = document.getElementById("lightbox");
+  var lightboxImg = document.getElementById("lightbox-img");
+  var lightboxClose = document.getElementById("lightbox-close");
+  var page = document.querySelector(".wrap");
+  var lastFocus = null;
+
+  function openLightbox(img) {
+    lastFocus = img;
+    lightboxImg.src = img.getAttribute("data-full");
+    lightboxImg.alt = img.alt;
+    lightbox.classList.add("open");
+    document.body.style.overflow = "hidden";
+    if (page) page.inert = true;
+    lightboxClose.focus();
+  }
+  function closeLightbox() {
+    lightbox.classList.remove("open");
+    lightboxImg.removeAttribute("src");
+    document.body.style.overflow = "";
+    if (page) page.inert = false;
+    if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+  }
+
+  document.querySelectorAll(".piece-img").forEach(function (img) {
+    img.setAttribute("tabindex", "0");
+    img.setAttribute("role", "button");
+    img.setAttribute("aria-label", "Enlarge " + img.alt);
+    img.addEventListener("click", function () { openLightbox(img); });
+    img.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openLightbox(img);
+      }
+    });
+  });
+  lightboxClose.addEventListener("click", closeLightbox);
+  lightbox.addEventListener("click", function (e) {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (!lightbox.classList.contains("open")) return;
+    if (e.key === "Escape") {
+      e.preventDefault();
+      closeLightbox();
+      return;
+    }
+    if (e.key === "Tab") {
+      // The close button is intentionally the only focusable control in the modal.
+      e.preventDefault();
+      lightboxClose.focus();
+    }
+  });
+})();
+</script>
+</body>
+</html>

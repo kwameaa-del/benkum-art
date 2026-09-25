@@ -67,4 +67,8 @@
     <loc>https://benkum.art/art/a-second-behind/</loc>
     <image:image><image:loc>https://benkum.art/assets/art/a-second-behind.jpg</image:loc></image:image>
   </url>
+  <url>
+    <loc>https://benkum.art/art/what-stayed-open/</loc>
+    <image:image><image:loc>https://benkum.art/assets/art/what-stayed-open.jpg</image:loc></image:image>
+  </url>
 </urlset>
