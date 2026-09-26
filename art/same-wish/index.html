@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/favicon.ico?v=2" sizes="48x48">
+<link rel="icon" href="/assets/brand/favicon-32.png?v=2" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2">
+<title>Same Wish — a piece on Madagascar, one year after Gen Z’s uprising | Benkum Art</title>
+<meta name="description" content="I already know what I’m going to wish for. I wished it last year too. A piece and story about Madagascar, one year after the protests that toppled a president — and what still hasn’t changed.">
+<link rel="canonical" href="https://benkum.art/art/same-wish/">
+<meta property="og:title" content="Same Wish — Benkum Art">
+<meta property="og:description" content="I already know what I’m going to wish for. I wished it last year too.">
+<meta property="og:image" content="https://benkum.art/assets/art/same-wish.jpg">
+<meta property="og:url" content="https://benkum.art/art/same-wish/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "VisualArtwork",
+  "name": "Same Wish",
+  "url": "https://benkum.art/art/same-wish/",
+  "image": "https://benkum.art/assets/art/same-wish.jpg",
+  "description": "I already know what I’m going to wish for. I wished it last year too. A piece and story about Madagascar, one year after the protests that toppled a president — and what still hasn’t changed.",
+  "artist": {
+    "@type": "Person",
+    "name": "Kwame Asiedu"
+  }
+}
+</script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Archivo:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400..500&display=swap">
+<style>
+  :root {
+    --bg: #141414;
+    --ink: #EDEAE2;
+    --ink-soft: #ABA79E;
+    --ink-faint: #7A766D;
+    --border: rgba(237, 234, 226, 0.16);
+    --accent: #EAAE45;
+    --focus: #EAAE45;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  button:focus-visible, a:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+  .wrap { max-width: 980px; margin: 0 auto; padding: 0 32px; }
+
+  /* ---------- Gallery ---------- */
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 96px;
+    padding: 72px 0 48px;
+  }
+  .piece-title {
+    margin: 0 2px 18px;
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 26px;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+  }
+  .piece-frame {
+    background: #FAFAF6;
+    padding: clamp(12px, 2.4vw, 26px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+  }
+  .piece-frame img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    aspect-ratio: auto;
+    display: block;
+    cursor: zoom-in;
+  }
+  .piece-cap {
+    margin: 18px 2px 0;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+  .piece-story-link {
+    display: inline-block;
+    margin: 12px 2px 0;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(234, 174, 69, 0.35);
+    cursor: pointer;
+    background: none;
+    padding: 0;
+  }
+  .piece-story-link:hover { border-bottom-color: var(--accent); }
+
+  /* ---------- Story view ---------- */
+  .story-view {
+    padding: 72px 0 64px;
+  }
+  .story-back {
+    display: inline-block;
+    margin-bottom: 56px;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .story-back:hover { color: var(--ink); }
+  .story-title {
+    margin: 0 2px 26px;
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 28px;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+    text-align: center;
+  }
+  .story-frame {
+    position: relative;
+    background: #FAFAF6;
+    padding: clamp(12px, 2.4vw, 26px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+    max-width: 860px;
+    margin: 0 auto 24px;
+  }
+  .story-frame img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    aspect-ratio: auto;
+    display: block;
+    cursor: zoom-in;
+  }
+  .story-frame.marked::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 14px;
+    height: 14px;
+    border-top: 1.5px solid var(--accent);
+    border-left: 1.5px solid var(--accent);
+    opacity: 0.85;
+    pointer-events: none;
+  }
+  .story-cap {
+    margin: 0 auto;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--ink-soft);
+    max-width: 52ch;
+    text-align: center;
+  }
+  .story-reading-pause {
+    height: clamp(48px, 7vw, 88px);
+  }
+  .story-text {
+    margin: 0 auto;
+    max-width: 60ch;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+  .story-text p { margin: 0 0 1.2em; }
+  .story-text p:last-child { margin-bottom: 0; }
+  .story-glyph {
+    display: flex;
+    justify-content: center;
+    margin: 48px auto 0;
+    cursor: default;
+  }
+  .story-glyph svg { display: block; }
+  .story-nav {
+    max-width: 60ch;
+    margin: 64px auto 0;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .story-next {
+    display: block;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink);
+    text-decoration: none;
+    margin-bottom: 20px;
+  }
+  .story-next:hover { color: var(--accent); }
+  .story-return {
+    display: inline-block;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .story-return:hover { color: var(--ink); }
+
+  /* ---------- About ---------- */
+  .about-view {
+    position: relative;
+    overflow: hidden;
+    padding: 96px 0 80px;
+    max-width: 46ch;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .about-poem {
+    position: relative;
+    z-index: 1;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 2;
+    color: var(--ink);
+  }
+  .about-poem p { margin: 0 0 1.6em; }
+  .about-poem p:last-child { margin-bottom: 0; color: var(--accent); }
+  .about-glyph-fragment {
+    position: absolute;
+    z-index: 0;
+    right: clamp(-140px, -22vw, -70px);
+    bottom: clamp(-120px, -18vw, -60px);
+    width: clamp(220px, 46vw, 360px);
+    aspect-ratio: 1;
+    color: var(--accent);
+    opacity: 0.08;
+    transform: rotate(-11deg);
+    pointer-events: none;
+    user-select: none;
+  }
+  .about-glyph-fragment svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  .about-back {
+    display: block;
+    margin-top: 64px;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .about-back:hover { color: var(--ink); }
+  .foot-about-link {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(171, 167, 158, 0.55);
+    cursor: pointer;
+  }
+  .foot-about-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* ---------- Lightbox ---------- */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.94);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+    z-index: 1000;
+    cursor: zoom-out;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    box-shadow: none;
+    display: block;
+  }
+  .lightbox-close {
+    position: absolute;
+    top: max(18px, env(safe-area-inset-top));
+    right: 22px;
+    min-width: 44px;
+    min-height: 44px;
+    background: none;
+    border: 0;
+    color: var(--ink);
+    font: 32px Georgia, serif;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .lightbox-close:hover { color: var(--accent); }
+
+  /* Empty state */
+  .empty {
+    padding: 120px 0;
+    text-align: center;
+  }
+  .empty-sub {
+    font-size: 15px;
+    font-style: italic;
+    color: var(--ink-faint);
+  }
+
+  footer.site-foot {
+    border-top: 1px solid var(--border);
+    padding: 26px 0 56px;
+  }
+  .signature {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    line-height: 1;
+  }
+  .sig-gold {
+    background: linear-gradient(160deg, #F5D48A 0%, #C89430 22%, #7A4E12 45%, #E8BE6A 62%, #B9791A 80%, #F0CE7E 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+  .sig-word {
+    font-family: "Archivo", sans-serif;
+    font-weight: 700;
+    font-size: 21px;
+    letter-spacing: 0.01em;
+    line-height: 1;
+  }
+  .sig-script {
+    font-family: "Alex Brush", cursive;
+    font-size: 30px;
+    line-height: 0.6;
+    margin-left: 3px;
+  }
+  .sig-logo-img {
+    height: 26px;
+    width: auto;
+    display: block;
+  }
+  .sig-attribution {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-faint);
+    margin-left: 6px;
+    line-height: 1;
+  }
+  .foot-caption {
+    margin: 3px 0 0;
+    line-height: 1.3;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-faint);
+  }
+  .foot-disclosure {
+    margin: 12px 0 0;
+    line-height: 1.3;
+    font-family: "Newsreader", serif;
+    font-size: 10px;
+    letter-spacing: 0.03em;
+    color: var(--ink-faint);
+    opacity: 0.62;
+  }
+
+  /* ---------- Site header (real, crawlable brand heading) ---------- */
+  .site-head {
+    padding: 40px 0 0;
+  }
+  .site-head-link {
+    display: inline-block;
+    text-decoration: none;
+  }
+  .site-head-title {
+    margin: 0;
+    font-family: "Archivo", sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .site-head-link:hover .site-head-title { color: var(--accent); }
+
+  /* ---------- Artwork page (standalone, non-hash pages) ---------- */
+  .art-back {
+    display: inline-block;
+    margin: 28px 0 0;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .art-back:hover { color: var(--ink); }
+
+  /* ---------- Image loading ---------- */
+  /* Dark mat inside the frame shows while the image loads, instead of bare white. */
+  .piece-frame, .story-frame {
+    background: linear-gradient(#1F1D1A, #1F1D1A) content-box, #FAFAF6;
+  }
+  .js-fade .piece-img { opacity: 0; transition: opacity 0.45s ease; }
+  .js-fade .piece-img.is-loaded { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) {
+    .js-fade .piece-img { transition: none; }
+  }
+
+  /* ---------- Top links ---------- */
+  .site-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .site-nav { display: flex; gap: 22px; }
+  .site-nav a {
+    font-family: "Archivo", sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding: 10px 0;
+  }
+  .site-nav a:hover { color: var(--accent); }
+  @media (max-width: 420px) { .site-nav { gap: 16px; } .site-nav a { font-size: 11px; } }
+
+  /* ---------- Print launch signup ---------- */
+  .signup { max-width: 46ch; margin: 64px auto 0; padding-top: 36px; border-top: 1px solid var(--border); text-align: center; }
+  .signup-line { margin: 0 0 16px; font-family: "Newsreader", serif; font-style: italic; font-size: 17px; color: var(--ink); }
+  .signup-form { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .signup-form input {
+    flex: 1 1 200px; max-width: 280px; min-height: 44px; padding: 0 14px;
+    font: 15px "Newsreader", Georgia, serif; color: var(--ink);
+    background: rgba(237, 234, 226, 0.05); border: 1px solid var(--border); border-radius: 999px;
+  }
+  .signup-form input::placeholder { color: var(--ink-faint); font-style: italic; }
+  .signup-form input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .signup-form button {
+    min-height: 44px; padding: 0 22px; cursor: pointer;
+    font: italic 15px "Newsreader", serif; color: var(--accent);
+    background: rgba(234, 174, 69, 0.08); border: 1px solid rgba(234, 174, 69, 0.45); border-radius: 999px;
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  }
+  .signup-form button:hover { background: rgba(234, 174, 69, 0.16); border-color: var(--accent); color: var(--ink); }
+  .signup-note { margin: 12px 0 0; font-size: 13px; font-style: italic; color: var(--ink-faint); }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* ---------- Readability ---------- */
+  /* Newsreader has a small x-height; sizes run ~2px larger than a typical
+     face would need, and the optical-size axis gives sturdier letters at
+     reading sizes. Faint grey lifted from 4.1:1 to ~6:1 contrast. */
+  :root { --ink-faint: #9A968D; }
+  body { font-optical-sizing: auto; }
+  .story-text { font-size: 19px; line-height: 1.7; }
+  .story-cap, .piece-cap { font-size: 17px; }
+  .story-back, .story-return { font-size: 15px; }
+  .story-next { font-size: 19px; }
+  .about-poem { font-size: 20px; }
+  .about-prose { font-size: 19px; }
+  .about-now { font-size: 16px; }
+  .about-contact { font-size: 16px; }
+  .signup-line { font-size: 18px; }
+  .signup-note, .foot-caption { font-size: 14px; }
+  .foot-disclosure { font-size: 12px; opacity: 1; }
+  .site-nav a { font-size: 13px; }
+  .load-more-btn { font-size: 16px; }
+  @media (max-width: 600px) {
+    .story-text, .about-prose { font-size: 18px; }
+  }
+  @media (max-width: 420px) {
+    .site-nav a { font-size: 12px; }
+  }
+
+  /* ---------- Write to me link ---------- */
+  .write-about { display: block; margin: 40px auto 0; text-align: center; font: italic 17px "Newsreader", serif; color: var(--ink-soft); text-decoration: underline; text-decoration-color: rgba(234, 174, 69, 0.55); text-underline-offset: 3px; }
+  .write-about:hover { color: var(--accent); }
+
+  /* ---------- Two-sided layout on wide screens ---------- */
+  /* Phones keep the single column; from 1000px the artwork sits on the left
+     and the story reads beside it on the right. */
+  @media (min-width: 1000px) {
+    .wrap { max-width: 1400px; }
+    .story-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 64px;
+      align-items: start;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+    .story-layout .story-frame { max-width: none; margin: 0 0 20px; }
+    .story-layout .story-cap { text-align: left; margin: 0; }
+    .story-layout .story-reading-pause { display: none; }
+    .story-layout .story-text { margin: 0; max-width: 60ch; }
+    .story-layout .story-glyph { justify-content: flex-start; }
+    .story-layout .story-nav { margin: 48px 0 0; text-align: left; }
+    .story-layout .write-about { margin: 36px 0 0; text-align: left; }
+    .story-layout .signup { margin: 48px 0 0; text-align: left; }
+    .story-layout .signup-form { justify-content: flex-start; }
+  }
+
+  /* One form style site-wide */
+  .signup-form input { border-radius: 10px; font-size: 16px; }
+  .signup-form button { min-height: 44px; padding: 0 28px; font: italic 16px "Newsreader", serif; }
+
+  /* ---------- Story links row + big titles ---------- */
+  /* Return | Write | Continue in one mirrored line under the artwork and
+     story; stacked (Continue first) on phones. */
+  .story-links {
+    display: flex; flex-direction: column; align-items: center; gap: 18px;
+    max-width: 1320px; margin: 64px auto 0; padding-top: 32px;
+    border-top: 1px solid rgba(234, 174, 69, 0.35);
+    font: italic 17px "Newsreader", serif;
+  }
+  .story-links a { color: var(--ink-soft); text-decoration: none; }
+  .story-links a:hover { color: var(--accent); }
+  .story-links .story-next { order: 1; color: var(--ink); font-size: 19px; margin: 0; }
+  .story-links .write-about { order: 2; margin: 0; text-decoration: underline; text-decoration-color: rgba(234, 174, 69, 0.55); text-underline-offset: 3px; }
+  .story-links .story-return { order: 3; font-size: 16px; }
+  .story-title { font-size: clamp(40px, 5vw, 68px); line-height: 1.05; letter-spacing: -0.01em; margin-bottom: 36px; }
+  @media (min-width: 760px) {
+    .story-links { display: grid; grid-template-columns: 1fr auto 1fr; align-items: baseline; gap: 24px; }
+    .story-links .story-return { order: 0; justify-self: start; }
+    .story-links .write-about { order: 0; justify-self: center; }
+    .story-links .story-next, .story-links .story-next-empty { order: 0; justify-self: end; }
+  }
+
+  /* ---------- Pinned top bar + slim footer ---------- */
+  /* The header stays in place while the page scrolls under it; the footer is
+     a slim bar at the end of the page. Full-width strips come from ::before. */
+  .site-head {
+    position: sticky; top: 0; z-index: 60;
+    padding: 18px 0 14px;
+  }
+  .site-head::before, .site-foot::before {
+    content: ""; position: absolute; top: 0; bottom: 0;
+    left: calc(50% - 50vw); right: calc(50% - 50vw);
+    background: rgba(20, 20, 20, 0.94); z-index: -1;
+  }
+  .site-head::before { border-bottom: 1px solid var(--border); }
+  footer.site-foot {
+    position: relative;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 6px 24px;
+    margin-top: 48px; padding: 12px 0; border-top: 0;
+  }
+  .site-foot::before { border-top: 1px solid var(--border); }
+  .site-foot .signature, .site-foot .foot-caption, .site-foot .foot-disclosure { margin: 0; }
+  .site-foot .sig-logo-img { height: 18px; }
+  .site-foot .foot-disclosure { font-size: 12px; }
+  #view-root, #write, main { scroll-margin-top: 80px; }
+  html, body { overflow-x: clip; }
+  @media (max-width: 700px) {
+    footer.site-foot { justify-content: center; padding: 10px 0; }
+    .site-foot .foot-caption { font-size: 13px; text-align: center; }
+  }
+</style>
+
+<script>
+// Fade artwork in once decoded, so frames never flash a half-drawn image.
+document.documentElement.classList.add("js-fade");
+document.addEventListener("load", markLoaded, true);
+document.addEventListener("error", markLoaded, true);
+function markLoaded(e) {
+  var t = e.target;
+  if (t && t.classList && t.classList.contains("piece-img")) t.classList.add("is-loaded");
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+  <header class="site-head">
+    <a class="site-head-link" href="/"><h1 class="site-head-title">Benkum Art</h1></a>
+    <nav class="site-nav" aria-label="Site"><a href="/about/">about</a><a href="/#write">write</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
+  </header>
+
+  <main class="story-view">
+    <a class="story-back" href="/">&larr; Back to gallery</a>
+    <h2 class="story-title">Same Wish</h2>
+    <div class="story-layout">
+    <div class="story-visual">
+    <div class="story-frame marked"><img class="piece-img" data-full="/assets/art/same-wish.jpg" src="/assets/art/same-wish.jpg" srcset="/assets/art/same-wish.webp 667w, /assets/art/same-wish.jpg 1024w" sizes="(max-width: 900px) 92vw, 860px" alt="A dark, intimate scene in thick oil impasto: a single hand with warm deep-brown skin enters from the lower right, cupping a small lit candle stub at the rim of a cracked stone water basin; above it, an old brass tap is dry, a rust-colored stain trailing down the stone from where water once ran. The candle is the only light source, its warm glow catching the hand and the worn stone; the rest of the frame recedes into near-black shadow, the figure's face and body kept out of frame." width="1024" height="1536" loading="eager"></div>
+    <p class="story-cap">I already know what I’m going to wish for. I wished it last year too.</p>
+    </div>
+    <div class="story-body">
+    <div class="story-reading-pause" aria-hidden="true"></div>
+    <div class="story-text"><p>I strike the match before I let myself feel anything about it. One flame, cupped low, beside the tap that still hasn’t run in a year.</p><p>On September 25, 2025, Madagascar’s Gen Z-led protests began in Antananarivo over chronic water and power shortages. Soldiers joined them, President Rajoelina fled, and Colonel Michael Randrianirina took power weeks later. A year on, activist Felana Andriatahina says of the men now ruling: “It’s thanks to us taking to the streets... that they’re in power today,” she says. “It’s a betrayal.”</p><p>I set it down at the rim anyway, and make the same wish I made last year. It still hasn’t reached the tap.</p></div>
+    <div class="story-glyph" aria-hidden="true"><svg viewBox="0 0 100 100" width="68" height="68" fill="none" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(-0.3 52.1 55.6)"><path d="M 56.8 52.5 Q 49.8 42.9 59.6 36.3" stroke="#EAAE45" stroke-width="2.34" stroke-linecap="round" fill="none" opacity="0.70"/><path d="M 56.4 39.9 Q 58.0 38.1 59.6 36.3" stroke="#EAAE45" stroke-width="0.98" stroke-linecap="round" fill="none" opacity="0.49"/><path d="M 48.3 54.7 Q 46.1 38.1 57.1 25.4" stroke="#EAAE45" stroke-width="3.22" stroke-linecap="round" fill="none" opacity="0.81"/><path d="M 52.9 32.1 Q 55.0 28.8 57.1 25.4" stroke="#EAAE45" stroke-width="1.35" stroke-linecap="round" fill="none" opacity="0.57"/><line x1="49.3" y1="35.0" x2="58.6" y2="36.4" stroke="#EAAE45" stroke-width="1.68" stroke-linecap="round" opacity="0.39"/><path d="M 56.7 56.5 Q 75.0 48.2 85.5 31.1" stroke="#EAAE45" stroke-width="2.09" stroke-linecap="round" fill="none" opacity="0.67"/><path d="M 79.5 38.8 Q 82.5 34.9 85.5 31.1" stroke="#EAAE45" stroke-width="0.88" stroke-linecap="round" fill="none" opacity="0.47"/><line x1="73.6" y1="34.9" x2="80.2" y2="42.4" stroke="#EAAE45" stroke-width="1.02" stroke-linecap="round" opacity="0.72"/><path d="M 49.0 54.6 Q 54.7 62.1 59.4 70.1" stroke="#EAAE45" stroke-width="1.47" stroke-linecap="round" fill="none" opacity="0.81"/><path d="M 56.9 66.2 Q 58.2 68.2 59.4 70.1" stroke="#EAAE45" stroke-width="0.62" stroke-linecap="round" fill="none" opacity="0.57"/><line x1="61.5" y1="63.2" x2="50.7" y2="67.3" stroke="#EAAE45" stroke-width="1.40" stroke-linecap="round" opacity="0.45"/></g></svg></div>
+    <section class="signup" aria-label="Print launch signup"><p class="signup-line">Prints are coming. Get one email when they launch.</p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">One email at launch. No spam, unsubscribe anytime.</p></section>
+    </div>
+    </div>
+    <nav class="story-links" aria-label="Artwork navigation"><a class="story-return" href="/">&larr; Return to the archive</a><a class="write-about" href="/?work=same-wish#write">Write to me about this work</a><span class="story-next-empty" aria-hidden="true"></span></nav>
+  </main>
+
+  <footer class="site-foot">
+    <p class="signature"><img class="sig-logo-img" src="/assets/brand/benkum-logo.png" alt="benkum art" width="647" height="130"></p>
+    <p class="foot-caption"><span class="foot-lead">self taught, figuring it out, yɛn kɔ &middot; </span><a class="foot-about-link" href="/about/">a note</a> &middot; <a class="foot-about-link" href="/rights.html">rights &amp; usage</a> &middot; <a class="foot-about-link" href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">instagram</a> &middot; <a class="foot-about-link" href="mailto:ka@benkum.art">email</a></p>
+    <p class="foot-disclosure">&copy; 2026 Kwame Asiedu &middot; Benkum Art. All rights reserved.</p>
+  </footer>
+</div>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Artwork enlarged" tabindex="-1"><button class="lightbox-close" id="lightbox-close" aria-label="Close enlarged artwork" type="button">&times;</button><img id="lightbox-img" alt=""></div>
+
+<script>
+(function () {
+  var lightbox = document.getElementById("lightbox");
+  var lightboxImg = document.getElementById("lightbox-img");
+  var lightboxClose = document.getElementById("lightbox-close");
+  var page = document.querySelector(".wrap");
+  var lastFocus = null;
+
+  function openLightbox(img) {
+    lastFocus = img;
+    lightboxImg.src = img.getAttribute("data-full");
+    lightboxImg.alt = img.alt;
+    lightbox.classList.add("open");
+    document.body.style.overflow = "hidden";
+    if (page) page.inert = true;
+    lightboxClose.focus();
+  }
+  function closeLightbox() {
+    lightbox.classList.remove("open");
+    lightboxImg.removeAttribute("src");
+    document.body.style.overflow = "";
+    if (page) page.inert = false;
+    if (lastFocus && document.contains(lastFocus)) lastFocus.focus();
+  }
+
+  document.querySelectorAll(".piece-img").forEach(function (img) {
+    img.setAttribute("tabindex", "0");
+    img.setAttribute("role", "button");
+    img.setAttribute("aria-label", "Enlarge " + img.alt);
+    img.addEventListener("click", function () { openLightbox(img); });
+    img.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        openLightbox(img);
+      }
+    });
+  });
+  lightboxClose.addEventListener("click", closeLightbox);
+  lightbox.addEventListener("click", function (e) {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (!lightbox.classList.contains("open")) return;
+    if (e.key === "Escape") {
+      e.preventDefault();
+      closeLightbox();
+      return;
+    }
+    if (e.key === "Tab") {
+      // The close button is intentionally the only focusable control in the modal.
+      e.preventDefault();
+      lightboxClose.focus();
+    }
+  });
+})();
+</script>
+</body>
+</html>
