@@ -248,6 +248,17 @@ function markLoaded(e) {
   }
   .story-text p { margin: 0 0 1.2em; }
   .story-text p:last-child { margin-bottom: 0; }
+  .story-print {
+    margin: 36px 0 0;
+    text-align: center;
+    font: italic 17px "Newsreader", serif;
+  }
+  .story-print a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(234, 174, 69, 0.35);
+  }
+  .story-print a:hover { border-bottom-color: var(--accent); }
   .story-glyph {
     display: flex;
     justify-content: center;
@@ -789,7 +800,7 @@ function markLoaded(e) {
 <div class="wrap">
   <header class="site-head">
     <a class="site-head-link" href="/"><h1 class="site-head-title">Benkum Art</h1></a>
-    <nav class="site-nav" aria-label="Site"><a href="/about/">about</a><a href="/#write">write</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
+    <nav class="site-nav" aria-label="Site"><a href="/about/">about</a><a href="/#write">write</a><a href="https://www.etsy.com/shop/BenkumArt" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">shop</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
   </header>
   <main id="view-root"><div class="stack"><article class="piece is-portrait"><h2 class="piece-title">Same Wish</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/same-wish.jpg" src="/assets/art/same-wish.webp" alt="A dark, intimate scene in thick oil impasto: a single hand with warm deep-brown skin enters from the lower right, cupping a small lit candle stub at the rim of a cracked stone water basin; above it, an old brass tap is dry, a rust-colored stain trailing down the stone from where water once ran. The candle is the only light source, its warm glow catching the hand and the worn stone; the rest of the frame recedes into near-black shadow, the figure's face and body kept out of frame." width="1024" height="1536" style="aspect-ratio: 1024 / 1536" loading="eager" fetchpriority="high"></div><a class="piece-cap" data-id="same-wish" href="/art/same-wish/">I already know what I’m going to wish for. I wished it last year too.</a></article><article class="piece is-portrait"><h2 class="piece-title">What Stayed Open</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/what-stayed-open.jpg" src="/assets/art/what-stayed-open.webp" alt="A close, warmly lit still life in thick oil impasto: in the foreground, an open, well-worn notebook with soft, stained pages catches the light, a hand with warm deep-brown skin resting quietly beside it, not turning a page; behind and in shadow, a closed, dust-settled book sits untouched at the edge of the same surface. The rest of the scene recedes into near-black shadow." width="1024" height="1536" style="aspect-ratio: 1024 / 1536" loading="eager"></div><a class="piece-cap" data-id="what-stayed-open" href="/art/what-stayed-open/">Some choices are made by what we keep returning to.</a></article></div><nav class="gallery-more" aria-label="More work"><button class="load-more-btn" id="gallery-earlier" type="button">Earlier work &rarr;</button></nav></main>
 
@@ -936,6 +947,7 @@ function markLoaded(e) {
       width: 1536,
       height: 1024,
       next: "steady-without-me",
+      etsyUrl: "https://www.etsy.com/listing/4583485651/already-landed-fine-art-print-by-kwame",
       story: "One foot is still on the stone. The other already carries all of me.\n\nOn September 17, 2026, the U.S. national emergency declared during the war in northern Ethiopia expired. The next day, sanctions tied to it were removed, including those on Eritrea’s ruling party, defense forces, Red Sea Trading Corporation and senior officials. Eritrea welcomed the move. But an expiration doesn’t answer what comes after it. What this changes between the two countries remains unsettled.\n\nMy back foot hasn’t caught up yet. It already knows where it’s going."
     },
     {
@@ -1274,7 +1286,7 @@ function markLoaded(e) {
   function writeHTML() {
     return (
       '<div class="write-view">' +
-        inquiryHTML(inquiryWork(), '<section class="signup" aria-label="Print launch signup"><p class="signup-line">Prints are coming. Get one email when they launch.</p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">One email at launch. No spam, unsubscribe anytime.</p></section>') +
+        inquiryHTML(inquiryWork(), '<section class="signup" aria-label="Email updates"><p class="signup-line">Selected works are available as fine-art prints.</p><p class="signup-line"><a href="https://www.etsy.com/shop/BenkumArt" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(234,174,69,.35)">Shop prints &rarr;</a></p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">No spam, unsubscribe anytime.</p></section>') +
         '<a class="about-back" href="#">&larr; Back to gallery</a>' +
       '</div>'
     );
@@ -1322,6 +1334,9 @@ function markLoaded(e) {
             '<div class="story-glyph" aria-hidden="true">' + glyphSVG(item.glyph) + '</div>'
           : '') +
         '</div></div>' +
+        (item.etsyUrl ?
+          '<p class="story-print"><a href="' + esc(item.etsyUrl) + '" target="_blank" rel="noopener noreferrer">Shop this print &rarr;</a></p>'
+        : '') +
         storyNavHTML(item) +
       '</div>'
     );
@@ -1477,7 +1492,7 @@ function markLoaded(e) {
   // confirmation click (?confirmed=1). Show a quiet note, then tidy the URL.
   function showSignupNotice() {
     var params = new URLSearchParams(window.location.search);
-    var text = params.has("confirmed") ? "You’re on the list. You’ll hear from me when prints launch."
+    var text = params.has("confirmed") ? "You’re on the list. You’ll hear from me when there’s news."
       : params.has("subscribed") ? "Almost there. Check your email to confirm."
       : null;
     if (!text) return;
