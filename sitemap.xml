@@ -73,14 +73,10 @@
   </url>
   <url>
     <loc>https://benkum.art/art/same-wish/</loc>
-    <image:image>
-      <image:loc>https://benkum.art/assets/art/same-wish.jpg</image:loc>
-      <image:title>Same Wish</image:title>
-      <image:caption>I already know what I’m going to wish for. I wished it last year too.</image:caption>
-    </image:image>
+    <image:image><image:loc>https://benkum.art/assets/art/same-wish.jpg</image:loc></image:image>
   </url>
   <url>
     <loc>https://benkum.art/art/where-i-remain/</loc>
-    <image:image><image:loc>https://benkum.art/assets/art/where-i-remain.png</image:loc></image:image>
+    <image:image><image:loc>https://benkum.art/assets/art/where-i-remain.jpg</image:loc></image:image>
   </url>
 </urlset>

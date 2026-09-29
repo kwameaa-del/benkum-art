@@ -433,7 +433,7 @@
   .site-nav a:hover { color: var(--accent); }
   @media (max-width: 420px) { .site-nav { gap: 16px; } .site-nav a { font-size: 11px; } }
 
-  /* ---------- Print launch signup ---------- */
+  /* ---------- Email signup ---------- */
   .signup { max-width: 46ch; margin: 64px auto 0; padding-top: 36px; border-top: 1px solid var(--border); text-align: center; }
   .signup-line { margin: 0 0 16px; font-family: "Newsreader", serif; font-style: italic; font-size: 17px; color: var(--ink); }
   .signup-form { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
@@ -452,6 +452,8 @@
   }
   .signup-form button:hover { background: rgba(234, 174, 69, 0.16); border-color: var(--accent); color: var(--ink); }
   .signup-note { margin: 12px 0 0; font-size: 13px; font-style: italic; color: var(--ink-faint); }
+  .signup-shop a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(234, 174, 69, 0.35); }
+  .signup-shop a:hover { border-bottom-color: var(--accent); }
   .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
   /* ---------- Readability ---------- */
@@ -558,6 +560,7 @@
   .site-foot .sig-logo-img { height: 18px; }
   .site-foot .foot-disclosure { font-size: 12px; }
   #view-root, #write, main { scroll-margin-top: 80px; }
+  @media (max-width: 420px) { .site-nav { gap: 12px; } .site-nav a { font-size: 11px; letter-spacing: 0.1em; } }
   html, body { overflow-x: clip; }
   @media (max-width: 700px) {
     footer.site-foot { justify-content: center; padding: 10px 0; }
@@ -580,7 +583,7 @@ function markLoaded(e) {
 <div class="wrap">
   <header class="site-head">
     <a class="site-head-link" href="/"><h1 class="site-head-title">Benkum Art</h1></a>
-    <nav class="site-nav" aria-label="Site"><a href="/about/">about</a><a href="/#write">write</a><a href="https://www.etsy.com/shop/BenkumArt" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">shop</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
+    <nav class="site-nav" aria-label="Site"><a href="/about/">about</a><a href="/#write">write</a><a href="https://www.etsy.com/shop/BenkumArt" target="_blank" rel="noopener noreferrer">shop</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
   </header>
 
   <main class="story-view">
@@ -595,7 +598,7 @@ function markLoaded(e) {
     <div class="story-reading-pause" aria-hidden="true"></div>
     <div class="story-text"><p>School began anyway.</p><p>On September 1, 2026, in Bunia, in DR Congo’s Ituri province, the year opened on schedule — even with the region facing one of the fastest-growing Ebola outbreaks on record, alongside conflict and a threatened teachers’ strike. The risk was visible from the first step through the gate. Nobody pretended otherwise. They moved forward with it anyway.</p><p>I didn’t set out to document the outbreak. What stayed with me was a body that keeps moving long after it has every reason to stop.</p></div>
     <div class="story-glyph" aria-hidden="true"><svg viewBox="0 0 100 100" width="68" height="68" fill="none" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(9.0 47.4 43.3)"><path d="M 43.4 40.0 Q 31.7 44.9 19.1 45.5" stroke="#EAAE45" stroke-width="2.92" stroke-linecap="round" fill="none" opacity="0.60"/><path d="M 25.3 44.7 Q 22.2 45.1 19.1 45.5" stroke="#EAAE45" stroke-width="1.23" stroke-linecap="round" fill="none" opacity="0.42"/><line x1="31.4" y1="47.9" x2="27.5" y2="38.4" stroke="#EAAE45" stroke-width="0.81" stroke-linecap="round" opacity="0.39"/><path d="M 45.6 45.8 Q 33.0 61.2 14.8 69.3" stroke="#EAAE45" stroke-width="1.92" stroke-linecap="round" fill="none" opacity="0.49"/><path d="M 23.3 64.6 Q 19.0 66.9 14.8 69.3" stroke="#EAAE45" stroke-width="0.81" stroke-linecap="round" fill="none" opacity="0.34"/><line x1="36.2" y1="58.1" x2="31.8" y2="51.3" stroke="#EAAE45" stroke-width="1.61" stroke-linecap="round" opacity="0.56"/><path d="M 42.9 44.7 Q 51.1 33.7 59.9 23.1" stroke="#EAAE45" stroke-width="1.76" stroke-linecap="round" fill="none" opacity="0.70"/><path d="M 55.6 28.4 Q 57.7 25.8 59.9 23.1" stroke="#EAAE45" stroke-width="0.74" stroke-linecap="round" fill="none" opacity="0.49"/><path d="M 48.8 41.7 Q 63.5 29.1 75.8 14.4" stroke="#EAAE45" stroke-width="2.64" stroke-linecap="round" fill="none" opacity="0.77"/><path d="M 69.4 21.5 Q 72.6 17.9 75.8 14.4" stroke="#EAAE45" stroke-width="1.11" stroke-linecap="round" fill="none" opacity="0.54"/><line x1="56.6" y1="27.9" x2="61.2" y2="35.0" stroke="#EAAE45" stroke-width="0.88" stroke-linecap="round" opacity="0.56"/><path d="M 45.2 45.7 Q 46.9 60.4 56.5 71.7" stroke="#EAAE45" stroke-width="3.23" stroke-linecap="round" fill="none" opacity="0.53"/><path d="M 52.5 65.7 Q 54.5 68.7 56.5 71.7" stroke="#EAAE45" stroke-width="1.36" stroke-linecap="round" fill="none" opacity="0.37"/><path d="M 45.4 41.2 Q 34.4 35.2 36.3 22.8" stroke="#EAAE45" stroke-width="2.51" stroke-linecap="round" fill="none" opacity="0.43"/><path d="M 36.7 28.4 Q 36.5 25.6 36.3 22.8" stroke="#EAAE45" stroke-width="1.05" stroke-linecap="round" fill="none" opacity="0.30"/><line x1="35.5" y1="35.9" x2="46.3" y2="28.0" stroke="#EAAE45" stroke-width="1.78" stroke-linecap="round" opacity="0.71"/></g></svg></div>
-    <section class="signup" aria-label="Email updates"><p class="signup-line">Selected works are available as fine-art prints.</p><p class="signup-line"><a href="https://www.etsy.com/shop/BenkumArt" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(234,174,69,.35)">Shop prints &rarr;</a></p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">No spam, unsubscribe anytime.</p></section>
+    <section class="signup" aria-label="Email updates"><p class="signup-line">Selected works are available as fine-art prints.</p><p class="signup-line signup-shop"><a href="https://www.etsy.com/shop/BenkumArt" target="_blank" rel="noopener noreferrer">Shop prints &rarr;</a></p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">Occasional emails about new work and prints. Unsubscribe anytime.</p></section>
     </div>
     </div>
     <nav class="story-links" aria-label="Artwork navigation"><a class="story-return" href="/">&larr; Return to the archive</a><a class="write-about" href="/?work=second-wind#write">Write to me about this work</a><span class="story-next-empty" aria-hidden="true"></span></nav>

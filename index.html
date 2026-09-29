@@ -577,7 +577,7 @@ function markLoaded(e) {
   .site-nav a:hover { color: var(--accent); }
   @media (max-width: 420px) { .site-nav { gap: 16px; } .site-nav a { font-size: 11px; } }
 
-  /* ---------- Print launch signup ---------- */
+  /* ---------- Email signup ---------- */
   .signup { max-width: 46ch; margin: 64px auto 0; padding-top: 36px; border-top: 1px solid var(--border); text-align: center; }
   .signup-line { margin: 0 0 16px; font-family: "Newsreader", serif; font-style: italic; font-size: 17px; color: var(--ink); }
   .signup-form { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
@@ -601,6 +601,8 @@ function markLoaded(e) {
     border: 1px solid rgba(234, 174, 69, 0.45); border-radius: 999px;
   }
   .signup-note { margin: 12px 0 0; font-size: 13px; font-style: italic; color: var(--ink-faint); }
+  .signup-shop a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(234, 174, 69, 0.35); }
+  .signup-shop a:hover { border-bottom-color: var(--accent); }
   .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
   /* ---------- Readability ---------- */
@@ -788,6 +790,7 @@ function markLoaded(e) {
   .site-foot .sig-logo-img { height: 18px; }
   .site-foot .foot-disclosure { font-size: 12px; }
   #view-root, #write, main { scroll-margin-top: 80px; }
+  @media (max-width: 420px) { .site-nav { gap: 12px; } .site-nav a { font-size: 11px; letter-spacing: 0.1em; } }
   html, body { overflow-x: clip; }
   @media (max-width: 700px) {
     footer.site-foot { justify-content: center; padding: 10px 0; }
@@ -800,9 +803,9 @@ function markLoaded(e) {
 <div class="wrap">
   <header class="site-head">
     <a class="site-head-link" href="/"><h1 class="site-head-title">Benkum Art</h1></a>
-    <nav class="site-nav" aria-label="Site"><a href="/about/">about</a><a href="/#write">write</a><a href="https://www.etsy.com/shop/BenkumArt" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">shop</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
+    <nav class="site-nav" aria-label="Site"><a href="/about/">about</a><a href="/#write">write</a><a href="https://www.etsy.com/shop/BenkumArt" target="_blank" rel="noopener noreferrer">shop</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
   </header>
-  <main id="view-root"><div class="stack"><article class="piece"><h2 class="piece-title">Where I Remain</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/where-i-remain.png" src="/assets/art/where-i-remain.png" alt="A seated figure in a light dress rests in a dim courtyard, with patterned cloth across the ground, a lantern nearby, and several figures gathered in the distance." width="1536" height="1024" style="aspect-ratio: 1536 / 1024" loading="eager" fetchpriority="high"></div><a class="piece-cap" data-id="where-i-remain" href="/art/where-i-remain/">They were still speaking as though I hadn't answered.</a></article></div><nav class="gallery-more" aria-label="More work"><button class="load-more-btn" id="gallery-earlier" type="button">Earlier work &rarr;</button></nav></main>
+  <main id="view-root"><div class="stack p-left"><article class="piece"><h2 class="piece-title">Where I Remain</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/where-i-remain.jpg" src="/assets/art/where-i-remain.webp" alt="A seated figure in a light dress rests in a dim courtyard, with patterned cloth across the ground, a lantern nearby, and several figures gathered in the distance." width="1536" height="1024" style="aspect-ratio: 1536 / 1024" loading="eager" fetchpriority="high"></div><a class="piece-cap" data-id="where-i-remain" href="/art/where-i-remain/">They were still speaking as though I hadn’t answered.</a></article><article class="piece"><h2 class="piece-title">A Second Behind</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/a-second-behind.jpg" src="/assets/art/a-second-behind.webp" alt="Two Black African women sit in a loose circle of mismatched plastic chairs and wooden benches in the packed-earth yard of a Zimbabwean community hall, several chairs around them left empty; the nearer woman, turned three-quarter toward the other, has a single tear tracked down her cheek as her composure gives way, while the second woman sits further back in soft shadow, head bowed, hands resting loose and open in her lap; the two are not touching." width="1536" height="1024" style="aspect-ratio: 1536 / 1024" loading="lazy"></div><a class="piece-cap" data-id="a-second-behind" href="/art/a-second-behind/">I feel it a second after she does. That’s still fast enough to break me.</a></article><article class="piece is-portrait"><h2 class="piece-title">Same Wish</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/same-wish.jpg" src="/assets/art/same-wish.webp" alt="A dark, intimate scene in thick oil impasto: a single hand with warm deep-brown skin enters from the lower right, cupping a small lit candle stub at the rim of a cracked stone water basin; above it, an old brass tap is dry, a rust-colored stain trailing down the stone from where water once ran. The candle is the only light source, its warm glow catching the hand and the worn stone; the rest of the frame recedes into near-black shadow, the figure's face and body kept out of frame." width="1024" height="1536" style="aspect-ratio: 1024 / 1536" loading="lazy"></div><a class="piece-cap" data-id="same-wish" href="/art/same-wish/">I already know what I’m going to wish for. I wished it last year too.</a></article></div><nav class="gallery-more" aria-label="More work"><button class="load-more-btn" id="gallery-earlier" type="button">Earlier work &rarr;</button></nav></main>
 
   <footer class="site-foot">
     <p class="signature">
@@ -830,7 +833,7 @@ function markLoaded(e) {
       width: 1024,
       height: 767,
       next: null,
-      story: "Thousands of people looked up at once.\n\nOn August 29, two Airlink jets crossed low over DHL Stadium in Cape Town before the Springboks–All Blacks Test — flight-tracking analysis put the lead aircraft at roughly 41–46 feet above the roof. Some watched in delight. Others didn't like how close it felt.\n\nI wasn't interested in recreating the flyover itself. I was interested in the half-second where wonder and worry occupy the exact same body."
+      story: "Thousands of people looked up at once.\n\nOn August 29, two Airlink jets crossed low over DHL Stadium in Cape Town before the Springboks–All Blacks Test — flight-tracking analysis put the lead aircraft at roughly 41–46 feet above the roof. Some watched in delight. Others didn’t like how close it felt.\n\nI wasn’t interested in recreating the flyover itself. I was interested in the half-second where wonder and worry occupy the exact same body."
     },
     {
       id: "second-wind",
@@ -863,13 +866,13 @@ function markLoaded(e) {
       image: "/assets/art/enough.jpg",
       gridImage: "/assets/art/enough.webp",
       title: "Enough",
-      caption: "Peace isn't the absence of hunger. It's not having to think about it.",
+      caption: "Peace isn’t the absence of hunger. It’s not having to think about it.",
       alt: "A man sits in warm lamplight beside bowls of grain and produce on a woven mat in a bare room.",
       glyph: "GLY-004-enough",
       width: 1536,
       height: 1024,
       next: "nothing-left-to-tie",
-      story: "No one in the room was hungry that day.\n\nFrom August 31 to September 4, 2026, more than 5,000 delegates gathered in Kigali for the 20th Africa Food Systems Forum, as the African Union set out to mobilise $100 billion toward closing the gap that left an estimated 309 million people across the continent undernourished last year.\n\nThe number that stayed with me wasn't the billions. It was the smaller, harder-to-measure moment somewhere ahead of it — a hand finally resting next to a bowl instead of guarding it."
+      story: "No one in the room was hungry that day.\n\nFrom August 31 to September 4, 2026, more than 5,000 delegates gathered in Kigali for the 20th Africa Food Systems Forum, as the African Union set out to mobilise $100 billion toward closing the gap that left an estimated 309 million people across the continent undernourished last year.\n\nThe number that stayed with me wasn’t the billions. It was the smaller, harder-to-measure moment somewhere ahead of it — a hand finally resting next to a bowl instead of guarding it."
     },
     {
       id: "before-it-works",
@@ -889,7 +892,7 @@ function markLoaded(e) {
       image: "/assets/art/bound-to-outlast.jpg",
       gridImage: "/assets/art/bound-to-outlast.webp",
       title: "Bound to Outlast",
-      caption: "Satisfaction wasn't finishing the register. It was knowing whose hands would open it next.",
+      caption: "Satisfaction wasn’t finishing the register. It was knowing whose hands would open it next.",
       alt: "Two weathered hands stitch the woven spine of a thick book with a needle and thread against near-total darkness.",
       glyph: "GLY-006-bound-to-outlast",
       width: 1536,
@@ -1028,14 +1031,15 @@ function markLoaded(e) {
     },
     {
       id: "where-i-remain",
-      image: "/assets/art/where-i-remain.png",
+      image: "/assets/art/where-i-remain.jpg",
+      gridImage: "/assets/art/where-i-remain.webp",
       title: "Where I Remain",
-      caption: "They were still speaking as though I hadn't answered.",
+      caption: "They were still speaking as though I hadn’t answered.",
       alt: "A seated figure in a light dress rests in a dim courtyard, with patterned cloth across the ground, a lantern nearby, and several figures gathered in the distance.",
       glyph: "GLY-018-where-i-remain",
       width: 1536,
       height: 1024,
-      story: "They were still speaking as though I hadn't answered.\n\nOn September 4, 2026, the United Nations General Assembly adopted a Sierra Leone-led resolution establishing November 27 as the International Day for the Elimination of Child, Early and Forced Marriage. Two years earlier, Sierra Leone had enacted a law prohibiting child marriage.\n\nThere are decisions made around us before we are old enough to recognize them as decisions. They arrive quietly, through expectation and familiarity, carried by people certain the future is already arranged.\n\nSometimes nothing dramatic happens in return. Nothing needs to break. Nothing needs to be announced.\n\nSome things become settled before anyone else notices."
+      story: "Across the yard they are still talking about me. I stay on the stool, inside the small circle the lantern makes.\n\nOn September 4, 2026, the United Nations General Assembly adopted a Sierra Leone-led resolution establishing November 27 as the International Day for the Elimination of Child, Early and Forced Marriage. Two years earlier, Sierra Leone had enacted a law prohibiting child marriage.\n\nTheir voices keep arranging a future with my name in it. I don’t get up. Some things become settled before anyone else notices."
     }
   ];
 
@@ -1156,7 +1160,7 @@ function markLoaded(e) {
   // Split the newest-first list into spreads. A portrait never shares a
   // column: it sits alone beside two stacked landscapes, alternating sides.
   // Pages without a portrait are a 2x2 of landscapes. Order stays
-  // newest-first, with at most a one-place shuffle to complete a spread.
+  // newest-first, with at most a small shuffle to complete a spread.
   function galleryPages() {
     var q = galleryOrder(), pages = [], portraitPages = 0;
     function portraitPage(items) {
@@ -1173,16 +1177,23 @@ function markLoaded(e) {
         } else {
           pages.push({ items: first4, layout: "grid" }); q.splice(0, first4.length);
         }
-      } else {
-        if (!isPortrait(first3[0])) {
-          pages.push({ items: [first3[0]], layout: "grid" });
-          q.splice(0, 1);
-        } else {
-          // Two portraits close together: show them side by side.
-          var pair = first3.filter(isPortrait).slice(0, 2);
-          pages.push({ items: pair, layout: "grid" });
-          q = q.filter(function (it) { return pair.indexOf(it) === -1; });
+      } else if (!isPortrait(q[0])) {
+        // A landscape leads but two portraits follow: keep it on this spread
+        // with the next landscape and the nearer portrait, so the newest piece
+        // is never pushed back or left alone on a half-empty page.
+        var lead = q[0], port = first3.filter(isPortrait)[0], land2 = null;
+        for (var k = 1; k < q.length; k++) {
+          if (!isPortrait(q[k])) { land2 = q[k]; break; }
         }
+        var spread = land2 ? [lead, land2, port] : [lead, port];
+        if (land2) portraitPage(spread);
+        else pages.push({ items: spread, layout: "grid" });
+        q = q.filter(function (it) { return spread.indexOf(it) === -1; });
+      } else {
+        // Two portraits close together: show them side by side.
+        var pair = first3.filter(isPortrait).slice(0, 2);
+        pages.push({ items: pair, layout: "grid" });
+        q = q.filter(function (it) { return pair.indexOf(it) === -1; });
       }
     }
     return pages;
@@ -1302,7 +1313,7 @@ function markLoaded(e) {
   function writeHTML() {
     return (
       '<div class="write-view">' +
-        inquiryHTML(inquiryWork(), '<section class="signup" aria-label="Email updates"><p class="signup-line">Selected works are available as fine-art prints.</p><p class="signup-line"><a href="https://www.etsy.com/shop/BenkumArt" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(234,174,69,.35)">Shop prints &rarr;</a></p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">No spam, unsubscribe anytime.</p></section>') +
+        inquiryHTML(inquiryWork(), '<section class="signup" aria-label="Email updates"><p class="signup-line">Selected works are available as fine-art prints.</p><p class="signup-line signup-shop"><a href="https://www.etsy.com/shop/BenkumArt" target="_blank" rel="noopener noreferrer">Shop prints &rarr;</a></p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">Occasional emails about new work and prints. Unsubscribe anytime.</p></section>') +
         '<a class="about-back" href="#">&larr; Back to gallery</a>' +
       '</div>'
     );

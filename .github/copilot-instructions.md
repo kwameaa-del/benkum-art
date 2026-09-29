@@ -31,16 +31,21 @@ If you are making a content update, prefer checking the exact page you changed r
 
 The site is organized around static pages and a content model driven by HTML + inline scripts:
 
-- The homepage (`/index.html`) is a gallery with a curated list of artwork entries. The entry metadata (id, title, caption, alt text, image paths, story text, next/previous links) is stored in a JavaScript array named `ARTWORKS` near the bottom of the file.
-- The gallery render logic builds the cards dynamically from that data and supports behaviors like lightbox zooming, image fade-in, and “load more” pagination.
+- The homepage (`/index.html`) is a gallery with a curated list of artwork entries. The entry metadata (`id`, `image`, `gridImage`, `title`, `caption`, `alt`, `glyph`, `width`, `height`, optional `next`, optional `etsyUrl`, `story`) is stored in a JavaScript array named `ARTWORKS`, oldest first.
+- The gallery render logic builds the cards dynamically from that data and supports lightbox zooming, image fade-in, and "spread" paging ("Earlier work" / "Newer work"): `galleryPages()` groups pieces so a portrait sits beside two stacked landscapes (alternating sides), landscapes otherwise form a 2x2 grid, and two portraits together sit side by side. Never leave a single piece alone on a half-empty page.
+- `next` is an optional, curated editorial pairing (a single "Continue →" link). There is no previous link, and next never follows array or release order.
 - Each artwork page under `/art/<slug>/index.html` is a standalone HTML page containing a story page template and SEO metadata specific to that piece.
 - Styling is embedded in each page rather than split into separate CSS files; the design is driven by a consistent dark palette, serif typography, gold accents, and a systematic page layout.
-- The site uses a strong editorial/art-history tone: long-form captions and art stories are part of the product, not just decoration.
+- The site uses a strong editorial tone: short one-line captions and short stories (about 90 words, never more than about 110) are part of the work, not decoration.
 
-When adding or editing a piece, treat it as data + page + assets together:
-- update the artwork record in `/index.html` when relevant
-- add or update the standalone page under `/art/<slug>/index.html`
-- add the corresponding image files in `/assets/art/` (or update existing ones)
+When adding or editing a piece, treat it as data + page + assets together. For a new piece, all of these are required:
+- images: a watermarked `/assets/art/<slug>.jpg` master (with the small KA mark in the lower-right corner, like every other piece) and a `/assets/art/<slug>.webp` grid image (1000 px on the long side). Never ship a large PNG. Never crop, rotate, or change an artwork's orientation.
+- data: a new `ARTWORKS` entry with both `image` (.jpg) and `gridImage` (.webp) and the correct `width`/`height`.
+- page: `/art/<slug>/index.html` built from the most recent piece page, with the image `srcset` (webp + jpg), and a static glyph SVG that is byte-identical to what `glyphSVG(item.glyph)` renders in the browser.
+- metadata: the same title/description pattern as the other pieces — `<title>` "<Title> — a piece on <subject> | Benkum Art", meta description "<caption> A piece and story about <subject>.", `og:title` "<Title> — Benkum Art", `og:description` = caption, JSON-LD `description` = meta description, `og:image` = the .jpg.
+- sitemap: one `<url>` with a single `<image:image><image:loc>…jpg</image:loc></image:image>`, matching the other entries.
+- homepage: update the static crawler block inside `<main id="view-root">` so it matches exactly what `galleryPages()` renders as page 1.
+- typography: curly apostrophes and quotes (’ “ ”) in titles, captions, stories, and metadata.
 - keep alt text, title, caption, and story copy aligned with the visual
 
 ## Key conventions
@@ -64,7 +69,7 @@ When adding or editing a piece, treat it as data + page + assets together:
 
 ## Related repository notes
 
-- There are no existing AI instruction files or repo-level contributor conventions in this repository.
+- This file is the repository's only AI/contributor instruction file.
 - There are no automated lint/test commands or package scripts to follow.
 - The repo is content-first and static-first; the most important quality checks are visual and editorial correctness.
 
@@ -75,12 +80,16 @@ When adding or editing a piece, treat it as data + page + assets together:
 - Do not change artwork titles, captions, stories, images, glyphs, or their ordering without explicit approval.
 - Never delete an existing artwork, story, page, or asset without explicit approval.
 - When a task concerns one feature, artwork, page, or component, make the smallest targeted change necessary. Do not use the task as an opportunity to redesign or refactor unrelated parts of the site.
-- Do not add AI-related labels, tags, disclosures, or explanatory language unless explicitly instructed.
-- Do not add country-of-origin metadata, artwork sequence numbers, release order, or publishing cadence unless explicitly instructed.
+- On this website, do not add AI-related labels, tags, disclosures, or explanatory language unless explicitly instructed. (This rule covers the website only. Etsy listings are a separate channel and must carry the artist's AI disclosure line, as Etsy requires.)
+- Do not add artwork sequence numbers, release order, publishing cadence, dates, or country labels to visible page content. The one approved exception is the SEO pattern above: a piece's `<title>`, meta description, and JSON-LD description may name the real event's subject and place, as all existing pieces do.
 - Do not explain the meaning or symbolism of the name "Benkum," the site's gold accent, the chalk texture, artwork glyphs, or other intentionally unexplained elements unless explicitly instructed.
 - Do not add interpretations explaining what an artwork "means" unless explicitly requested. The artwork, caption, story, and associated symbols should leave interpretive space for the audience.
 - Preserve the existing dark charcoal, warm off-white, restrained gold, serif/editorial visual language. Do not introduce additional brand colors or generic ecommerce styling without explicit approval.
-- Preserve existing URLs, routing, metadata, structured data, responsive behavior, accessibility behavior, lightbox behavior, gallery behavior, and image-loading behavior unless the requested task specifically requires changing them.
+- Preserve existing URLs, routing, metadata, structured data, responsive behavior, accessibility behavior, lightbox behavior, gallery behavior, and image-loading behavior unless the requested task specifically requires changing them. In particular, never change `galleryPages()` or the spread layout as a side effect of adding a piece; if a new piece seems to need it, stop and ask.
+- Commerce stays quiet: "shop" in the site nav looks exactly like the other nav links (no accent color), and each artwork page has at most one shop link, inside the signup block — "Shop this print →" to its verified Etsy listing when the piece has an `etsyUrl`, otherwise "Shop prints →" to the shop.
+- Stories follow the established shape: a short opening image, one sourced factual paragraph, and a short closing image. Quotes are verbatim; facts are sourced. The first story line never repeats the caption. Propose story edits to the artist; never rewrite them silently.
+- Test every change at phone widths (360px and 375px) as well as desktop: nothing in the header may overflow.
+- Never commit or push without the artist's explicit approval.
 - Do not introduce frameworks, build systems, packages, dependencies, or major architectural changes unless explicitly approved.
 - For commerce-related work, never invent product specifications, materials, availability, prices, fulfillment details, Etsy listing URLs, shipping claims, edition information, or quality claims. Use only verified information.
 - Treat external sales channels and direct artist acquisition as separate concepts unless explicitly instructed otherwise.

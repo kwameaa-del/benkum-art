@@ -446,7 +446,7 @@
   .site-nav a:hover { color: var(--accent); }
   @media (max-width: 420px) { .site-nav { gap: 16px; } .site-nav a { font-size: 11px; } }
 
-  /* ---------- Print launch signup ---------- */
+  /* ---------- Email signup ---------- */
   .signup { max-width: 46ch; margin: 64px auto 0; padding-top: 36px; border-top: 1px solid var(--border); text-align: center; }
   .signup-line { margin: 0 0 16px; font-family: "Newsreader", serif; font-style: italic; font-size: 17px; color: var(--ink); }
   .signup-form { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
@@ -465,6 +465,8 @@
   }
   .signup-form button:hover { background: rgba(234, 174, 69, 0.16); border-color: var(--accent); color: var(--ink); }
   .signup-note { margin: 12px 0 0; font-size: 13px; font-style: italic; color: var(--ink-faint); }
+  .signup-shop a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(234, 174, 69, 0.35); }
+  .signup-shop a:hover { border-bottom-color: var(--accent); }
   .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
   /* ---------- Readability ---------- */
@@ -571,6 +573,7 @@
   .site-foot .sig-logo-img { height: 18px; }
   .site-foot .foot-disclosure { font-size: 12px; }
   #view-root, #write, main { scroll-margin-top: 80px; }
+  @media (max-width: 420px) { .site-nav { gap: 12px; } .site-nav a { font-size: 11px; letter-spacing: 0.1em; } }
   html, body { overflow-x: clip; }
   @media (max-width: 700px) {
     footer.site-foot { justify-content: center; padding: 10px 0; }
@@ -593,7 +596,7 @@ function markLoaded(e) {
 <div class="wrap">
   <header class="site-head">
     <a class="site-head-link" href="/"><h1 class="site-head-title">Benkum Art</h1></a>
-    <nav class="site-nav" aria-label="Site"><a href="/about/">about</a><a href="/#write">write</a><a href="https://www.etsy.com/shop/BenkumArt" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">shop</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
+    <nav class="site-nav" aria-label="Site"><a href="/about/">about</a><a href="/#write">write</a><a href="https://www.etsy.com/shop/BenkumArt" target="_blank" rel="noopener noreferrer">shop</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
   </header>
 
   <main class="story-view">
@@ -608,7 +611,7 @@ function markLoaded(e) {
     <div class="story-reading-pause" aria-hidden="true"></div>
     <div class="story-text"><p>The knot’s already tight. I check it again anyway.</p><p>On September 1, 2026, Mathews Mulenga, head of Restoration for Community Justice, warned that Zambia’s record 5-million-metric-ton maize harvest could be undone within months, as El Niño threatens a below-normal rainy season. “This is a national emergency in the making,” he said. More than two million smallholder farmers are being urged to hold back part of this year’s grain.</p><p>I’ve checked the same knot three times now. My hands keep finding reasons to stay busy with the one thing they can still fix.</p></div>
     <div class="story-glyph" aria-hidden="true"><svg viewBox="0 0 100 100" width="68" height="68" fill="none" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(-14.5 43.2 46.6)"><path d="M 43.4 44.3 Q 32.1 47.1 29.9 58.6" stroke="#EAAE45" stroke-width="1.94" stroke-linecap="round" fill="none" opacity="0.85"/><path d="M 31.9 53.7 Q 30.9 56.1 29.9 58.6" stroke="#EAAE45" stroke-width="0.81" stroke-linecap="round" fill="none" opacity="0.59"/><line x1="36.8" y1="55.6" x2="32.4" y2="51.6" stroke="#EAAE45" stroke-width="1.13" stroke-linecap="round" opacity="0.47"/><path d="M 47.3 45.5 Q 44.5 60.9 30.1 67.0" stroke="#EAAE45" stroke-width="2.06" stroke-linecap="round" fill="none" opacity="0.67"/><path d="M 36.1 63.0 Q 33.1 65.0 30.1 67.0" stroke="#EAAE45" stroke-width="0.87" stroke-linecap="round" fill="none" opacity="0.47"/><line x1="40.0" y1="59.6" x2="35.6" y2="55.0" stroke="#EAAE45" stroke-width="1.82" stroke-linecap="round" opacity="0.40"/><path d="M 40.1 47.8 Q 22.0 54.6 8.6 68.5" stroke="#EAAE45" stroke-width="3.20" stroke-linecap="round" fill="none" opacity="0.66"/><path d="M 15.8 62.2 Q 12.2 65.4 8.6 68.5" stroke="#EAAE45" stroke-width="1.34" stroke-linecap="round" fill="none" opacity="0.46"/><line x1="28.3" y1="60.3" x2="23.9" y2="53.7" stroke="#EAAE45" stroke-width="1.07" stroke-linecap="round" opacity="0.37"/><path d="M 47.8 47.8 Q 64.4 47.7 76.3 59.2" stroke="#EAAE45" stroke-width="2.15" stroke-linecap="round" fill="none" opacity="0.69"/><path d="M 69.9 54.6 Q 73.1 56.9 76.3 59.2" stroke="#EAAE45" stroke-width="0.90" stroke-linecap="round" fill="none" opacity="0.48"/></g></svg></div>
-    <section class="signup" aria-label="Email updates"><p class="signup-line">Selected works are available as fine-art prints.</p><p class="signup-line"><a href="https://www.etsy.com/shop/BenkumArt" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(234,174,69,.35)">Shop prints &rarr;</a></p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">No spam, unsubscribe anytime.</p></section>
+    <section class="signup" aria-label="Email updates"><p class="signup-line">Selected works are available as fine-art prints.</p><p class="signup-line signup-shop"><a href="https://www.etsy.com/shop/BenkumArt" target="_blank" rel="noopener noreferrer">Shop prints &rarr;</a></p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">Occasional emails about new work and prints. Unsubscribe anytime.</p></section>
     </div>
     </div>
     <nav class="story-links" aria-label="Artwork navigation"><a class="story-return" href="/">&larr; Return to the archive</a><a class="write-about" href="/?work=nothing-left-to-tie#write">Write to me about this work</a><a class="story-next" href="/art/yet-to-let-go/">Continue &rarr; Yet to Let Go</a></nav>

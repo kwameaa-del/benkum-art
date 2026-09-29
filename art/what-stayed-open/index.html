@@ -446,7 +446,7 @@
   .site-nav a:hover { color: var(--accent); }
   @media (max-width: 420px) { .site-nav { gap: 16px; } .site-nav a { font-size: 11px; } }
 
-  /* ---------- Print launch signup ---------- */
+  /* ---------- Email signup ---------- */
   .signup { max-width: 46ch; margin: 64px auto 0; padding-top: 36px; border-top: 1px solid var(--border); text-align: center; }
   .signup-line { margin: 0 0 16px; font-family: "Newsreader", serif; font-style: italic; font-size: 17px; color: var(--ink); }
   .signup-form { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
@@ -465,6 +465,8 @@
   }
   .signup-form button:hover { background: rgba(234, 174, 69, 0.16); border-color: var(--accent); color: var(--ink); }
   .signup-note { margin: 12px 0 0; font-size: 13px; font-style: italic; color: var(--ink-faint); }
+  .signup-shop a { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(234, 174, 69, 0.35); }
+  .signup-shop a:hover { border-bottom-color: var(--accent); }
   .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
   /* ---------- Readability ---------- */
@@ -571,6 +573,7 @@
   .site-foot .sig-logo-img { height: 18px; }
   .site-foot .foot-disclosure { font-size: 12px; }
   #view-root, #write, main { scroll-margin-top: 80px; }
+  @media (max-width: 420px) { .site-nav { gap: 12px; } .site-nav a { font-size: 11px; letter-spacing: 0.1em; } }
   html, body { overflow-x: clip; }
   @media (max-width: 700px) {
     footer.site-foot { justify-content: center; padding: 10px 0; }
@@ -593,7 +596,7 @@ function markLoaded(e) {
 <div class="wrap">
   <header class="site-head">
     <a class="site-head-link" href="/"><h1 class="site-head-title">Benkum Art</h1></a>
-    <nav class="site-nav" aria-label="Site"><a href="/about/">about</a><a href="/#write">write</a><a href="https://www.etsy.com/shop/BenkumArt" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">shop</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
+    <nav class="site-nav" aria-label="Site"><a href="/about/">about</a><a href="/#write">write</a><a href="https://www.etsy.com/shop/BenkumArt" target="_blank" rel="noopener noreferrer">shop</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
   </header>
 
   <main class="story-view">
@@ -608,7 +611,7 @@ function markLoaded(e) {
     <div class="story-reading-pause" aria-hidden="true"></div>
     <div class="story-text"><p>There was another plan. The closed book belongs to it. She still opens it, just less often than the other one.</p><p>The other book fills with recipes, then margin notes, then whole pages in her own shorthand.</p><p>On September 23, 2026, Rindwine Amadhila, 30, of Oshakati, was profiled for spending part of her university study loan on baking courses. She now runs Kalindi Bakery alongside her studies. “Each order is special to me,” she says, “because behind every cake is a customer trusting me to be part of an important moment in their life.”</p><p>Both books stay on the shelf. Her hand rests on the open one, in no hurry to be anywhere else.</p></div>
     <div class="story-glyph" aria-hidden="true"><svg viewBox="0 0 100 100" width="68" height="68" fill="none" xmlns="http://www.w3.org/2000/svg"><g transform="rotate(-11.1 45.7 53.4)"><path d="M 42.0 52.6 Q 36.3 64.1 47.3 70.7" stroke="#EAAE45" stroke-width="3.27" stroke-linecap="round" fill="none" opacity="0.64"/><path d="M 43.5 66.9 Q 45.4 68.8 47.3 70.7" stroke="#EAAE45" stroke-width="1.37" stroke-linecap="round" fill="none" opacity="0.45"/><line x1="47.9" y1="62.2" x2="42.1" y2="63.8" stroke="#EAAE45" stroke-width="1.22" stroke-linecap="round" opacity="0.70"/><path d="M 50.1 51.4 Q 60.5 52.8 66.0 61.8" stroke="#EAAE45" stroke-width="2.84" stroke-linecap="round" fill="none" opacity="0.56"/><path d="M 62.8 58.1 Q 64.4 59.9 66.0 61.8" stroke="#EAAE45" stroke-width="1.19" stroke-linecap="round" fill="none" opacity="0.39"/><path d="M 45.1 51.1 Q 41.2 38.9 30.1 32.4" stroke="#EAAE45" stroke-width="2.20" stroke-linecap="round" fill="none" opacity="0.71"/><path d="M 34.9 36.2 Q 32.5 34.3 30.1 32.4" stroke="#EAAE45" stroke-width="0.92" stroke-linecap="round" fill="none" opacity="0.50"/><path d="M 41.8 54.4 Q 49.2 61.0 45.3 70.0" stroke="#EAAE45" stroke-width="3.05" stroke-linecap="round" fill="none" opacity="0.64"/><path d="M 46.1 65.8 Q 45.7 67.9 45.3 70.0" stroke="#EAAE45" stroke-width="1.28" stroke-linecap="round" fill="none" opacity="0.45"/><line x1="49.6" y1="62.0" x2="38.2" y2="65.6" stroke="#EAAE45" stroke-width="1.57" stroke-linecap="round" opacity="0.45"/></g></svg></div>
-    <section class="signup" aria-label="Email updates"><p class="signup-line">Selected works are available as fine-art prints.</p><p class="signup-line"><a href="https://www.etsy.com/shop/BenkumArt" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(234,174,69,.35)">Shop prints &rarr;</a></p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">No spam, unsubscribe anytime.</p></section>
+    <section class="signup" aria-label="Email updates"><p class="signup-line">Selected works are available as fine-art prints.</p><p class="signup-line signup-shop"><a href="https://www.etsy.com/shop/BenkumArt" target="_blank" rel="noopener noreferrer">Shop prints &rarr;</a></p><form class="signup-form" action="https://app.kit.com/forms/9951762/subscriptions" method="post"><label class="visually-hidden" for="signup-email">Email address</label><input id="signup-email" type="email" name="email_address" required placeholder="your email" autocomplete="email"><button type="submit">Notify me</button></form><p class="signup-note">Occasional emails about new work and prints. Unsubscribe anytime.</p></section>
     </div>
     </div>
     <nav class="story-links" aria-label="Artwork navigation"><a class="story-return" href="/">&larr; Return to the archive</a><a class="write-about" href="/?work=what-stayed-open#write">Write to me about this work</a><span class="story-next-empty" aria-hidden="true"></span></nav>
