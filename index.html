@@ -802,7 +802,7 @@ function markLoaded(e) {
     <a class="site-head-link" href="/"><h1 class="site-head-title">Benkum Art</h1></a>
     <nav class="site-nav" aria-label="Site"><a href="/about/">about</a><a href="/#write">write</a><a href="https://www.etsy.com/shop/BenkumArt" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">shop</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
   </header>
-  <main id="view-root"><div class="stack"><article class="piece is-portrait"><h2 class="piece-title">Same Wish</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/same-wish.jpg" src="/assets/art/same-wish.webp" alt="A dark, intimate scene in thick oil impasto: a single hand with warm deep-brown skin enters from the lower right, cupping a small lit candle stub at the rim of a cracked stone water basin; above it, an old brass tap is dry, a rust-colored stain trailing down the stone from where water once ran. The candle is the only light source, its warm glow catching the hand and the worn stone; the rest of the frame recedes into near-black shadow, the figure's face and body kept out of frame." width="1024" height="1536" style="aspect-ratio: 1024 / 1536" loading="eager" fetchpriority="high"></div><a class="piece-cap" data-id="same-wish" href="/art/same-wish/">I already know what I’m going to wish for. I wished it last year too.</a></article><article class="piece is-portrait"><h2 class="piece-title">What Stayed Open</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/what-stayed-open.jpg" src="/assets/art/what-stayed-open.webp" alt="A close, warmly lit still life in thick oil impasto: in the foreground, an open, well-worn notebook with soft, stained pages catches the light, a hand with warm deep-brown skin resting quietly beside it, not turning a page; behind and in shadow, a closed, dust-settled book sits untouched at the edge of the same surface. The rest of the scene recedes into near-black shadow." width="1024" height="1536" style="aspect-ratio: 1024 / 1536" loading="eager"></div><a class="piece-cap" data-id="what-stayed-open" href="/art/what-stayed-open/">Some choices are made by what we keep returning to.</a></article></div><nav class="gallery-more" aria-label="More work"><button class="load-more-btn" id="gallery-earlier" type="button">Earlier work &rarr;</button></nav></main>
+  <main id="view-root"><div class="stack"><article class="piece"><h2 class="piece-title">Where I Remain</h2><div class="piece-frame marked"><img class="piece-img" data-full="/assets/art/where-i-remain.png" src="/assets/art/where-i-remain.png" alt="A seated figure in a light dress rests in a dim courtyard, with patterned cloth across the ground, a lantern nearby, and several figures gathered in the distance." width="1536" height="1024" style="aspect-ratio: 1536 / 1024" loading="eager" fetchpriority="high"></div><a class="piece-cap" data-id="where-i-remain" href="/art/where-i-remain/">They were still speaking as though I hadn't answered.</a></article></div><nav class="gallery-more" aria-label="More work"><button class="load-more-btn" id="gallery-earlier" type="button">Earlier work &rarr;</button></nav></main>
 
   <footer class="site-foot">
     <p class="signature">
@@ -1025,6 +1025,17 @@ function markLoaded(e) {
       width: 1024,
       height: 1536,
       story: "I strike the match before I let myself feel anything about it. One flame, cupped low, beside the tap that still hasn’t run in a year.\n\nOn September 25, 2025, Madagascar’s Gen Z-led protests began in Antananarivo over chronic water and power shortages. Soldiers joined them, President Rajoelina fled, and Colonel Michael Randrianirina took power weeks later. A year on, activist Felana Andriatahina says of the men now ruling: “It’s thanks to us taking to the streets... that they’re in power today,” she says. “It’s a betrayal.”\n\nI set it down at the rim anyway, and make the same wish I made last year. It still hasn’t reached the tap."
+    },
+    {
+      id: "where-i-remain",
+      image: "/assets/art/where-i-remain.png",
+      title: "Where I Remain",
+      caption: "They were still speaking as though I hadn't answered.",
+      alt: "A seated figure in a light dress rests in a dim courtyard, with patterned cloth across the ground, a lantern nearby, and several figures gathered in the distance.",
+      glyph: "GLY-018-where-i-remain",
+      width: 1536,
+      height: 1024,
+      story: "They were still speaking as though I hadn't answered.\n\nOn September 4, 2026, the United Nations General Assembly adopted a Sierra Leone-led resolution establishing November 27 as the International Day for the Elimination of Child, Early and Forced Marriage. Two years earlier, Sierra Leone had enacted a law prohibiting child marriage.\n\nThere are decisions made around us before we are old enough to recognize them as decisions. They arrive quietly, through expectation and familiarity, carried by people certain the future is already arranged.\n\nSometimes nothing dramatic happens in return. Nothing needs to break. Nothing needs to be announced.\n\nSome things become settled before anyone else notices."
     }
   ];
 
@@ -1163,10 +1174,15 @@ function markLoaded(e) {
           pages.push({ items: first4, layout: "grid" }); q.splice(0, first4.length);
         }
       } else {
-        // Two portraits close together: show them side by side.
-        var pair = first3.filter(isPortrait).slice(0, 2);
-        pages.push({ items: pair, layout: "grid" });
-        q = q.filter(function (it) { return pair.indexOf(it) === -1; });
+        if (!isPortrait(first3[0])) {
+          pages.push({ items: [first3[0]], layout: "grid" });
+          q.splice(0, 1);
+        } else {
+          // Two portraits close together: show them side by side.
+          var pair = first3.filter(isPortrait).slice(0, 2);
+          pages.push({ items: pair, layout: "grid" });
+          q = q.filter(function (it) { return pair.indexOf(it) === -1; });
+        }
       }
     }
     return pages;
