@@ -79,4 +79,12 @@
     <loc>https://benkum.art/art/where-i-remain/</loc>
     <image:image><image:loc>https://benkum.art/assets/art/where-i-remain.jpg</image:loc></image:image>
   </url>
+  <url>
+    <loc>https://benkum.art/art/the-shine-holds/</loc>
+    <image:image><image:loc>https://benkum.art/assets/art/the-shine-holds.jpg</image:loc></image:image>
+  </url>
+  <url>
+    <loc>https://benkum.art/art/still-turning/</loc>
+    <image:image><image:loc>https://benkum.art/assets/art/still-turning.jpg</image:loc></image:image>
+  </url>
 </urlset>
