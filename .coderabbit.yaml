@@ -1,0 +1,46 @@
+# CodeRabbit review settings for Benkum Art (benkum.art).
+# Full project rules live in .github/copilot-instructions.md.
+language: en-US
+tone_instructions: "Calm, brief and specific. This is a small hand-built static art site. Flag real problems; skip style nitpicks."
+early_access: false
+
+reviews:
+  profile: chill
+  request_changes_workflow: false
+  high_level_summary: true
+  poem: false
+  review_status: true
+  collapse_walkthrough: true
+  sequence_diagrams: false
+  auto_review:
+    enabled: true
+    drafts: false
+  path_filters:
+    - "!assets/**/*.jpg"
+    - "!assets/**/*.webp"
+    - "!assets/**/*.png"
+  path_instructions:
+    - path: "**/*"
+      instructions: |
+        Benkum Art is a static site (plain HTML, inline CSS and JS, GitHub Pages). Read .github/copilot-instructions.md for the full rules.
+        - Never suggest frameworks, build tools, package managers or new dependencies.
+        - Artwork titles, captions, stories, alt text and glyphs are the artist's own writing. Do not suggest rewording, shortening or "improving" them. Only flag factual inconsistencies between places where the same text appears (gallery data, art page, metadata).
+        - Never suggest adding dates, sequence numbers, counters, release order or country labels to visible page content.
+        - Do not suggest AI labels or disclosures on the website.
+        - Commerce stays quiet: at most one shop link per artwork page, no carts, banners or popups.
+    - path: "index.html"
+      instructions: |
+        - Each ARTWORKS entry needs image (.jpg), gridImage (.webp), correct width/height, a glyph ID, and text identical to its art/<slug>/index.html page.
+        - The static block inside <main id="view-root"> must match what galleryPages() renders as page 1.
+        - Do not suggest changing galleryPages() or the gallery layout unless the PR is about that.
+    - path: "art/**/index.html"
+      instructions: |
+        - <title> must be 70 characters or fewer; meta description 25 to 160 characters.
+        - Check canonical, og:url, og:image and JSON-LD all point at this piece and match each other.
+        - Images must use the .jpg with a .webp srcset; never a large PNG.
+        - Story text should use curly quotes and apostrophes.
+    - path: "sitemap.xml"
+      instructions: "Every art page needs one <url> with a single image:loc pointing to its .jpg. Flag missing or duplicate entries."
+
+chat:
+  auto_reply: true
