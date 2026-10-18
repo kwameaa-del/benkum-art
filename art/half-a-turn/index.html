@@ -73,7 +73,7 @@
   }
   .piece-frame {
     background: #E9E4D8;
-    padding: clamp(12px, 2.4vw, 26px);
+    padding: clamp(8px, 1.5vw, 16px);
     box-shadow: 0 18px 40px rgba(0,0,0,0.45);
   }
   .piece-frame img {
@@ -137,7 +137,7 @@
   .story-frame {
     position: relative;
     background: #E9E4D8;
-    padding: clamp(12px, 2.4vw, 26px);
+    padding: clamp(8px, 1.5vw, 16px);
     box-shadow: 0 18px 40px rgba(0,0,0,0.45);
     max-width: 860px;
     margin: 0 auto 24px;
@@ -153,12 +153,25 @@
   .story-frame.marked::before {
     content: "";
     position: absolute;
-    top: 10px;
-    left: 10px;
-    width: 14px;
-    height: 14px;
+    top: 5px;
+    left: 5px;
+    width: 12px;
+    height: 12px;
     border-top: 1.5px solid var(--accent);
     border-left: 1.5px solid var(--accent);
+    opacity: 0.85;
+    pointer-events: none;
+  }
+  .piece-frame.marked-b::after,
+  .story-frame.marked-b::after {
+    content: "";
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    width: 12px;
+    height: 12px;
+    border-bottom: 1.5px solid var(--accent);
+    border-right: 1.5px solid var(--accent);
     opacity: 0.85;
     pointer-events: none;
   }
@@ -399,6 +412,7 @@
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--ink-soft);
+    white-space: nowrap;
   }
   .site-head-link:hover .site-head-title { color: var(--accent); }
 
@@ -579,6 +593,8 @@
     footer.site-foot { justify-content: center; padding: 10px 0; }
     .site-foot .foot-caption { font-size: 13px; text-align: center; }
   }
+  @media (max-width: 420px) { .site-head-title { letter-spacing: 0.06em; font-size: 12px; } .site-nav { gap: 10px; } }
+  @media (max-width: 359px) { .site-head { flex-wrap: wrap; row-gap: 6px; } }
 </style>
 
 <script>
@@ -604,7 +620,7 @@ function markLoaded(e) {
     <h2 class="story-title">Half a Turn</h2>
     <div class="story-layout">
     <div class="story-visual">
-    <div class="story-frame marked"><img class="piece-img" data-full="/assets/art/half-a-turn.jpg" src="/assets/art/half-a-turn.jpg" srcset="/assets/art/half-a-turn.webp 1000w, /assets/art/half-a-turn.jpg 1536w" sizes="(max-width: 900px) 92vw, 860px" alt="A South Sudanese woman wrapped in a long slate-grey cloth and headscarf sits on the ground with her knees drawn up, her thumb on the dial of a small bright yellow radio, in a field fading from charcoal to pale ash between stepped red-earth panels." width="1536" height="1024" loading="eager"></div>
+    <div class="story-frame marked marked-b"><img class="piece-img" data-full="/assets/art/half-a-turn.jpg" src="/assets/art/half-a-turn.jpg" srcset="/assets/art/half-a-turn.webp 1000w, /assets/art/half-a-turn.jpg 1536w" sizes="(max-width: 900px) 92vw, 860px" alt="A South Sudanese woman wrapped in a long slate-grey cloth and headscarf sits on the ground with her knees drawn up, her thumb on the dial of a small bright yellow radio, in a field fading from charcoal to pale ash between stepped red-earth panels." width="1536" height="1024" loading="eager"></div>
     <p class="story-cap">Every voice on it is sure. I’m the only one who isn’t.</p>
     </div>
     <div class="story-body">
