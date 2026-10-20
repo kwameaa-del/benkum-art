@@ -66,17 +66,18 @@ the generator change, so the page always matches its source.
 
 - Follow the new-piece checklist in `.github/copilot-instructions.md`, which
   includes the Cycle I map and Works steps.
-- Every page carries the Umami script in `<head>` (copy it from any existing
-  page). Etsy links carry `data-umami-event="etsy-click"` with a
+- Every content page carries the Umami script in `<head>` (copy it from any
+  existing page). The one exception is the `/ig/` forwarding page below. Etsy links carry `data-umami-event="etsy-click"` with a
   `data-umami-event-from` value (`nav`, `piece-page`, `story` or `write`), and
   `data-umami-event-piece` set to the slug where one applies.
-- `benkum.art/ig` is the Instagram bio short link (`/ig/index.html`). It must
-  stay free of analytics, so each visit is counted once.
+- `benkum.art/ig` is the Instagram bio short link (`/ig/index.html`). It only
+  forwards to the homepage with the Instagram tags, and it must have **no Umami
+  script and no event tags**: the visit is counted once, on the homepage.
 
 ## Checking work
 
 - Serve the repo with `python -m http.server 8000` and check desktop and phone
-  widths (360 and 390 px): no horizontal overflow, the header fits, and the
+  widths (360, 375 and 390 px, plus desktop): no horizontal overflow, the header fits, and the
   console is clean.
 - Check every artwork link opens the right `/art/<slug>/` page, and images keep
   their natural proportions.
