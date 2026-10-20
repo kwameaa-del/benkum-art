@@ -169,6 +169,15 @@ def build_block(entries):
   .cycle-map:not([hidden]) ~ footer.site-foot {{ margin-top: 14px; }}
   @media (max-width: 600px) {{ .cycle-map {{ margin-left: -32px; margin-right: -32px; }} }}
   .cycle-map[hidden] {{ display: none; }}
+  .m-label {{ margin: 0 0 6px; text-align: center; font-family: "Archivo", system-ui, sans-serif; font-weight: 600; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-faint); }}
+  /* Home fills the screen: map and slideshow sit centred in the space between
+     header and footer, and the footer meets the bottom edge on tall phones. */
+  .wrap:has(> .cycle-map:not([hidden])) {{ min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; }}
+  .wrap:has(> .cycle-map:not([hidden])) > .cycle-map {{ flex: 1 0 auto; display: flex; flex-direction: column; justify-content: center; }}
+  @media (min-width: 601px) {{ .wrap:has(> .cycle-map:not([hidden])) > .cycle-map {{ width: 100%; }} }}
+  /* While the map measures the screen, the page keeps its natural height. */
+  .m-measure .wrap {{ min-height: 0 !important; }}
+  .m-measure .wrap > .cycle-map {{ flex-grow: 0 !important; }}
   /* Width is set by script so map, slideshow and footer fit one screen. */
   .m-svg {{ display: block; width: 100%; height: auto; margin: 0 auto; overflow: visible; }}
   .m-ground path, .m-chips circle {{ fill: {GROUND}; stroke: var(--ink-soft); stroke-width: 0.6px; vector-effect: non-scaling-stroke; stroke-linejoin: round; }}
@@ -204,6 +213,7 @@ def build_block(entries):
   @media (prefers-reduced-motion: reduce) {{ .m-piece image {{ transition: none; }} }}
 </style>
 <section class="cycle-map" id="cycle-map" aria-label="Cycle I map">
+<h2 class="m-label">Cycle I</h2>
 {svg}
 <a class="m-card" id="m-card" href="#" hidden><img alt="" width="160" height="107"><span class="m-card-title"></span><span class="m-card-go">View piece &rarr;</span></a>
 <div class="m-reel" id="m-reel">
@@ -224,11 +234,14 @@ def build_block(entries):
   // after the header, slideshow and footer (never narrower than 240px).
   function fit() {{
     if (wrap.hidden) return;
+    var root = document.documentElement;
+    root.classList.add("m-measure");
     svg.style.width = "";
     var rest = document.documentElement.scrollHeight - svg.getBoundingClientRect().height;
     var avail = window.innerHeight - rest;
     var w = Math.max(240, Math.min(wrap.clientWidth, avail * {W} / {H}));
     svg.style.width = Math.floor(w) + "px";
+    root.classList.remove("m-measure");
   }}
   function route() {{ wrap.hidden = /^#(write|piece-)/.test(window.location.hash); fit(); }}
   window.addEventListener("hashchange", route);
