@@ -132,7 +132,9 @@ def main(src):
                 if part.centroid.y < y_cut:
                     continue
                 parts.append(part)
-        shapes[code] = parts
+        # Union so internal seams (Somaliland inside Somalia) are not stroked.
+        merged = unary_union(parts)
+        shapes[code] = list(merged.geoms) if hasattr(merged, "geoms") else [merged]
 
     # Fit to WIDTH px (y down).
     allb = unary_union([p for ps in shapes.values() for p in ps]).bounds

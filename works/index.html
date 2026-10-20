@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="/favicon.ico?v=3" sizes="48x48">
+<link rel="icon" href="/assets/brand/icon.svg?v=3" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=3">
+<title>Works — Benkum Art</title>
+<meta name="description" content="All the works of Benkum Art by Kwame Asiedu: art and stories from across Africa.">
+<link rel="canonical" href="https://benkum.art/works/">
+<meta property="og:title" content="Works — Benkum Art">
+<meta property="og:description" content="All the works of Benkum Art by Kwame Asiedu: art and stories from across Africa.">
+<meta property="og:image" content="https://benkum.art/assets/social/benkum-art-share.jpg">
+<meta property="og:url" content="https://benkum.art/works/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "url": "https://benkum.art/works/",
+  "name": "Works — Benkum Art",
+  "description": "All the works of Benkum Art by Kwame Asiedu: art and stories from across Africa.",
+  "author": { "@type": "Person", "name": "Kwame Asiedu", "url": "https://benkum.art/about/" }
+}
+</script>
+<script>
+// Fade artwork in once decoded, so frames never flash a half-drawn image.
+document.documentElement.classList.add("js-fade");
+document.addEventListener("load", markLoaded, true);
+document.addEventListener("error", markLoaded, true);
+function markLoaded(e) {
+  var t = e.target;
+  if (t && t.classList && t.classList.contains("piece-img")) t.classList.add("is-loaded");
+}
+</script>
+</head>
+<body>
+<style>
+  :root {
+    --bg: #141414;
+    --ink: #EDEAE2;
+    --ink-soft: #ABA79E;
+    --ink-faint: #7A766D;
+    --border: rgba(237, 234, 226, 0.16);
+    --accent: #EAAE45;
+    --focus: #EAAE45;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: "Newsreader", Georgia, serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  button:focus-visible, a:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+  .wrap { width: min(90vw, 1650px); margin: 0 auto; padding: 0 32px; }
+
+  /* ---------- Gallery ---------- */
+  .stack {
+    column-count: 1;
+    column-gap: 56px;
+    padding: 72px 0 0;
+  }
+  @media (min-width: 780px) {
+    .stack { column-count: 2; }
+  }
+  .stack .piece {
+    break-inside: avoid;
+    margin: 0 0 56px;
+  }
+  .gallery-more {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px 28px;
+    padding: 8px 0 56px;
+  }
+  .gallery-newer {
+    font: italic 16px "Newsreader", serif;
+    color: var(--ink-soft);
+    background: none;
+    border: 0;
+    padding: 10px 4px;
+    cursor: pointer;
+  }
+  .gallery-newer:hover { color: var(--accent); }
+  .load-more-btn {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 15px;
+    color: var(--accent);
+    background: rgba(234, 174, 69, 0.08);
+    border: 1px solid rgba(234, 174, 69, 0.45);
+    border-radius: 999px;
+    cursor: pointer;
+    padding: 10px 28px;
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  }
+  .load-more-btn:hover {
+    background: rgba(234, 174, 69, 0.16);
+    border-color: var(--accent);
+    color: var(--ink);
+  }
+  .piece-title {
+    margin: 0 2px 18px;
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 26px;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+    text-align: center;
+  }
+  .piece-frame {
+    position: relative;
+    background: #E9E4D8;
+    padding: clamp(8px, 1.5vw, 16px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+  }
+  .piece-frame img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    aspect-ratio: auto;
+    display: block;
+    cursor: zoom-in;
+  }
+  .piece-cap {
+    display: block;
+    margin: 18px auto 0;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--ink);
+    max-width: 62ch;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-color: rgba(234, 174, 69, 0.55);
+    text-underline-offset: 3px;
+    transition: color 0.35s ease, text-decoration-color 0.35s ease;
+  }
+  .piece-cap:hover { color: var(--accent); text-decoration-color: rgba(234, 174, 69, 0.9); }
+  .piece-cap.is-active {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
+  }
+
+  /* ---------- Story view ---------- */
+  .story-view {
+    padding: 72px 0 64px;
+  }
+  .story-back {
+    display: inline-block;
+    margin-bottom: 56px;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .story-back:hover { color: var(--ink); }
+  .story-title {
+    margin: 0 2px 26px;
+    font-family: "Newsreader", serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 28px;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+    text-align: center;
+  }
+  .story-frame {
+    position: relative;
+    background: #E9E4D8;
+    padding: clamp(8px, 1.5vw, 16px);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+    max-width: 860px;
+    margin: 0 auto 24px;
+  }
+  .story-frame img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    aspect-ratio: auto;
+    display: block;
+    cursor: zoom-in;
+  }
+  .piece-frame.marked::before,
+  .story-frame.marked::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 12px;
+    height: 12px;
+    border-top: 1.5px solid var(--accent);
+    border-left: 1.5px solid var(--accent);
+    opacity: 0.85;
+    pointer-events: none;
+  }
+  .piece-frame.marked-b::after,
+  .story-frame.marked-b::after {
+    content: "";
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    width: 12px;
+    height: 12px;
+    border-bottom: 1.5px solid var(--accent);
+    border-right: 1.5px solid var(--accent);
+    opacity: 0.85;
+    pointer-events: none;
+  }
+  .story-cap {
+    margin: 0 auto;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--ink-soft);
+    max-width: 52ch;
+    text-align: center;
+  }
+  .story-reading-pause {
+    height: clamp(48px, 7vw, 88px);
+  }
+  .story-text {
+    margin: 0 auto;
+    max-width: 60ch;
+    font-size: 16px;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+  .story-text p { margin: 0 0 1.2em; }
+  .story-text p:last-child { margin-bottom: 0; }
+  .story-glyph {
+    display: flex;
+    justify-content: center;
+    margin: 48px auto 0;
+    cursor: default;
+  }
+  .story-glyph svg { display: block; }
+  .story-nav {
+    max-width: 60ch;
+    margin: 64px auto 0;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .story-next {
+    display: block;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink);
+    text-decoration: none;
+    margin-bottom: 20px;
+  }
+  .story-next:hover { color: var(--accent); }
+  .story-return {
+    display: inline-block;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .story-return:hover { color: var(--ink); }
+
+  /* ---------- About ---------- */
+  .about-view {
+    position: relative;
+    overflow: hidden;
+    padding: 96px 0 80px;
+    max-width: 46ch;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .about-poem {
+    position: relative;
+    z-index: 1;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 18px;
+    line-height: 2;
+    color: var(--ink);
+  }
+  .about-poem p { margin: 0 0 1.6em; }
+  .about-poem p:last-child { margin-bottom: 0; color: var(--accent); }
+  .about-prose {
+    position: relative;
+    z-index: 1;
+    margin: 64px auto 0;
+    padding-top: 48px;
+    border-top: 1px solid var(--border);
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--ink);
+  }
+  .about-hand {
+    width: min(260px, 72%);
+    margin: 56px auto 0;
+    padding: 14px;
+    background: #E9E4D8;
+    box-shadow: 0 18px 40px rgba(0,0,0,0.45);
+  }
+  .about-hand img { display: block; width: 100%; height: auto; }
+  .about-prose p { margin: 0 0 1.3em; }
+  .about-prose p:last-child { margin-bottom: 0; }
+  .about-prose em { color: var(--accent); }
+  .about-now {
+    position: relative;
+    z-index: 1;
+    margin: 48px auto 0;
+    padding: 22px 24px;
+    border: 1px solid var(--border);
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+  .about-now p { margin: 0; }
+  .about-now .about-now-label {
+    margin-bottom: 8px;
+    font-family: "Archivo", sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .about-contact {
+    position: relative;
+    z-index: 1;
+    margin: 40px 0 0;
+    font-size: 15px;
+    font-style: italic;
+    color: var(--ink-soft);
+  }
+  .about-contact a {
+    text-decoration: none;
+    border-bottom: 1px solid rgba(234, 174, 69, 0.55);
+  }
+  .about-contact a:hover { color: var(--accent); }
+  .about-glyph-fragment {
+    position: absolute;
+    z-index: 0;
+    right: clamp(-140px, -22vw, -70px);
+    bottom: clamp(-120px, -18vw, -60px);
+    width: clamp(220px, 46vw, 360px);
+    aspect-ratio: 1;
+    color: var(--accent);
+    opacity: 0.08;
+    transform: rotate(-11deg);
+    pointer-events: none;
+    user-select: none;
+  }
+  .about-glyph-fragment svg { display: block; width: 100%; height: 100%; overflow: visible; }
+  .about-back {
+    display: block;
+    margin-top: 64px;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  .about-back:hover { color: var(--ink); }
+  .foot-about-link {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(171, 167, 158, 0.55);
+    cursor: pointer;
+  }
+  .foot-about-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+  /* ---------- Lightbox ---------- */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.94);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+    z-index: 1000;
+    cursor: zoom-out;
+  }
+  .lightbox.open { display: flex; }
+  .lightbox img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    box-shadow: none;
+    display: block;
+  }
+  .lightbox-close {
+    position: absolute;
+    top: max(18px, env(safe-area-inset-top));
+    right: 22px;
+    min-width: 44px;
+    min-height: 44px;
+    background: none;
+    border: 0;
+    color: var(--ink);
+    font: 32px Georgia, serif;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .lightbox-close:hover { color: var(--accent); }
+
+  /* Empty state */
+  .empty {
+    padding: 120px 0;
+    text-align: center;
+  }
+  .empty-sub {
+    font-size: 15px;
+    font-style: italic;
+    color: var(--ink-faint);
+  }
+
+  footer.site-foot {
+    border-top: 1px solid var(--border);
+    padding: 26px 0 56px;
+  }
+  .signature {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    line-height: 1;
+  }
+  .sig-gold {
+    background: linear-gradient(160deg, #F5D48A 0%, #C89430 22%, #7A4E12 45%, #E8BE6A 62%, #B9791A 80%, #F0CE7E 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+  .sig-word {
+    font-family: "Archivo", sans-serif;
+    font-weight: 700;
+    font-size: 21px;
+    letter-spacing: 0.01em;
+    line-height: 1;
+  }
+  .sig-script {
+    font-family: "Alex Brush", cursive;
+    font-size: 30px;
+    line-height: 0.6;
+    margin-left: 3px;
+  }
+  .sig-logo-img {
+    height: 26px;
+    width: auto;
+    display: block;
+  }
+  .sig-attribution {
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-faint);
+    margin-left: 6px;
+    line-height: 1;
+  }
+  .foot-caption {
+    margin: 3px 0 0;
+    line-height: 1.3;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 13px;
+    color: var(--ink-faint);
+  }
+  .foot-disclosure {
+    margin: 12px 0 0;
+    line-height: 1.3;
+    font-family: "Newsreader", serif;
+    font-size: 10px;
+    letter-spacing: 0.03em;
+    color: var(--ink-faint);
+    opacity: 0.62;
+  }
+
+  /* ---------- Site header (real, crawlable brand heading) ---------- */
+  .site-head {
+    padding: 40px 0 0;
+  }
+  .site-head-link {
+    display: inline-block;
+    text-decoration: none;
+  }
+  .site-head-title {
+    margin: 0;
+    font-family: "Archivo", sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .site-head-link:hover .site-head-title { color: var(--accent); }
+
+  /* ---------- Artwork page (standalone, non-hash pages) ---------- */
+  .art-back {
+    display: inline-block;
+    margin: 28px 0 0;
+    font-family: "Newsreader", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-soft);
+    text-decoration: none;
+  }
+  .art-back:hover { color: var(--ink); }
+
+  /* ---------- Image loading ---------- */
+  /* Dark mat inside the frame shows while the image loads, instead of bare white. */
+  .piece-frame, .story-frame {
+    background: linear-gradient(#1F1D1A, #1F1D1A) content-box, #E9E4D8;
+  }
+  .js-fade .piece-img { opacity: 0; transition: opacity 0.45s ease; }
+  .js-fade .piece-img.is-loaded { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) {
+    .js-fade .piece-img { transition: none; }
+  }
+
+  /* ---------- Top links ---------- */
+  .site-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .site-nav { display: flex; gap: 22px; }
+  .site-nav a {
+    font-family: "Archivo", sans-serif;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding: 10px 0;
+  }
+  .site-nav a:hover { color: var(--accent); }
+  @media (max-width: 420px) { .site-nav { gap: 16px; } .site-nav a { font-size: 11px; } }
+
+  /* ---------- Email signup ---------- */
+  .signup { max-width: 46ch; margin: 64px auto 0; padding-top: 36px; border-top: 1px solid var(--border); text-align: center; }
+  .signup-line { margin: 0 0 16px; font-family: "Newsreader", serif; font-style: italic; font-size: 17px; color: var(--ink); }
+  .signup-form { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+  .signup-form input {
+    flex: 1 1 200px; max-width: 280px; min-height: 44px; padding: 0 14px;
+    font: 15px "Newsreader", Georgia, serif; color: var(--ink);
+    background: rgba(237, 234, 226, 0.05); border: 1px solid var(--border); border-radius: 999px;
+  }
+  .signup-form input::placeholder { color: var(--ink-faint); font-style: italic; }
+  .signup-form input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .signup-form button {
+    min-height: 44px; padding: 0 22px; cursor: pointer;
+    font: italic 15px "Newsreader", serif; color: var(--accent);
+    background: rgba(234, 174, 69, 0.08); border: 1px solid rgba(234, 174, 69, 0.45); border-radius: 999px;
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+  }
+  .signup-form button:hover { background: rgba(234, 174, 69, 0.16); border-color: var(--accent); color: var(--ink); }
+  .signup-notice {
+    margin: 28px auto 0; padding: 14px 20px; max-width: 46ch; text-align: center;
+    font-style: italic; font-size: 16px; color: var(--accent);
+    border: 1px solid rgba(234, 174, 69, 0.45); border-radius: 999px;
+  }
+  .signup-note { margin: 12px 0 0; font-size: 13px; font-style: italic; color: var(--ink-faint); }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* ---------- Readability ---------- */
+  /* Newsreader has a small x-height; sizes run ~2px larger than a typical
+     face would need, and the optical-size axis gives sturdier letters at
+     reading sizes. Faint grey lifted from 4.1:1 to ~6:1 contrast. */
+  :root { --ink-faint: #9A968D; }
+  body { font-optical-sizing: auto; }
+  .story-text { font-size: 19px; line-height: 1.7; }
+  .story-cap, .piece-cap { font-size: 17px; }
+  .story-back, .story-return { font-size: 15px; }
+  .story-next { font-size: 19px; }
+  .about-poem { font-size: 20px; }
+  .about-prose { font-size: 19px; }
+  .about-now { font-size: 16px; }
+  .about-contact { font-size: 16px; }
+  .signup-line { font-size: 18px; }
+  .signup-note, .foot-caption { font-size: 14px; }
+  .foot-disclosure { font-size: 12px; opacity: 1; }
+  .site-nav a { font-size: 13px; }
+  .load-more-btn { font-size: 16px; }
+  @media (max-width: 600px) {
+    .story-text, .about-prose { font-size: 18px; }
+  }
+  @media (max-width: 420px) {
+    .site-nav a { font-size: 12px; }
+  }
+
+  /* ---------- Write to me (inquiry form) ---------- */
+  .inquiry { position: relative; z-index: 1; margin: 56px auto 0; padding-top: 44px; border-top: 1px solid var(--border); text-align: left; }
+  .inquiry-heading { margin: 0 0 10px; text-align: center; font: italic 500 26px "Newsreader", serif; color: var(--ink); }
+  .inquiry-intro { margin: 0 0 28px; text-align: center; font-size: 17px; font-style: italic; line-height: 1.6; color: var(--ink-soft); }
+  .inquiry-lead { text-align: center; }
+  .inquiry-lead .about-contact { margin: 0 0 28px; }
+  .inquiry-form { display: grid; gap: 16px; }
+  .inquiry-form .field { display: grid; gap: 6px; }
+  .inquiry-pair { display: grid; gap: 16px; }
+  .inquiry-form label { font: 600 11px "Archivo", sans-serif; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
+  .inquiry-optional { font-weight: 500; letter-spacing: 0.04em; text-transform: none; color: var(--ink-faint); }
+  .inquiry-form input:not([type=hidden]):not([type=checkbox]), .inquiry-form select, .inquiry-form textarea {
+    width: 100%; min-height: 44px; padding: 10px 14px;
+    font: 17px "Newsreader", Georgia, serif; color: var(--ink);
+    background: rgba(237, 234, 226, 0.05); border: 1px solid var(--border); border-radius: 10px;
+  }
+  .inquiry-form select { appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--ink-soft) 50%), linear-gradient(135deg, var(--ink-soft) 50%, transparent 50%); background-position: calc(100% - 20px) 50%, calc(100% - 14px) 50%; background-size: 6px 6px; background-repeat: no-repeat; padding-right: 40px; }
+  .inquiry-form select option { background: #1F1D1A; color: var(--ink); }
+  .inquiry-form textarea { resize: vertical; line-height: 1.6; }
+  .inquiry-form input:focus-visible, .inquiry-form select:focus-visible, .inquiry-form textarea:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .inquiry-form button {
+    justify-self: center; margin-top: 8px; min-height: 44px; padding: 0 34px; cursor: pointer;
+    font: italic 16px "Newsreader", serif; color: var(--accent);
+    background: rgba(234, 174, 69, 0.08); border: 1px solid rgba(234, 174, 69, 0.45); border-radius: 999px;
+  }
+  .inquiry-form button:hover { background: rgba(234, 174, 69, 0.16); border-color: var(--accent); color: var(--ink); }
+  .inquiry-form button:disabled { opacity: 0.6; cursor: default; }
+  .inquiry-status { min-height: 1.5em; margin: 10px 0 0; text-align: center; font-style: italic; font-size: 16px; color: var(--accent); }
+
+  /* ---------- Two-sided layout on wide screens ---------- */
+  /* Phones keep the single column. From 1000px, story views put the artwork
+     left and the story right; the About page pairs poem | hand + bio, and
+     "now" + contact | write-to-me. */
+  @media (min-width: 1000px) {
+    .story-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+      gap: 64px;
+      align-items: start;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+    .story-layout .story-frame { max-width: none; margin: 0 0 20px; }
+    .story-layout .story-cap { text-align: left; margin: 0; }
+    .story-layout .story-reading-pause { display: none; }
+    .story-layout .story-text { margin: 0; max-width: 60ch; }
+    .story-layout .story-glyph { justify-content: flex-start; }
+    .story-layout .story-nav { margin: 48px 0 0; text-align: left; }
+
+    /* About: balanced rows, each pair vertically centred on the same axis. */
+    .about-view { max-width: 1080px; }
+    .about-row {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 88px;
+      align-items: center;
+    }
+    .about-row-intro .about-hand { grid-column: 1; grid-row: 1; width: min(340px, 100%); margin: 0 auto; }
+    .about-row-intro .about-poem { grid-column: 2; grid-row: 1; }
+    .about-view > .about-prose { max-width: 60ch; margin: 96px auto 0; }
+    .about-view > .about-now { max-width: 60ch; }
+    .about-row-write { margin-top: 96px; padding-top: 72px; }
+    .about-row-write .inquiry-lead { text-align: center; }
+    .about-row-write .inquiry-intro { margin-bottom: 20px; }
+    .inquiry-pair { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .about-view > .signup { max-width: 46ch; }
+  }
+
+  /* ---------- Write page + gold hairlines + one form style ---------- */
+  .write-view { position: relative; max-width: 46ch; margin: 0 auto; padding: 96px 0 80px; text-align: center; }
+  .write-view .inquiry { margin: 0; padding: 0; border: 0; }
+  .write-view .inquiry-lead .signup { max-width: none; margin: 40px 0 0; padding-top: 32px; }
+  .write-view .about-back { margin-top: 72px; }
+  @media (max-width: 999px) {
+    /* Stacked: give the form its own space below the signup. */
+    .write-view .inquiry-lead { margin-bottom: 44px; padding-bottom: 40px; border-bottom: 1px solid var(--border); }
+  }
+  /* Phones: a short gold hairline between the poem and the hand. */
+  .about-hand { position: relative; }
+  .about-hand::before {
+    content: ""; position: absolute; left: 50%; top: -30px; width: 56px; height: 1px;
+    transform: translateX(-50%); background: var(--accent); opacity: 0.6;
+  }
+  /* Both forms share one input shape and one button size. */
+  .signup-form input { border-radius: 10px; font-size: 16px; }
+  .signup-form button, .inquiry-form button { min-height: 44px; padding: 0 28px; font: italic 16px "Newsreader", serif; }
+  @media (min-width: 1000px) {
+    /* A thin gold line down the middle of each two-sided row. */
+    .about-row::before {
+      content: ""; position: absolute; left: 50%; top: 4%; bottom: 4%; width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--accent) 18%, var(--accent) 82%, transparent);
+      opacity: 0.55; pointer-events: none;
+    }
+    .about-row-intro .about-hand::before { display: none; }
+    .write-view { max-width: 1080px; }
+    .write-view .about-row-write { margin: 0; padding: 0; border: 0; align-items: start; }
+    /* Heading's cap line sits level with the form's first labels. */
+    .write-view .inquiry-heading { margin-top: -0.2em; }
+  }
+
+  /* ---------- Story links row, big type, compact About on phones ---------- */
+  .story-links {
+    display: flex; flex-direction: column; align-items: center; gap: 18px;
+    max-width: 1320px; margin: 64px auto 0; padding-top: 32px;
+    border-top: 1px solid rgba(234, 174, 69, 0.35);
+    font: italic 17px "Newsreader", serif;
+  }
+  .story-links a { color: var(--ink-soft); text-decoration: none; }
+  .story-links a:hover { color: var(--accent); }
+  .story-links .story-next { order: 1; color: var(--ink); font-size: 19px; margin: 0; }
+  .story-links .write-about { order: 2; margin: 0; text-decoration: underline; text-decoration-color: rgba(234, 174, 69, 0.55); text-underline-offset: 3px; }
+  .story-links .story-return { order: 3; font-size: 16px; }
+  /* Titles carry the page: large italic serif against the quiet body text. */
+  .story-title { font-size: clamp(40px, 5vw, 68px); line-height: 1.05; letter-spacing: -0.01em; margin-bottom: 36px; }
+  .piece-title { font-size: clamp(28px, 2.4vw, 34px); line-height: 1.15; }
+  .inquiry-heading { font-size: 30px; line-height: 1.1; margin-bottom: 12px; }
+  @media (min-width: 760px) {
+    .story-links { display: grid; grid-template-columns: 1fr auto 1fr; align-items: baseline; gap: 24px; }
+    .story-links .story-return { order: 0; justify-self: start; }
+    .story-links .write-about { order: 0; justify-self: center; }
+    .story-links .story-next, .story-links .story-next-empty { order: 0; justify-self: end; }
+  }
+  @media (max-width: 600px) {
+    .about-view { padding: 64px 0 56px; }
+    .about-poem { line-height: 1.7; }
+    .about-poem p { margin-bottom: 1.1em; }
+    .about-hand { width: min(200px, 60%); margin-top: 44px; }
+    .about-hand::before { top: -22px; }
+    .about-view > .about-prose { margin-top: 44px; padding-top: 36px; }
+    .about-view > .about-now { margin-top: 36px; }
+    .about-back { margin-top: 44px; }
+  }
+
+  /* ---------- Pinned top bar + slim footer ---------- */
+  /* The header stays in place while the page scrolls under it; the footer is
+     a slim bar at the end of the page. Full-width strips come from ::before. */
+  .site-head {
+    position: sticky; top: 0; z-index: 60;
+    padding: 18px 0 14px;
+  }
+  .site-head::before, .site-foot::before {
+    content: ""; position: absolute; top: 0; bottom: 0;
+    left: calc(50% - 50vw); right: calc(50% - 50vw);
+    background: rgba(20, 20, 20, 0.94); z-index: -1;
+  }
+  .site-head::before { border-bottom: 1px solid var(--border); }
+  footer.site-foot {
+    position: relative;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 6px 24px;
+    margin-top: 48px; padding: 12px 0; border-top: 0;
+  }
+  .site-foot::before { border-top: 1px solid var(--border); }
+  .site-foot .signature, .site-foot .foot-caption, .site-foot .foot-disclosure { margin: 0; }
+  .site-foot .sig-logo-img { height: 18px; }
+  .site-foot .foot-disclosure { font-size: 12px; }
+  #view-root, #write, main { scroll-margin-top: 80px; }
+  @media (max-width: 420px) { .site-nav { gap: 12px; } .site-nav a { font-size: 11px; letter-spacing: 0.1em; } }
+  html, body { overflow-x: clip; }
+  @media (max-width: 700px) {
+    footer.site-foot { justify-content: center; padding: 10px 0; }
+    .site-foot .foot-caption { font-size: 13px; text-align: center; }
+  }
+  @media (max-width: 420px) { .site-head-title { letter-spacing: 0.06em; font-size: 12px; } .site-nav { gap: 10px; } }
+  @media (max-width: 480px) { .site-head { flex-wrap: wrap; justify-content: center; row-gap: 2px; } .site-head-link { width: 100%; text-align: center; } .site-nav { justify-content: center; } }
+
+  /* ---------- Works (curated exhibition; generated by tools/render_works.py) ---------- */
+  .works-view { padding: 32px 0 40px; container-type: inline-size; }
+  .works-grid { --g: 3.2cqw; display: flex; flex-direction: column; gap: var(--g); }
+  .w-row, .w-feature { display: flex; gap: var(--g); align-items: flex-start; }
+  .w-stack { display: flex; flex-direction: column; gap: var(--g); width: var(--sw); flex: none; }
+  .w-item { display: block; flex: none; width: var(--dw); outline: none; }
+  .w-item img { display: block; width: 100%; height: auto; background: #1c1b19; transition: opacity .2s; }
+  .w-item:hover img { opacity: .86; }
+  .w-item:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+  @container (max-width: 640px) {
+    .works-grid { --g: 16px; flex-direction: row; flex-wrap: wrap; }
+    .w-row, .w-feature, .w-stack { display: contents; }
+    .w-item { width: var(--mw); order: var(--o); }
+    .w-item.m-r { margin-left: auto; }
+    .w-item.m-l { margin-right: auto; }
+  }
+  @media (max-width: 600px) { .works-view { margin-left: -32px; margin-right: -32px; } }
+  @media (prefers-reduced-motion: reduce) { .w-item img { transition: none; } }
+</style>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Archivo:wght@500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400..500;1,6..72,400..500&display=swap">
+
+<div class="wrap">
+  <header class="site-head">
+    <a class="site-head-link" href="/"><h1 class="site-head-title">Benkum Art</h1></a>
+    <nav class="site-nav" aria-label="Site"><a href="/works/">works</a><a href="/about/">about</a><a href="/#write">write</a><a href="https://www.etsy.com/shop/BenkumArt" target="_blank" rel="noopener noreferrer">shop</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
+  </header>
+  <main id="view-root"><div class="works-view"><h2 class="visually-hidden">Works</h2><div class="works-grid"><div class="w-feature" style="--sw:calc((100cqw - 2.49925 * var(--g)) * 0.33333)"><a class="w-item" href="/art/no-fixed-point/" style="--dw:calc(100cqw - var(--g) - var(--sw));--mw:calc(100cqw * 1);--o:0"><img src="/assets/art/no-fixed-point.webp" alt="No Fixed Point" width="1000" height="667" decoding="async"></a><div class="w-stack" style="--sw:calc((100cqw - 2.49925 * var(--g)) * 0.33333)"><a class="w-item m-r" href="/art/enough/" style="--dw:100%;--mw:calc(100cqw * 0.8);--o:1"><img src="/assets/art/enough.webp" alt="Enough" width="1000" height="667" decoding="async"></a><a class="w-item m-l" href="/art/half-a-turn/" style="--dw:100%;--mw:calc(100cqw * 0.66);--o:2"><img src="/assets/art/half-a-turn.webp" alt="Half a Turn" width="1000" height="667" decoding="async"></a></div></div><div class="w-row"><a class="w-item" href="/art/second-wind/" style="--dw:calc((100cqw - 2 * var(--g)) * 0.23542);--mw:calc((100cqw - var(--g)) * 0.5 - 0.5px);--o:3"><img src="/assets/art/second-wind.webp" alt="Second Wind" width="667" height="1000" decoding="async"></a><a class="w-item m-r" href="/art/bound-to-outlast/" style="--dw:calc((100cqw - 2 * var(--g)) * 0.52916);--mw:calc(100cqw * 0.8);--o:4"><img src="/assets/art/bound-to-outlast.webp" alt="Bound to Outlast" width="1000" height="667" loading="lazy" decoding="async"></a><a class="w-item" href="/art/same-wish/" style="--dw:calc((100cqw - 2 * var(--g)) * 0.23542);--mw:calc((100cqw - var(--g)) * 0.5 - 0.5px);--o:3"><img src="/assets/art/same-wish.webp" alt="Same Wish" width="667" height="1000" loading="lazy" decoding="async"></a></div><div class="w-feature" style="--sw:calc((100cqw - 2.49925 * var(--g)) * 0.33333)"><div class="w-stack" style="--sw:calc((100cqw - 2.49925 * var(--g)) * 0.33333)"><a class="w-item m-l" href="/art/one-more/" style="--dw:100%;--mw:calc(100cqw * 0.66);--o:6"><img src="/assets/art/one-more.webp" alt="One More" width="1000" height="667" loading="lazy" decoding="async"></a><a class="w-item m-r" href="/art/between-the-marks/" style="--dw:100%;--mw:calc(100cqw * 0.8);--o:7"><img src="/assets/art/between-the-marks.webp" alt="Between the Marks" width="1000" height="667" loading="lazy" decoding="async"></a></div><a class="w-item" href="/art/already-landed/" style="--dw:calc(100cqw - var(--g) - var(--sw));--mw:calc(100cqw * 1);--o:5"><img src="/assets/art/already-landed.webp" alt="Already Landed" width="1000" height="667" loading="lazy" decoding="async"></a></div><div class="w-row"><a class="w-item" href="/art/steady-without-me/" style="--dw:calc((100cqw - 1 * var(--g)) * 0.69209);--mw:calc(100cqw * 1);--o:8"><img src="/assets/art/steady-without-me.webp" alt="Steady Without Me" width="1000" height="667" loading="lazy" decoding="async"></a><a class="w-item" href="/art/the-shine-holds/" style="--dw:calc((100cqw - 1 * var(--g)) * 0.30791);--mw:calc(100cqw * 1);--o:9"><img src="/assets/art/the-shine-holds.webp" alt="The Shine Holds" width="667" height="1000" loading="lazy" decoding="async"></a></div><div class="w-feature" style="--sw:calc((100cqw - 2.49925 * var(--g)) * 0.33333)"><a class="w-item" href="/art/wired-time/" style="--dw:calc(100cqw - var(--g) - var(--sw));--mw:calc(100cqw * 1);--o:11"><img src="/assets/art/wired-time.webp" alt="Wired Time" width="1000" height="667" loading="lazy" decoding="async"></a><div class="w-stack" style="--sw:calc((100cqw - 2.49925 * var(--g)) * 0.33333)"><a class="w-item m-l" href="/art/where-i-remain/" style="--dw:100%;--mw:calc(100cqw * 0.8);--o:10"><img src="/assets/art/where-i-remain.webp" alt="Where I Remain" width="1000" height="667" loading="lazy" decoding="async"></a><a class="w-item m-r" href="/art/still-turning/" style="--dw:100%;--mw:calc(100cqw * 0.8);--o:12"><img src="/assets/art/still-turning.webp" alt="Still Turning" width="1000" height="667" loading="lazy" decoding="async"></a></div></div><div class="w-row"><a class="w-item" href="/art/what-stayed-open/" style="--dw:calc((100cqw - 3 * var(--g)) * 0.25);--mw:calc((100cqw - var(--g)) * 0.5 - 0.5px);--o:13"><img src="/assets/art/what-stayed-open.webp" alt="What Stayed Open" width="667" height="1000" loading="lazy" decoding="async"></a><a class="w-item" href="/art/nothing-left-to-tie/" style="--dw:calc((100cqw - 3 * var(--g)) * 0.25);--mw:calc((100cqw - var(--g)) * 0.5 - 0.5px);--o:13"><img src="/assets/art/nothing-left-to-tie.webp" alt="Nothing Left to Tie" width="667" height="1000" loading="lazy" decoding="async"></a><a class="w-item" href="/art/where-the-heat-was/" style="--dw:calc((100cqw - 3 * var(--g)) * 0.25);--mw:calc((100cqw - var(--g)) * 0.5 - 0.5px);--o:14"><img src="/assets/art/where-the-heat-was.webp" alt="Where the Heat Was" width="667" height="1000" loading="lazy" decoding="async"></a><a class="w-item" href="/art/her-hands-go-first/" style="--dw:calc((100cqw - 3 * var(--g)) * 0.25);--mw:calc((100cqw - var(--g)) * 0.5 - 0.5px);--o:14"><img src="/assets/art/her-hands-go-first.webp" alt="Her Hands Go First" width="667" height="1000" loading="lazy" decoding="async"></a></div><div class="w-feature" style="--sw:calc((100cqw - 2.49925 * var(--g)) * 0.33333)"><div class="w-stack" style="--sw:calc((100cqw - 2.49925 * var(--g)) * 0.33333)"><a class="w-item m-l" href="/art/yet-to-let-go/" style="--dw:100%;--mw:calc(100cqw * 0.8);--o:16"><img src="/assets/art/yet-to-let-go.webp" alt="Yet to Let Go" width="1000" height="667" loading="lazy" decoding="async"></a><a class="w-item m-r" href="/art/always-left-open/" style="--dw:100%;--mw:calc(100cqw * 0.8);--o:17"><img src="/assets/art/always-left-open.webp" alt="Always Left Open" width="1000" height="667" loading="lazy" decoding="async"></a></div><a class="w-item" href="/art/wonder-dread/" style="--dw:calc(100cqw - var(--g) - var(--sw));--mw:calc(100cqw * 1);--o:15"><img src="/assets/art/wonder-dread.webp" alt="Wonder &amp; Dread" width="1000" height="667" loading="lazy" decoding="async"></a></div><div class="w-row"><a class="w-item" href="/art/a-second-behind/" style="--dw:calc((100cqw - 1 * var(--g)) * 0.69209);--mw:calc(100cqw * 1);--o:18"><img src="/assets/art/a-second-behind.webp" alt="A Second Behind" width="1000" height="667" loading="lazy" decoding="async"></a><a class="w-item" href="/art/before-it-works/" style="--dw:calc((100cqw - 1 * var(--g)) * 0.30791);--mw:calc(100cqw * 1);--o:19"><img src="/assets/art/before-it-works.webp" alt="Before It Works" width="667" height="1000" loading="lazy" decoding="async"></a></div></div></div></main>
+
+  <footer class="site-foot">
+    <p class="signature">
+      <img class="sig-logo-img" src="/assets/brand/benkum-logo.png" alt="benkum art" width="647" height="130">
+    </p>
+    <p class="foot-caption"><span class="foot-lead">self taught, figuring it out, yɛn kɔ &middot; </span><a class="foot-about-link" href="/about/">a note</a> &middot; <a class="foot-about-link" href="/rights.html">rights &amp; usage</a> &middot; <a class="foot-about-link" href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">instagram</a> &middot; <a class="foot-about-link" href="mailto:ka@benkum.art">email</a></p>
+    <p class="foot-disclosure">&copy; 2026 Kwame Asiedu &middot; Benkum Art. All rights reserved.</p>
+  </footer>
+</div>
+
+
+
+
+
+</body>
+</html>
