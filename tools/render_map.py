@@ -414,7 +414,8 @@ def build_block(entries):
   track.addEventListener("scroll", function () {{
     var loop = loopWidth();
     if (track.scrollLeft >= loop) track.scrollLeft -= loop;
-    else if (track.scrollLeft <= 0 && (touching || dragging || held)) track.scrollLeft += loop;
+    // Land just inside the loop, not on its edge, so the two branches never bounce.
+    else if (track.scrollLeft <= 0 && (touching || dragging || held)) track.scrollLeft = loop - 1;
   }}, {{ passive: true }});
 
   track.addEventListener("mouseenter", function () {{ held++; }});
@@ -448,7 +449,9 @@ def build_block(entries):
     if (!dragMoved && Math.abs(dx) > 5) {{ dragMoved = true; track.classList.add("is-dragging"); }}
     if (dragMoved) {{
       var loop = loopWidth(), left = dragStartLeft - dx;
-      if (left < 1) {{ left += loop; dragStartLeft += loop; }}
+      // Keep the drag inside one loop so it never hits the browser's scroll limit.
+      while (left >= loop) {{ left -= loop; dragStartLeft -= loop; }}
+      while (left < 1) {{ left += loop; dragStartLeft += loop; }}
       track.scrollLeft = left;
     }}
   }});
