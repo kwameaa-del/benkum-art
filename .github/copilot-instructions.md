@@ -71,7 +71,7 @@ When adding or editing a piece, treat it as data + page + assets together. For a
 
 ## Related repository notes
 
-- This file is the repository's only AI/contributor instruction file.
+- `CLAUDE.md` (repository root) adds Claude Code's working rules (PR and review process, generated files, standing decisions); it defers to this file for the site rules.
 - There are no automated lint/test commands or package scripts to follow.
 - The repo is content-first and static-first; the most important quality checks are visual and editorial correctness.
 
