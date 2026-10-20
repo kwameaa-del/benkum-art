@@ -892,10 +892,16 @@ function markLoaded(e) {
   function outline(code) { hi.setAttribute("href", code ? "#me-" + code : ""); }
   function codeOf(a) { return a.querySelector(".m-edge").id.slice(3); }
 
-  // Three ways the card appears. Mouse: it follows the pointer, so it never
-  // vanishes on the way to a click, and clicking the country opens the piece.
+  // Three ways the card appears.
+  // Mouse: the card trails just beside the pointer while it moves; once the
+  // pointer rests on a country for a moment the card stays put and can be
+  // clicked. Brushing past a neighbouring country on the short way to the
+  // card does not switch it. Clicking the country itself also opens the piece.
   // Keyboard: it sits beside the focused country. Touch: a bottom sheet.
+  var pinned = false, pinAt = null, lastMove = null, idleT = null, hideT = null, switchT = null;
+  function clearTimers() { clearTimeout(idleT); clearTimeout(hideT); clearTimeout(switchT); }
   function show(a, mode, e) {
+    clearTimers();
     if (current && current !== a) current.classList.remove("is-on");
     current = a;
     a.classList.add("is-on");
@@ -906,8 +912,9 @@ function markLoaded(e) {
     card.setAttribute("aria-label", a.getAttribute("data-title") + ", view piece");
     card.classList.toggle("is-sheet", mode === "sheet");
     card.classList.toggle("is-follow", mode === "pointer");
+    pinned = false;
     card.hidden = false;
-    if (mode === "pointer") place(e);
+    if (mode === "pointer") { place(e); restSoon(e); }
     else if (mode === "focus") {
       var box = svg.getBoundingClientRect(), host = wrap.getBoundingClientRect();
       var k = box.width / 738;
@@ -922,33 +929,74 @@ function markLoaded(e) {
   }
   function place(e) {
     var host = wrap.getBoundingClientRect();
-    var x = e.clientX - host.left + 18, y = e.clientY - host.top + 18;
-    if (x + card.offsetWidth > host.width - 4) x = e.clientX - host.left - card.offsetWidth - 18;
-    if (y + card.offsetHeight > host.height - 4) y = e.clientY - host.top - card.offsetHeight - 18;
+    var x = e.clientX - host.left + 12, y = e.clientY - host.top + 12;
+    if (x + card.offsetWidth > host.width - 4) x = e.clientX - host.left - card.offsetWidth - 12;
+    if (y + card.offsetHeight > host.height - 4) y = e.clientY - host.top - card.offsetHeight - 12;
     card.style.left = Math.max(4, x) + "px";
     card.style.top = Math.max(0, y) + "px";
   }
+  // After the pointer rests briefly, the card stops trailing and takes clicks.
+  function restSoon(e) {
+    clearTimeout(idleT);
+    idleT = setTimeout(function () {
+      pinned = true; pinAt = { x: e.clientX, y: e.clientY };
+      card.classList.remove("is-follow");
+    }, 220);
+  }
   function hide() {
+    clearTimers();
     if (current) current.classList.remove("is-on");
     current = null;
+    pinned = false;
     outline(null);
     card.hidden = true;
     card.classList.remove("is-follow", "is-sheet");
     svg.classList.remove("has-focus", "is-kbd");
   }
+  function hideSoon() { clearTimeout(hideT); hideT = setTimeout(hide, 350); }
   function sheetOpen() { return card.classList.contains("is-sheet") && !card.hidden; }
 
   links.forEach(function (a) {
-    a.addEventListener("mouseenter", function (e) { if (!sheetOpen()) show(a, "pointer", e); });
-    a.addEventListener("mousemove", function (e) { if (current === a && card.classList.contains("is-follow")) place(e); });
-    a.addEventListener("mouseleave", function () { if (card.classList.contains("is-follow")) hide(); });
+    a.addEventListener("mouseenter", function (e) {
+      if (sheetOpen()) return;
+      clearTimeout(hideT);
+      lastMove = e;
+      if (current === a) return;
+      if (pinned && !card.hidden) {
+        // Probably passing through on the way to the card: wait before switching.
+        clearTimeout(switchT);
+        switchT = setTimeout(function () { show(a, "pointer", lastMove); }, 300);
+      } else show(a, "pointer", e);
+    });
+    a.addEventListener("mousemove", function (e) {
+      lastMove = e;
+      if (current !== a || sheetOpen()) return;
+      if (pinned && pinAt && Math.hypot(e.clientX - pinAt.x, e.clientY - pinAt.y) > 90) {
+        // Moved well away within the same country: let the card follow again.
+        pinned = false; card.classList.add("is-follow");
+      }
+      if (!pinned) { place(e); restSoon(e); }
+    });
+    a.addEventListener("mouseleave", function () {
+      clearTimeout(idleT);
+      if (!card.hidden && !sheetOpen() && !card.matches(":focus")) hideSoon();
+    });
     a.addEventListener("focus", function () {
       if (!a.matches(":focus-visible")) return;
       svg.classList.add("has-focus", "is-kbd");
       show(a, "focus");
     });
-    a.addEventListener("blur", function () { if (!sheetOpen()) setTimeout(function () { if (document.activeElement !== card) hide(); }, 0); });
+    a.addEventListener("blur", function () {
+      if (sheetOpen()) return;
+      setTimeout(function () {
+        // Keep it when focus moved to the card or to another country (which shows its own).
+        var to = document.activeElement;
+        if (to !== card && !(to && to.classList && to.classList.contains("m-piece")) && !card.matches(":hover")) hide();
+      }, 0);
+    });
   });
+  card.addEventListener("mouseenter", function () { clearTimers(); });
+  card.addEventListener("mouseleave", function () { if (!sheetOpen()) hideSoon(); });
   card.addEventListener("blur", function () { if (!sheetOpen()) hide(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !card.hidden) hide(); });
 
