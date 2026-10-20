@@ -12,9 +12,9 @@ colour, density, portrait/landscape balance; never release order, country,
 title or story). Desktop is built from three kinds of row:
   feature  one large piece beside a stack of two smaller ones
   row      pieces side by side at one shared height
-On phones the same pieces recompose into one column: large pieces full width,
-medium landscapes at 80% and small ones at 66% on alternating sides, and
-small portraits in pairs. Widths are exact proportions of the container
+On phones the same pieces recompose into one column: large landscapes at
+88% and large portraits at 66% (centred), medium landscapes at 66% and small
+ones at 54% on alternating sides, and small portraits in centred pairs. Widths are exact proportions of the container
 (cqw), so every edge lines up at any width and nothing is cropped.
 
 A new piece that is not yet placed in DESKTOP/PHONE is added at the end until
@@ -39,14 +39,15 @@ DESKTOP = [
     ("row", ["a-second-behind", "before-it-works"]),
 ]
 # (slug, width as a fraction of the column, side) or a pair of portraits.
+PAIR_WIDTH = .84  # phones: a pair of small portraits spans 84% of the column, centred
 PHONE = [
-    ("no-fixed-point", 1.0, "c"), ("enough", .80, "r"), ("half-a-turn", .66, "l"),
-    ["second-wind", "same-wish"], ("bound-to-outlast", .80, "r"), ("already-landed", 1.0, "c"),
-    ("one-more", .66, "l"), ("between-the-marks", .80, "r"), ("steady-without-me", 1.0, "c"),
-    ("the-shine-holds", 1.0, "c"), ("where-i-remain", .80, "l"), ("wired-time", 1.0, "c"),
-    ("still-turning", .80, "r"), ["what-stayed-open", "nothing-left-to-tie"], ["where-the-heat-was", "her-hands-go-first"],
-    ("wonder-dread", 1.0, "c"), ("yet-to-let-go", .80, "l"), ("always-left-open", .80, "r"),
-    ("a-second-behind", 1.0, "c"), ("before-it-works", 1.0, "c"),
+    ("no-fixed-point", .88, "c"), ("enough", .66, "r"), ("half-a-turn", .54, "l"),
+    ["second-wind", "same-wish"], ("bound-to-outlast", .66, "r"), ("already-landed", .88, "c"),
+    ("one-more", .54, "l"), ("between-the-marks", .66, "r"), ("steady-without-me", .88, "c"),
+    ("the-shine-holds", .66, "c"), ("where-i-remain", .66, "l"), ("wired-time", .88, "c"),
+    ("still-turning", .66, "r"), ["what-stayed-open", "nothing-left-to-tie"], ["where-the-heat-was", "her-hands-go-first"],
+    ("wonder-dread", .88, "c"), ("yet-to-let-go", .66, "l"), ("always-left-open", .66, "r"),
+    ("a-second-behind", .88, "c"), ("before-it-works", .66, "c"),
 ]
 
 CSS = """
@@ -59,12 +60,18 @@ CSS = """
   .w-item img { display: block; width: 100%; height: auto; background: #1c1b19; transition: opacity .2s; }
   .w-item:hover img { opacity: .86; }
   .w-item:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+  .w-br { display: none; }
   @container (max-width: 640px) {
-    .works-grid { --g: 16px; flex-direction: row; flex-wrap: wrap; }
+    .works-grid { --g: 16px; flex-direction: row; flex-wrap: wrap; row-gap: 0; }
     .w-row, .w-feature, .w-stack { display: contents; }
-    .w-item { width: var(--mw); order: var(--o); }
+    .w-item { width: var(--mw); order: var(--o); margin-bottom: var(--g); }
+    /* Each row of the phone sequence starts on a fresh line. */
+    .w-br { display: block; flex-basis: 100%; height: 0; order: var(--o); }
     .w-item.m-r { margin-left: auto; }
     .w-item.m-l { margin-right: auto; }
+    .w-item.m-c { margin-left: auto; margin-right: auto; }
+    .w-item.m-pl { margin-left: auto; }
+    .w-item.m-pr { margin-right: auto; }
   }
   @media (max-width: 600px) { .works-view { margin-left: -32px; margin-right: -32px; } }
   @media (prefers-reduced-motion: reduce) { .w-item img { transition: none; } }
@@ -112,10 +119,11 @@ def main():
         if isinstance(e, list):
             tot = sum(P[s]["ar"] for s in e)
             for s in e:
-                mob[s] = (f"calc((100cqw - var(--g)) * {n(P[s]['ar'] / tot)} - 0.5px)", "", i)
+                side = "m-pl" if s == e[0] else "m-pr"
+                mob[s] = (f"calc(({n(PAIR_WIDTH * 100)}cqw - var(--g)) * {n(P[s]['ar'] / tot)} - 0.5px)", side, 2 * i)
         else:
             s, frac, side = e
-            mob[s] = (f"calc(100cqw * {n(frac)})", {"l": "m-l", "r": "m-r", "c": ""}[side], i)
+            mob[s] = (f"calc(100cqw * {n(frac)})", {"l": "m-l", "r": "m-r", "c": "m-c" if frac < 1 else ""}[side], 2 * i)
 
     first = set(placed[:4])
 
@@ -140,10 +148,11 @@ def main():
             col = f'<div class="w-stack" style="--sw:{sw}">' + "".join(item(s, "100%") for s in stack) + "</div>"
             feat = item(big, "calc(100cqw - var(--g) - var(--sw))")
             parts.append(f'<div class="w-feature" style="--sw:{sw}">' + (feat + col if side == "left" else col + feat) + "</div>")
+    breaks = "".join(f'<span class="w-br" style="--o:{2 * i - 1}" aria-hidden="true"></span>' for i in range(1, len(PHONE)))
     main_html = (
         '<main id="view-root"><div class="works-view">'
         '<h2 class="visually-hidden">Works</h2>'
-        f'<div class="works-grid">{"".join(parts)}</div>'
+        f'<div class="works-grid">{"".join(parts)}{breaks}</div>'
         '</div></main>'
     )
 
