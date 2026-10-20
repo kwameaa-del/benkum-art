@@ -433,8 +433,17 @@ def build_block(entries):
     if (e.pointerType !== "mouse" || e.button !== 0) return;
     dragging = true; dragMoved = false; dragStartX = e.clientX; dragStartLeft = track.scrollLeft;
   }});
+  // Links and images must not start the browser's own drag inside the row.
+  track.addEventListener("dragstart", function (e) {{ e.preventDefault(); }});
+  function endDrag() {{
+    if (!dragging) return;
+    dragging = false; track.classList.remove("is-dragging");
+    // The click that ends a drag fires before this runs; later clicks work normally.
+    setTimeout(function () {{ dragMoved = false; }}, 0);
+  }}
   window.addEventListener("pointermove", function (e) {{
     if (!dragging) return;
+    if (!(e.buttons & 1)) {{ endDrag(); return; }}
     var dx = e.clientX - dragStartX;
     if (!dragMoved && Math.abs(dx) > 5) {{ dragMoved = true; track.classList.add("is-dragging"); }}
     if (dragMoved) {{
@@ -443,12 +452,8 @@ def build_block(entries):
       track.scrollLeft = left;
     }}
   }});
-  window.addEventListener("pointerup", function () {{
-    if (!dragging) return;
-    dragging = false; track.classList.remove("is-dragging");
-    // The click that ends a drag fires before this runs; later clicks work normally.
-    setTimeout(function () {{ dragMoved = false; }}, 0);
-  }});
+  window.addEventListener("pointerup", endDrag);
+  window.addEventListener("pointercancel", endDrag);
   track.addEventListener("click", function (e) {{
     if (dragMoved) {{ e.preventDefault(); e.stopPropagation(); dragMoved = false; }}
   }}, true);
