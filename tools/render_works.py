@@ -94,11 +94,17 @@ def main():
         unknown = sorted(set(seq) - set(P))
         if unknown or len(seq) != len(set(seq)):
             raise SystemExit(f"{name} layout: unknown or repeated pieces {unknown}")
-    extra = sorted(set(P) - set(placed), key=lambda s: P[s]["title"].lower())
-    if extra:
-        print("WARNING: not yet placed in the curated layout, added at the end:", ", ".join(extra))
-        DESKTOP.append(("row", extra))
-        PHONE.extend((s, 1.0, "c") for s in extra)
+    # Each layout is checked on its own, so a piece placed in one list but not
+    # the other still gets a spot in both.
+    by_title = lambda s: P[s]["title"].lower()
+    extra_d = sorted(set(P) - set(placed), key=by_title)
+    extra_p = sorted(set(P) - set(phone), key=by_title)
+    if extra_d:
+        print("WARNING: not yet placed in the desktop layout, added at the end:", ", ".join(extra_d))
+        DESKTOP.append(("row", extra_d))
+    if extra_p:
+        print("WARNING: not yet placed in the phone layout, added at the end:", ", ".join(extra_p))
+        PHONE.extend((s, 1.0, "c") for s in extra_p)
 
     # Phone width, side and order for every piece.
     mob = {}

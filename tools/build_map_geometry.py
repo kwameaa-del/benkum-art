@@ -136,6 +136,20 @@ def main(src):
         merged = unary_union(parts)
         shapes[code] = list(merged.geoms) if hasattr(merged, "geoms") else [merged]
 
+    # Natural Earth's Morocco (504) runs south to 21.4°N, covering the
+    # Moroccan-held part of Western Sahara; its 732 feature is only the inland
+    # strip. Kae's decision: Western Sahara is one separate, neutral shape. Cut
+    # Morocco at the 27°40'N boundary and give everything south of it to EH.
+    lat_cut = 27 + 40 / 60
+    south = [(-20 + i * 0.25, lat_cut) for i in range(61)] + [(-5, 10), (-20, 10)]
+    sx, sy = proj.transform([p[0] for p in south], [p[1] for p in south])
+    box = Polygon(list(zip(sx, sy)))
+    ma, eh = unary_union(shapes["MA"]), unary_union(shapes["EH"])
+    ma_north, eh_all = ma.difference(box), unary_union([eh, ma.intersection(box)])
+    for code, geom in (("MA", ma_north), ("EH", eh_all)):
+        parts = [g for g in (geom.geoms if hasattr(geom, "geoms") else [geom]) if g.geom_type == "Polygon" and g.area > 1e6]
+        shapes[code] = parts
+
     # Fit to WIDTH px (y down).
     allb = unary_union([p for ps in shapes.values() for p in ps]).bounds
     minx, miny, maxx, maxy = allb
