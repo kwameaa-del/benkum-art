@@ -1,0 +1,8 @@
+{
+  "_note": "Island-state markers for the Cycle I map, in map pixels (800 wide). A marker away from its islands gets a fine leader line back to them.",
+  "CV": [53, 194],
+  "ST": [298, 364],
+  "KM": [672, 430],
+  "SC": [753, 394],
+  "MU": [755, 545]
+}
