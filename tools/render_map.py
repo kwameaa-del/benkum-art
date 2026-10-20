@@ -189,12 +189,11 @@ def build_block(entries):
   .m-card-go {{ font-family: "Archivo", system-ui, sans-serif; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }}
   .m-card:hover .m-card-go, .m-card:focus-visible .m-card-go {{ text-decoration: underline; }}
   .m-card:focus-visible {{ outline: 2px solid var(--focus); outline-offset: 2px; }}
-  .m-reel {{ --rs: .5; margin-top: 12px; display: flex; align-items: center; gap: 4px; }}
-  .m-reel-toggle {{ order: 2; flex: none; min-height: 44px; min-width: 44px; padding: 0 12px; background: none; border: 0; color: var(--ink-soft); font-family: "Archivo", system-ui, sans-serif; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; cursor: pointer; }}
-  .m-reel-toggle:hover {{ color: var(--ink); }}
-  .m-reel-toggle:focus-visible {{ outline: 2px solid var(--focus); outline-offset: 2px; color: var(--accent); }}
+  .m-reel {{ --rs: .5; margin-top: 12px; }}
   .m-reel-track {{ display: flex; flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; -webkit-mask-image: linear-gradient(to right, transparent, #000 28px, #000 calc(100% - 28px), transparent); mask-image: linear-gradient(to right, transparent, #000 28px, #000 calc(100% - 28px), transparent); }}
   .m-reel-track::-webkit-scrollbar {{ display: none; }}
+  @media (pointer: fine) {{ .m-reel-track {{ cursor: grab; }} .m-reel-track.is-dragging {{ cursor: grabbing; }} }}
+  .m-reel-list img {{ -webkit-user-drag: none; user-select: none; }}
   .m-reel-list {{ display: flex; align-items: flex-start; gap: 22px; margin: 0; padding: 0 22px 0 0; list-style: none; flex: none; }}
   .m-reel-list a {{ display: block; text-decoration: none; color: var(--ink-soft); min-width: 96px; }}
   .m-reel-list img {{ display: block; margin: calc((240 - var(--h)) * var(--rs) * 1px) auto 0; width: calc(var(--w) * var(--rs) * 1px); height: calc(var(--h) * var(--rs) * 1px); }}
@@ -208,7 +207,6 @@ def build_block(entries):
 {svg}
 <a class="m-card" id="m-card" href="#" hidden><img alt="" width="160" height="107"><span class="m-card-title"></span><span class="m-card-go">View piece &rarr;</span></a>
 <div class="m-reel" id="m-reel">
-<button class="m-reel-toggle" id="m-reel-toggle" type="button">Pause</button>
 <div class="m-reel-track" id="m-reel-track"><ul class="m-reel-list" aria-label="Pieces">{"".join(reel)}</ul></div>
 </div>
 </section>
@@ -378,11 +376,11 @@ def build_block(entries):
     if (best) window.location.href = best.getAttribute("href");
   }});
 
-  // The slideshow: a slow, shuffled drift with a Pause/Play button.
-  // Hover and focus pause it for a moment; the button's pause stays until
-  // Play. When paused it is an ordinary list you can swipe or scroll.
+  // The slideshow: a slow, shuffled, endless drift. There is no Play/Pause
+  // control. It rests while the pointer is over it or a piece has keyboard
+  // focus (so links are easy to use), and visitors can swipe, scroll or drag
+  // it at any speed; the two copies of the list make both ends wrap seamlessly.
   var track = document.getElementById("m-reel-track"), list = track.querySelector(".m-reel-list");
-  var toggle = document.getElementById("m-reel-toggle");
   var items = Array.prototype.slice.call(list.children);
   for (var i = items.length - 1; i > 0; i--) {{
     var j = Math.floor(Math.random() * (i + 1)), t = items[i]; items[i] = items[j]; items[j] = t;
@@ -396,39 +394,73 @@ def build_block(entries):
   track.appendChild(copy);
 
   var SPEED = 28; // px per second, measured in time so fast screens don't speed it up
+  // Visitors who ask their device for reduced motion get a still, scrollable row.
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-  var saved = null;
-  try {{ saved = localStorage.getItem("benkum-reel"); }} catch (e) {{}}
-  var userPaused = saved ? saved === "paused" : reduce.matches;
-  var held = 0, visible = true, last = null, pos = 0;
+  var held = 0, touching = false, visible = true, last = null, pos = 0;
 
-  function label() {{ toggle.textContent = userPaused ? "Play" : "Pause"; }}
-  function running() {{ return !userPaused && !held && visible && !document.hidden; }}
+  function loopWidth() {{ return list.offsetWidth || 1; }}
+  function running() {{ return !reduce.matches && !held && !touching && visible && !document.hidden; }}
   function step(ts) {{
     if (last !== null && running()) {{
-      var loop = list.offsetWidth;
-      pos = (pos + SPEED * (ts - last) / 1000) % loop;
+      pos = (pos + SPEED * (ts - last) / 1000) % loopWidth();
       track.scrollLeft = pos;
     }} else {{
-      pos = track.scrollLeft % (list.offsetWidth || 1);
+      pos = track.scrollLeft % loopWidth();
     }}
     last = ts;
     requestAnimationFrame(step);
   }}
-  toggle.addEventListener("click", function () {{
-    userPaused = !userPaused;
-    try {{ localStorage.setItem("benkum-reel", userPaused ? "paused" : "playing"); }} catch (e) {{}}
-    label();
+  // Manual movement past either end wraps by exactly one copy, so it looks continuous.
+  track.addEventListener("scroll", function () {{
+    var loop = loopWidth();
+    if (track.scrollLeft >= loop) track.scrollLeft -= loop;
+    // Land just inside the loop, not on its edge, so the two branches never bounce.
+    else if (track.scrollLeft <= 0 && (touching || dragging || held)) track.scrollLeft = loop - 1;
+  }}, {{ passive: true }});
+
+  track.addEventListener("mouseenter", function () {{ held++; }});
+  track.addEventListener("mouseleave", function () {{ held = Math.max(0, held - 1); }});
+  track.addEventListener("focusin", function () {{ held++; }});
+  track.addEventListener("focusout", function () {{ held = Math.max(0, held - 1); }});
+  // Touch: rest while the finger is down and through the swipe's glide.
+  var touchTimer = null;
+  track.addEventListener("touchstart", function () {{ touching = true; clearTimeout(touchTimer); }}, {{ passive: true }});
+  track.addEventListener("touchend", function () {{ clearTimeout(touchTimer); touchTimer = setTimeout(function () {{ touching = false; }}, 1500); }}, {{ passive: true }});
+  track.addEventListener("touchcancel", function () {{ clearTimeout(touchTimer); touchTimer = setTimeout(function () {{ touching = false; }}, 1500); }}, {{ passive: true }});
+
+  // Mouse: click and drag to move the row; a drag never opens a piece.
+  var dragging = false, dragStartX = 0, dragStartLeft = 0, dragMoved = false;
+  track.addEventListener("pointerdown", function (e) {{
+    if (e.pointerType !== "mouse" || e.button !== 0) return;
+    dragging = true; dragMoved = false; dragStartX = e.clientX; dragStartLeft = track.scrollLeft;
   }});
-  reduce.addEventListener && reduce.addEventListener("change", function () {{ if (reduce.matches) {{ userPaused = true; label(); }} }});
-  [track].forEach(function (el) {{
-    el.addEventListener("mouseenter", function () {{ held++; }});
-    el.addEventListener("mouseleave", function () {{ held = Math.max(0, held - 1); }});
-    el.addEventListener("focusin", function () {{ held++; }});
-    el.addEventListener("focusout", function () {{ held = Math.max(0, held - 1); }});
-    el.addEventListener("touchstart", function () {{ held++; }}, {{ passive: true }});
-    el.addEventListener("touchend", function () {{ setTimeout(function () {{ held = Math.max(0, held - 1); }}, 1500); }});
+  // Links and images must not start the browser's own drag inside the row.
+  track.addEventListener("dragstart", function (e) {{ e.preventDefault(); }});
+  function endDrag() {{
+    if (!dragging) return;
+    dragging = false; track.classList.remove("is-dragging");
+    // The click that ends a drag fires before this runs; later clicks work normally.
+    setTimeout(function () {{ dragMoved = false; }}, 0);
+  }}
+  window.addEventListener("pointermove", function (e) {{
+    if (!dragging) return;
+    if (!(e.buttons & 1)) {{ endDrag(); return; }}
+    var dx = e.clientX - dragStartX;
+    if (!dragMoved && Math.abs(dx) > 5) {{ dragMoved = true; track.classList.add("is-dragging"); }}
+    if (dragMoved) {{
+      var loop = loopWidth(), left = dragStartLeft - dx;
+      // Keep the drag inside one loop so it never hits the browser's scroll limit.
+      while (left >= loop) {{ left -= loop; dragStartLeft -= loop; }}
+      while (left < 1) {{ left += loop; dragStartLeft += loop; }}
+      track.scrollLeft = left;
+    }}
   }});
+  window.addEventListener("pointerup", endDrag);
+  window.addEventListener("pointercancel", endDrag);
+  track.addEventListener("click", function (e) {{
+    if (dragMoved) {{ e.preventDefault(); e.stopPropagation(); dragMoved = false; }}
+  }}, true);
+
   if ("IntersectionObserver" in window) {{
     new IntersectionObserver(function (es) {{ visible = es[0].isIntersecting; }}).observe(track);
   }}
@@ -437,7 +469,6 @@ def build_block(entries):
   list.addEventListener("mouseout", function () {{ if (!current) outline(null); }});
   list.addEventListener("focusin", function (e) {{ var a = e.target.closest("a"); if (a) outline(a.getAttribute("data-country")); }});
   list.addEventListener("focusout", function () {{ if (!current) outline(null); }});
-  label();
   requestAnimationFrame(step);
 }})();
 </script>
