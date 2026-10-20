@@ -45,6 +45,7 @@ When adding or editing a piece, treat it as data + page + assets together. For a
 - metadata: the same title/description pattern as the other pieces — `<title>` "<Title> — a piece on <subject> | Benkum Art", meta description "<caption> A piece and story about <subject>.", `og:title` "<Title> — Benkum Art", `og:description` = caption, JSON-LD `description` = meta description, `og:image` = the .jpg. Keep `<title>` at 70 characters or fewer and the meta description between 25 and 160 characters (Bing flags anything longer); shorten the subject wording, never the caption.
 - sitemap: one `<url>` with a single `<image:image><image:loc>…jpg</image:loc></image:image>`, matching the other entries.
 - homepage: update the static crawler block inside `<main id="view-root">` so it matches exactly what `galleryPages()` renders as page 1.
+- Cycle I map: add the piece to `tools/map-pieces.json` (`country` = ISO alpha-2, `focus` = focal point as x/y fractions; Kae approves each focal crop), then run `python tools/render_map.py`. It writes `assets/map/thumbs/<slug>.webp` and regenerates the map block between `<!-- MAP:START` and `<!-- MAP:END -->` in index.html; never edit that block by hand. The map's country fragments are Kae-approved display crops; the artwork files themselves are still never cropped. The map shows no visible country names, numbers, dates or release order.
 - typography: curly apostrophes and quotes (’ “ ”) in titles, captions, stories, and metadata.
 - keep alt text, title, caption, and story copy aligned with the visual
 
