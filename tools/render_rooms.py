@@ -120,7 +120,7 @@ SCRIPT = r"""
       paint.width = out.width; paint.height = out.height;
       paint.getContext("2d").putImageData(out, 0, 0);
       paint.hidden = false;
-    }).catch(function () { paint.hidden = true; });
+    }).catch(function () { if (job === paintJob) paint.hidden = true; });
   }
   function roomOf(id) { for (var i = 0; i < D.rooms.length; i++) if (D.rooms[i].id === id) return D.rooms[i]; return D.rooms[0]; }
   // Wall point (u along the wall, v above the floor, both cm) -> room image pixels.
