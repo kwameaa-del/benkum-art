@@ -104,7 +104,7 @@ def smooth_model(a, region, deg=2, iters=4):
 def _box(x, r):
     """Mean over a (2r+1) square window (edges clamped)."""
     k = 2 * r + 1
-    p = np.pad(x, [(r + 1, r), (r + 1, r)] + [(0, 0)] * (x.ndim - 2), mode="edge")
+    p = np.pad(np.asarray(x, np.float64), [(r + 1, r), (r + 1, r)] + [(0, 0)] * (x.ndim - 2), mode="edge")   # float64: no cancellation
     c = p.cumsum(0).cumsum(1)
     return (c[k:, k:] - c[:-k, k:] - c[k:, :-k] + c[:-k, :-k]) / (k * k)
 
@@ -113,11 +113,11 @@ def guided_filter(I, p, r, eps):
     """Colour-guided filter (He, Sun & Tang): smooths p while following the edges of the RGB guide I."""
     mI = _box(I, r); mp = _box(p, r)
     cov = _box(I * p[..., None], r) - mI * mp[..., None]
-    var = np.empty(I.shape[:2] + (3, 3), np.float32)
+    var = np.empty(I.shape[:2] + (3, 3), np.float64)
     for i in range(3):
         for j in range(3):
             var[..., i, j] = _box(I[..., i] * I[..., j], r) - mI[..., i] * mI[..., j]
-    var += eps * np.eye(3, dtype=np.float32)
+    var += eps * np.eye(3)
     a = np.linalg.solve(var, cov[..., None])[..., 0]
     b = mp - (a * mI).sum(2)
     return (_box(a, r) * I).sum(2) + _box(b, r)

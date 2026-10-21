@@ -260,8 +260,11 @@ def main():
               "shades": data["shades"], "default_shade": data["default_shade"],
               "default_size": data["default_size"], "frame_cm": data["frame_cm"], "mat_cm": data["mat_cm"]}
     for r in client["rooms"]:
-        r["image"] = "/cycle-i/in-your-space/" + r["image"]
-        r["wall_mask"] = "/cycle-i/in-your-space/" + r["wall_mask"]
+        # ?v=<content hash> so browsers fetch a room image or wall mask again whenever it changes.
+        import hashlib
+        ver = lambda rel: hashlib.sha1((OUT.parent / rel).read_bytes()).hexdigest()[:8]
+        r["image"] = "/cycle-i/in-your-space/" + r["image"] + "?v=" + ver(r["image"])
+        r["wall_mask"] = "/cycle-i/in-your-space/" + r["wall_mask"] + "?v=" + ver(r["wall_mask"])
 
     opts = "".join(f'<option value="{p["slug"]}">{p["title_html"]}</option>' for p in pieces)
     rooms = "".join(f'<label class="rv-opt"><input type="radio" name="rv-room" value="{r["id"]}"><span>{html.escape(r["label"])}</span></label>' for r in data["rooms"])
