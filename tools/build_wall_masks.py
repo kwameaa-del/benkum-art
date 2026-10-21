@@ -13,10 +13,9 @@ How a mask is made:
     to their exact outline, because their colour is close to the wall's. 'wood' pieces are drawn loosely: wood is
     far warmer than the wall, so inside them a pixel is wall when it keeps the wall's hue (the wall under desks
     and between legs, often in shadow).
-  - Next to furniture, a pixel is wall unless it is clearly wood-coloured, so the wall's contact shadows and warm
-    bounced light are kept as wall.
-  - The wall's own light is modelled as a smooth surface (fitted per room), and "hue" means the colour with
-    brightness taken out, so shadowed wall still reads as wall.
+  - Each outline is only a hint: OpenCV's GrabCut snaps it to the real edge between furniture and wall,
+    using the colours on both sides ('soft' pieces are solid; 'wood' pieces may have wall showing through,
+    e.g. under a desk). Needs: pip install opencv-python-headless (build tool only; nothing on the site).
 """
 import pathlib, sys
 import numpy as np
@@ -42,7 +41,7 @@ REGION = {
     "home": [[(0, 0), (1024, 0), (1024, 1116), (0, 1116)]],
     "studio": [[(0, 0), (1024, 0), (1024, 1196), (0, 1196)]],
     "library": [[(0, 0), (1024, 0), (1024, 1262), (0, 1262)]],
-    "hallway": [[(132, 0), (922, 0), (922, 1120), (132, 1120)], [(930, 0), (1024, 0), (1024, 1158), (930, 1116)]],
+    "hallway": [[(132, 0), (927, 0), (927, 1120), (132, 1120)], [(925, 0), (1024, 0), (1024, 1158), (925, 1116)]],
 }
 CORE = {
     "living": {"soft": [[(165, 1024), (165, 548), (170, 538), (180, 533), (318, 532), (320, 472), (326, 469), (470, 468), (474, 482),
@@ -68,7 +67,8 @@ CORE = {
                 "wood": [[(186, 790), (858, 790), (858, 1262), (186, 1262)]]},
 }
 BAND = 16                     # px beside furniture where only clearly wood-coloured pixels are excluded
-WOOD_TOL = {"home": 0.08}     # deep warm shadow under the side table; its oak is ~0.1 away in hue
+SURE = {"living": 3}     # px inside a traced outline that is certainly furniture (living: shaded sofa arm)
+WOOD_TOL = {"home": 0.08, "bedroom": 0.048, "studio": 0.04, "hallway": 0.075}   # per-room hue tolerance for wall seen through wooden furniture (oak is ~0.09+ away)
 
 
 def poly(size, polys):
@@ -99,25 +99,60 @@ def smooth_model(a, region, deg=2, iters=4):
     return np.tensordot(np.stack(terms(gx / W, gy / H), -1), coef, axes=([2], [0]))
 
 
+def snap(img_bgr, objmask, solid, pad=48, sure=9):
+    """Snap a hand-drawn furniture outline to the real edge with GrabCut. The outline is only a hint:
+    inside it is 'probably furniture' (and, for solid pieces, its core is 'certainly furniture'),
+    a band around it is 'probably wall', and further out is 'certainly wall'."""
+    import cv2
+    H, W = objmask.shape
+    ys, xs = np.nonzero(objmask)
+    if not len(xs):
+        return objmask
+    x0, x1 = max(0, xs.min() - pad), min(W, xs.max() + pad + 1)
+    y0, y1 = max(0, ys.min() - pad), min(H, ys.max() + pad + 1)
+    om = objmask[y0:y1, x0:x1].astype(np.uint8) * 255
+    k = lambda r: cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2 * r + 1, 2 * r + 1))
+    m = np.full(om.shape, cv2.GC_BGD, np.uint8)
+    m[cv2.dilate(om, k(22)) > 0] = cv2.GC_PR_BGD
+    m[om > 0] = cv2.GC_PR_FGD
+    if solid:
+        m[cv2.erode(om, k(sure)) > 0] = cv2.GC_FGD
+    bgd = np.zeros((1, 65), np.float64); fgd = np.zeros((1, 65), np.float64)
+    cv2.grabCut(np.ascontiguousarray(img_bgr[y0:y1, x0:x1]), m, None, bgd, fgd, 6, cv2.GC_INIT_WITH_MASK)
+    fg = ((m == cv2.GC_FGD) | (m == cv2.GC_PR_FGD)).astype(np.uint8)
+    fg = cv2.morphologyEx(fg, cv2.MORPH_OPEN, k(1))
+    if solid:   # solid pieces have no wall inside them: fill any holes
+        inv = (1 - fg).astype(np.uint8)
+        n, lab = cv2.connectedComponents(inv)
+        border = set(np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]])).tolist())
+        fg = np.where(np.isin(lab, list(border)), fg, 1).astype(np.uint8)
+    out = np.zeros_like(objmask)
+    out[y0:y1, x0:x1] = fg > 0
+    return out
+
+
 def build(room, preview=None):
+    import cv2
     img = Image.open(ROOMS / f"{room}.webp").convert("RGB")
+    bgr = np.ascontiguousarray(np.asarray(img)[:, :, ::-1])
     region = np.asarray(poly(img.size, REGION[room])) > 0
-    soft = np.asarray(poly(img.size, CORE[room]["soft"])) > 0
-    wood = np.asarray(poly(img.size, CORE[room]["wood"])) > 0
-    core = soft | wood
-    k = 2 * (BAND // 2) + 1
-    zone = np.asarray(Image.fromarray((core * 255).astype(np.uint8)).filter(ImageFilter.MaxFilter(k)).filter(ImageFilter.MaxFilter(k))) > 0
+    # The wall's own colour, without brightness, so shadowed wall still matches (wood is far warmer).
     a = np.asarray(img.filter(ImageFilter.GaussianBlur(1.0))).astype(np.float32)
-    model = smooth_model(a, region & ~zone)
+    model = smooth_model(a, region)
     eps = 1e-3
     hue_d = np.abs(a / (a.sum(2, keepdims=True) + eps) - model / (model.sum(2, keepdims=True) + eps)).max(2)
-    lit = a.mean(2) > 0.15 * model.mean(2)
-    beside = (hue_d < 0.06) & lit                                   # wall, incl. warm bounce and contact shadow
-    inwood = wood & ~soft & region & (hue_d < WOOD_TOL.get(room, 0.06)) & lit
-    iw = Image.fromarray((inwood * 255).astype(np.uint8)).filter(ImageFilter.MinFilter(3)).filter(ImageFilter.MaxFilter(3))
-    wall = (region & ~core & (~zone | beside)) | ((np.asarray(iw) > 0) & wood & ~soft)
-    wi = Image.fromarray((wall * 255).astype(np.uint8)).filter(ImageFilter.MaxFilter(3)).filter(ImageFilter.MinFilter(3))
-    wi = Image.fromarray((np.asarray(wi) * region).astype(np.uint8)).filter(ImageFilter.GaussianBlur(0.8))
+    wallish = (hue_d < WOOD_TOL.get(room, 0.06)) & (a.mean(2) > 0.15 * model.mean(2))
+    furniture = np.zeros(region.shape, bool)
+    for kind in ("soft", "wood"):
+        for p in CORE[room][kind]:
+            fg = snap(bgr, np.asarray(poly(img.size, [p])) > 0, solid=(kind == "soft"), sure=SURE.get(room, 9))
+            if kind == "wood":   # wall seen between legs and under tops stays wall
+                keep = np.asarray(Image.fromarray((wallish & fg * 1).astype(np.uint8) * 255)
+                                  .filter(ImageFilter.MinFilter(3)).filter(ImageFilter.MaxFilter(3))) > 0
+                fg = fg & ~keep
+            furniture |= fg
+    wall = region & ~furniture
+    wi = Image.fromarray((wall * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(0.7))   # soft 1 px edge
     wi.save(ROOMS / f"{room}-wall.png", optimize=True)
     if preview:
         red = Image.new("RGB", img.size, (255, 0, 0))
