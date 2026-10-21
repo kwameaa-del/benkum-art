@@ -10,6 +10,7 @@
   "half-a-turn":         { "country": "SS", "focus": [0.38, 0.52] },
   "her-hands-go-first":  { "country": "LS", "focus": [0.50, 0.60], "zoom": 1.25 },
   "no-fixed-point":      { "country": "TD", "focus": [0.60, 0.55] },
+  "not-yet-on":          { "country": "MA", "focus": [0.48, 0.70] },
   "nothing-left-to-tie": { "country": "ZM", "focus": [0.50, 0.72] },
   "one-more":            { "country": "KE", "focus": [0.45, 0.68] },
   "out-of-our-own":      { "country": "TZ", "focus": [0.36, 0.50] },

@@ -30,7 +30,7 @@ DESCRIPTION = "All the works of Benkum Art by Kwame Asiedu: art and stories from
 
 DESKTOP = [
     ("feature", "no-fixed-point", ["enough", "half-a-turn"], "left"),
-    ("row", ["second-wind", "bound-to-outlast", "same-wish"]),
+    ("row", ["second-wind", "bound-to-outlast", "same-wish", "not-yet-on"]),
     ("feature", "already-landed", ["one-more", "between-the-marks"], "right"),
     ("row", ["steady-without-me", "the-shine-holds", "out-of-our-own"]),
     ("feature", "wired-time", ["where-i-remain", "still-turning"], "left"),
@@ -42,7 +42,7 @@ DESKTOP = [
 PAIR_WIDTH = .84  # phones: a pair of small portraits spans 84% of the column, centred
 PHONE = [
     ("no-fixed-point", .88, "c"), ("enough", .66, "r"), ("half-a-turn", .54, "l"),
-    ["second-wind", "same-wish"], ("bound-to-outlast", .66, "r"), ("already-landed", .88, "c"),
+    ["second-wind", "same-wish"], ("bound-to-outlast", .66, "r"), ("not-yet-on", .66, "c"), ("already-landed", .88, "c"),
     ("one-more", .54, "l"), ("between-the-marks", .66, "r"), ("steady-without-me", .88, "c"),
     ("the-shine-holds", .66, "c"), ("out-of-our-own", .66, "r"), ("where-i-remain", .66, "l"), ("wired-time", .88, "c"),
     ("still-turning", .66, "r"), ["what-stayed-open", "nothing-left-to-tie"], ["where-the-heat-was", "her-hands-go-first"],
