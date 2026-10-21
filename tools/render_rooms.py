@@ -34,6 +34,9 @@ CSS = """
     .rv-layout.is-wide { grid-template-columns: minmax(0, 680px) 280px; } }
   .rv-stage { margin: 0; }
   .rv-room { position: relative; width: 100%; aspect-ratio: 2 / 3; overflow: hidden; background: #2a2723; }
+  .rv-scene { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+  .rv-scene.is-moving { transition: transform .45s ease; }
+  @media (prefers-reduced-motion: reduce) { .rv-scene.is-moving { transition: none; } }
   .rv-wall { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
   .rv-room canvas.rv-paint { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
   .rv-opt.rv-swatch span { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; }
@@ -42,9 +45,9 @@ CSS = """
   .rv-fr, .rv-mat, .rv-art, .rv-glass { position: absolute; left: 0; top: 0; transform-origin: 0 0; backface-visibility: hidden; }
   /* Glass over the mat and piece: a faint sheen on top; the artwork underneath is untouched. */
   .rv-glass { pointer-events: none; background:
-      linear-gradient(118deg, rgba(255, 255, 255, 0) 22%, rgba(255, 255, 255, .13) 34%, rgba(255, 255, 255, .04) 44%, rgba(255, 255, 255, 0) 56%, rgba(255, 255, 255, .06) 72%, rgba(255, 255, 255, 0) 84%),
-      linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, 0) 30%);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), inset 0 0 6px rgba(0, 0, 0, .10); }
+      linear-gradient(118deg, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, .22) 33%, rgba(255, 255, 255, .07) 43%, rgba(255, 255, 255, 0) 55%, rgba(255, 255, 255, .11) 70%, rgba(255, 255, 255, 0) 82%),
+      linear-gradient(180deg, rgba(255, 255, 255, .09), rgba(255, 255, 255, 0) 32%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .28), inset 0 0 6px rgba(0, 0, 0, .12); }
   .rv-fr { background: #2B2622; box-shadow: 0 4px 10px rgba(0, 0, 0, .28), 0 1px 2px rgba(0, 0, 0, .3); }
   .rv-mat { background: #E9E4D8; box-shadow: inset 0 2px 2px rgba(0, 0, 0, .12); }
   .rv-art { display: block; object-fit: fill; box-shadow: 0 0 0 1px rgba(0, 0, 0, .12); }
@@ -73,7 +76,7 @@ SCRIPT = r"""
 (function () {
   var D = __DATA__;
   var $ = function (id) { return document.getElementById(id); };
-  var room = $("rv-room"), plate = $("rv-plate"), paint = $("rv-paint"), wall = $("rv-wall"), fr = $("rv-fr"), mat = $("rv-mat"), art = $("rv-art"), glass = $("rv-glass");
+  var room = $("rv-room"), scene = $("rv-scene"), plate = $("rv-plate"), paint = $("rv-paint"), wall = $("rv-wall"), fr = $("rv-fr"), mat = $("rv-mat"), art = $("rv-art"), glass = $("rv-glass");
   var sel = $("rv-piece"), cap = $("rv-cap"), back = $("rv-back"), lay = $("rv-js");
   var bySlug = {}; D.pieces.forEach(function (p) { bySlug[p.slug] = p; });
   var q = new URLSearchParams(location.search);
@@ -81,8 +84,10 @@ SCRIPT = r"""
     piece: bySlug[q.get("piece")] ? q.get("piece") : D.pieces[0].slug,
     room: D.rooms.some(function (r) { return r.id === q.get("room"); }) ? q.get("room") : D.default_room,
     size: q.get("size") || D.default_size,
-    wall: D.shades.some(function (w) { return w.id === q.get("wall"); }) ? q.get("wall") : D.default_shade
+    wall: D.shades.some(function (w) { return w.id === q.get("wall"); }) ? q.get("wall") : D.default_shade,
+    view: q.get("view") === "room" ? "room" : "close"
   };
+  var view = null;   // camera: the part of the room image shown {x, y, w, h}
   // Wall shades: scale the wall's own pixels by (shade / the room's mean wall colour), blended by its mask,
   // so the room's light and shadow stay. The artwork, frame and glass sit above and are never recoloured.
   var cache = {}, paintJob = 0;
@@ -145,10 +150,28 @@ SCRIPT = r"""
     el.style.width = w + "px"; el.style.height = h + "px";
     el.style.transform = "matrix3d(" + [a / w, d / w, 0, g / w, bb / h, e / h, 0, hh / h, 0, 0, 1, 0, x0, y0, 0, 1].join(",") + ")";
   }
+  // Close view: zoom so the largest size of this piece fills ~45% of the view, centred on it with the
+  // furniture below kept in shot. The zoom doesn't change with the size, so sizes still compare honestly.
+  function camera(p, r) {
+    var W = r.size[0], H = r.size[1];
+    if (state.view === "room") return { x: 0, y: 0, w: W, h: H };
+    var big = layout(p, r, D.sizes[D.sizes.length - 1]) || layout(p, r, state.size);
+    var c = [proj(r, big.u, big.v), proj(r, big.u + big.W, big.v), proj(r, big.u + big.W, big.v + big.H), proj(r, big.u, big.v + big.H)];
+    var xs = c.map(function (t) { return t[0]; }), ys = c.map(function (t) { return t[1]; });
+    var fx0 = Math.min.apply(0, xs), fx1 = Math.max.apply(0, xs), fy0 = Math.min.apply(0, ys), fy1 = Math.max.apply(0, ys);
+    var vw = Math.max((fx1 - fx0) / 0.45, (fy1 - fy0) / 0.5 * W / H);
+    vw = Math.min(W, Math.max(W / 2.4, vw));
+    var vh = vw * H / W;
+    var x = (fx0 + fx1) / 2 - vw / 2, y = (fy0 + fy1) / 2 - vh * 0.38;
+    return { x: Math.min(Math.max(0, x), W - vw), y: Math.min(Math.max(0, y), H - vh), w: vw, h: vh };
+  }
   function fit() {
     var r = roomOf(state.room);
+    scene.style.width = r.size[0] + "px"; scene.style.height = r.size[1] + "px";
     wall.style.width = r.size[0] + "px"; wall.style.height = r.size[1] + "px";
-    wall.style.transform = "scale(" + (room.clientWidth / r.size[0]) + ")";
+    if (!view) return;
+    var k = room.clientWidth / view.w;
+    scene.style.transform = "scale(" + k + ") translate(" + (-view.x) + "px," + (-view.y) + "px)";
   }
   function shadeLabel() { var l = ""; D.shades.forEach(function (w) { if (w.id === state.wall) l = w.label; }); return l; }
   function render() {
@@ -167,12 +190,16 @@ SCRIPT = r"""
     });
     document.querySelectorAll('input[name="rv-room"]').forEach(function (i) { i.checked = i.value === state.room; });
     document.querySelectorAll('input[name="rv-wall"]').forEach(function (i) { i.checked = i.value === state.wall; });
+    document.querySelectorAll('input[name="rv-view"]').forEach(function (i) { i.checked = i.value === state.view; });
     sel.value = state.piece;
     room.style.aspectRatio = r.size[0] + " / " + r.size[1];
     lay.classList.toggle("is-wide", r.size[0] > r.size[1]);
     if (plate.getAttribute("src") !== r.image) { paint.hidden = true; plate.src = r.image; }
     repaint(r);
     room.setAttribute("aria-label", p.title + " shown in " + r.alt);
+    var moved = view !== null;
+    view = camera(p, r);
+    scene.classList.toggle("is-moving", moved);
     fit();
     var L = layout(p, r, state.size), F = D.frame_cm, M = D.mat_cm, px = 4;   // element px per cm before projection
     onWall(fr, r, L.u, L.v, L.u + L.W, L.v + L.H, L.W * px, L.H * px);
@@ -184,15 +211,17 @@ SCRIPT = r"""
     var cmw = Math.round(w * 2.54 / 5) * 5, cmh = Math.round(h * 2.54 / 5) * 5;
     cap.innerHTML = "<em>" + p.title_html + "</em> at " + w + " × " + h + " in (" + cmw + " × " + cmh + " cm), shown to scale, framed with a mat behind glass" + (state.wall !== D.default_shade ? ", on a " + shadeLabel().toLowerCase() + " wall." : ".");
     back.href = "/art/" + p.slug + "/";
-    try { history.replaceState(null, "", "?piece=" + p.slug + "&room=" + r.id + "&size=" + state.size + (state.wall !== D.default_shade ? "&wall=" + state.wall : "")); } catch (e) {}
+    try { history.replaceState(null, "", "?piece=" + p.slug + "&room=" + r.id + "&size=" + state.size + (state.wall !== D.default_shade ? "&wall=" + state.wall : "") + (state.view === "room" ? "&view=room" : "")); } catch (e) {}
   }
   sel.addEventListener("change", function () { state.piece = sel.value; render(); });
   document.querySelectorAll('input[name="rv-room"]').forEach(function (i) { i.addEventListener("change", function () { state.room = i.value; render(); }); });
   document.querySelectorAll('input[name="rv-size"]').forEach(function (i) { i.addEventListener("change", function () { state.size = i.value; render(); }); });
   document.querySelectorAll('input[name="rv-wall"]').forEach(function (i) { i.addEventListener("change", function () { state.wall = i.value; render(); }); });
+  document.querySelectorAll('input[name="rv-view"]').forEach(function (i) { i.addEventListener("change", function () { state.view = i.value; render(); }); });
   lay.hidden = false;
   render();
-  if (window.ResizeObserver) new ResizeObserver(fit).observe(room); else window.addEventListener("resize", fit);
+  if (window.ResizeObserver) new ResizeObserver(function () { scene.classList.remove("is-moving"); fit(); }).observe(room);
+  else window.addEventListener("resize", function () { scene.classList.remove("is-moving"); fit(); });
 })();
 </script>
 """
@@ -243,12 +272,15 @@ def main():
         '<noscript><p class="rv-note" style="text-align:center">This room preview needs JavaScript. <a href="/works/">Back to the works</a>.</p></noscript>'
         '<div class="rv-layout" id="rv-js" hidden>'
         '<figure class="rv-stage"><div class="rv-room" id="rv-room" role="img">'
-        '<img class="rv-plate" id="rv-plate" alt="" decoding="async"><canvas class="rv-paint" id="rv-paint" hidden aria-hidden="true"></canvas>'
+        '<div class="rv-scene" id="rv-scene"><img class="rv-plate" id="rv-plate" alt="" decoding="async"><canvas class="rv-paint" id="rv-paint" hidden aria-hidden="true"></canvas>'
         '<div class="rv-wall" id="rv-wall"><div class="rv-fr" id="rv-fr"></div><div class="rv-mat" id="rv-mat"></div>'
-        '<img class="rv-art" id="rv-art" alt="" decoding="async"><div class="rv-glass" id="rv-glass" aria-hidden="true"></div></div>'
+        '<img class="rv-art" id="rv-art" alt="" decoding="async"><div class="rv-glass" id="rv-glass" aria-hidden="true"></div></div></div>'
         '</div><figcaption class="rv-cap" id="rv-cap" aria-live="polite"></figcaption></figure>'
         '<div class="rv-controls">'
         f'<div><label for="rv-piece">Piece</label><select class="rv-select" id="rv-piece">{opts}</select></div>'
+        '<fieldset><legend>View</legend><div class="rv-opts">'
+        '<label class="rv-opt"><input type="radio" name="rv-view" value="close"><span>Close</span></label>'
+        '<label class="rv-opt"><input type="radio" name="rv-view" value="room"><span>Whole room</span></label></div></fieldset>'
         f'<fieldset><legend>Room</legend><div class="rv-opts">{rooms}</div></fieldset>'
         f'<fieldset><legend>Wall</legend><div class="rv-opts">{shades}</div></fieldset>'
         f'<fieldset><legend>Size</legend><div class="rv-opts">{size_opts}</div></fieldset>'
