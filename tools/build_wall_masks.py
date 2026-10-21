@@ -53,7 +53,8 @@ CORE = {
     "home": {"soft": [[(0, 772), (605, 768), (622, 772), (629, 790), (629, 849), (700, 857), (717, 868), (729, 884), (735, 900), (736, 1536), (0, 1536)],
                       [(912, 911), (962, 907), (977, 917), (979, 941), (965, 949), (963, 959), (913, 961), (909, 935)],
                       [(777, 951), (789, 937), (911, 941), (913, 958), (899, 967), (779, 967)],
-                      [(758, 950), (1018, 950), (1018, 990), (758, 990)]],
+                      [(758, 950), (1018, 950), (1018, 990), (758, 990)],
+                      [(877, 986), (909, 986), (907, 1146), (879, 1146)]],   # middle leg, in shadow
              "wood": [[(758, 946), (1018, 946), (1018, 1145), (758, 1145)]]},
     "studio": {"soft": [[(680, 878), (752, 878), (752, 904), (680, 904)],
                         [(105, 900), (922, 900), (975, 957), (975, 996), (43, 996), (43, 957)],
@@ -62,11 +63,12 @@ CORE = {
     "library": {"soft": [[(0, 966), (735, 966), (735, 1093), (752, 1093), (752, 1300), (0, 1300)],
                          [(784, 872), (1024, 872), (1024, 1300), (784, 1300)]],
                 "wood": []},
-    "hallway": {"soft": [[(440, 756), (528, 756), (528, 797), (440, 797)],
+    "hallway": {"soft": [[(437, 754), (528, 756), (530, 762), (522, 776), (508, 786), (495, 792), (459, 792), (447, 782), (440, 770), (435, 761)],
                          [(204, 789), (832, 789), (854, 799), (854, 819), (839, 819), (839, 857), (201, 857), (201, 819), (185, 819), (185, 799)]],
                 "wood": [[(186, 790), (858, 790), (858, 1262), (186, 1262)]]},
 }
 BAND = 16                     # px beside furniture where only clearly wood-coloured pixels are excluded
+TRUST = {("hallway", "soft", 0)}   # the pale bowl is too close to the wall's colour to segment: use its traced outline
 SURE = {"living": 3}     # px inside a traced outline that is certainly furniture (living: shaded sofa arm)
 WOOD_TOL = {"home": 0.08, "bedroom": 0.048, "studio": 0.04, "hallway": 0.075}   # per-room hue tolerance for wall seen through wooden furniture (oak is ~0.09+ away)
 
@@ -99,7 +101,29 @@ def smooth_model(a, region, deg=2, iters=4):
     return np.tensordot(np.stack(terms(gx / W, gy / H), -1), coef, axes=([2], [0]))
 
 
-def snap(img_bgr, objmask, solid, pad=48, sure=9):
+def _box(x, r):
+    """Mean over a (2r+1) square window (edges clamped)."""
+    k = 2 * r + 1
+    p = np.pad(np.asarray(x, np.float64), [(r + 1, r), (r + 1, r)] + [(0, 0)] * (x.ndim - 2), mode="edge")   # float64: no cancellation
+    c = p.cumsum(0).cumsum(1)
+    return (c[k:, k:] - c[:-k, k:] - c[k:, :-k] + c[:-k, :-k]) / (k * k)
+
+
+def guided_filter(I, p, r, eps):
+    """Colour-guided filter (He, Sun & Tang): smooths p while following the edges of the RGB guide I."""
+    mI = _box(I, r); mp = _box(p, r)
+    cov = _box(I * p[..., None], r) - mI * mp[..., None]
+    var = np.empty(I.shape[:2] + (3, 3), np.float64)
+    for i in range(3):
+        for j in range(3):
+            var[..., i, j] = _box(I[..., i] * I[..., j], r) - mI[..., i] * mI[..., j]
+    var += eps * np.eye(3)
+    a = np.linalg.solve(var, cov[..., None])[..., 0]
+    b = mp - (a * mI).sum(2)
+    return (_box(a, r) * I).sum(2) + _box(b, r)
+
+
+def snap(img_bgr, objmask, solid, pad=48, sure=9, trust=False):
     """Snap a hand-drawn furniture outline to the real edge with GrabCut. The outline is only a hint:
     inside it is 'probably furniture' (and, for solid pieces, its core is 'certainly furniture'),
     a band around it is 'probably wall', and further out is 'certainly wall'."""
@@ -116,7 +140,7 @@ def snap(img_bgr, objmask, solid, pad=48, sure=9):
     m[cv2.dilate(om, k(22)) > 0] = cv2.GC_PR_BGD
     m[om > 0] = cv2.GC_PR_FGD
     if solid:
-        m[cv2.erode(om, k(sure)) > 0] = cv2.GC_FGD
+        m[(om > 0) if trust else (cv2.erode(om, k(sure)) > 0)] = cv2.GC_FGD   # trust: outline traced exactly
     bgd = np.zeros((1, 65), np.float64); fgd = np.zeros((1, 65), np.float64)
     cv2.grabCut(np.ascontiguousarray(img_bgr[y0:y1, x0:x1]), m, None, bgd, fgd, 6, cv2.GC_INIT_WITH_MASK)
     fg = ((m == cv2.GC_FGD) | (m == cv2.GC_PR_FGD)).astype(np.uint8)
@@ -144,15 +168,28 @@ def build(room, preview=None):
     wallish = (hue_d < WOOD_TOL.get(room, 0.06)) & (a.mean(2) > 0.15 * model.mean(2))
     furniture = np.zeros(region.shape, bool)
     for kind in ("soft", "wood"):
-        for p in CORE[room][kind]:
-            fg = snap(bgr, np.asarray(poly(img.size, [p])) > 0, solid=(kind == "soft"), sure=SURE.get(room, 9))
+        for n, p in enumerate(CORE[room][kind]):
+            fg = snap(bgr, np.asarray(poly(img.size, [p])) > 0, solid=(kind == "soft"), sure=SURE.get(room, 9),
+                      trust=(room, kind, n) in TRUST)
             if kind == "wood":   # wall seen between legs and under tops stays wall
                 keep = np.asarray(Image.fromarray((wallish & fg * 1).astype(np.uint8) * 255)
                                   .filter(ImageFilter.MinFilter(3)).filter(ImageFilter.MaxFilter(3))) > 0
                 fg = fg & ~keep
             furniture |= fg
+    # Drop specks: tiny wall islands inside furniture and tiny furniture islands on open wall.
     wall = region & ~furniture
-    wi = Image.fromarray((wall * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(0.7))   # soft 1 px edge
+    for target in (True, False):
+        n, lab, stats, _ = cv2.connectedComponentsWithStats((wall == target).astype(np.uint8), connectivity=8)
+        small = np.isin(lab, [i for i in range(1, n) if stats[i, cv2.CC_STAT_AREA] < 400])
+        wall = np.where(small, not target, wall) & region
+    # Edge-aware matting: a colour-guided filter snaps the mask's edge to the photo's own edges, so there is no
+    # pale rim or tinted fringe where furniture meets wall. Region edges (skirting, ceiling, corners) stay hard.
+    alpha = guided_filter(np.asarray(img.filter(ImageFilter.GaussianBlur(0.8))).astype(np.float32) / 255, wall.astype(np.float32), r=3, eps=4e-3)
+    alpha = np.clip((alpha - 0.2) / 0.6, 0, 1)
+    alpha = np.where(np.abs(alpha - wall) > 0.5, wall, alpha)   # matting may soften an edge, never flip a pixel
+    inner = Image.fromarray((region * 255).astype(np.uint8)).filter(ImageFilter.MinFilter(5))   # stay 2 px off skirting, ceiling and corners
+    alpha = alpha * np.asarray(inner.filter(ImageFilter.GaussianBlur(0.9))).astype(np.float32) / 255   # anti-aliased, no stair steps
+    wi = Image.fromarray((alpha * 255 + 0.5).astype(np.uint8))
     wi.save(ROOMS / f"{room}-wall.png", optimize=True)
     if preview:
         red = Image.new("RGB", img.size, (255, 0, 0))
