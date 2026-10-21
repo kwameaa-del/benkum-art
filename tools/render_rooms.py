@@ -8,8 +8,8 @@ cycle never inherits it; a future cycle gets its own folder and presentation.
 
 Rooms and sizes come from tools/cycle-i-rooms.json. Pieces are every published
 piece (art/*/index.html), in the Works page's curated order (never release order).
-Each piece is drawn from its own site image at true scale: print size in cm x the
-room's measured pixels per cm. The frame and mat are drawn in code; the artwork is
+Each piece is drawn from its own site image at true scale, projected onto the room's
+measured wall (straight on, or at an angle through a fitted camera). The frame and mat are drawn in code; the artwork is
 never altered. The page reuses the About page's head, header and footer.
 """
 import html, json, pathlib, re, sys
@@ -30,11 +30,13 @@ CSS = """
   .rv-label { margin: 0 0 6px; text-align: center; font-family: "Archivo", system-ui, sans-serif; font-weight: 600; font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-faint); }
   .rv-title { margin: 0 0 28px; text-align: center; font-style: italic; font-weight: 400; font-size: clamp(30px, 5vw, 44px); color: var(--ink); }
   .rv-layout { display: grid; gap: 28px; justify-content: center; grid-template-columns: minmax(0, 520px); }
-  @media (min-width: 900px) { .rv-layout { grid-template-columns: minmax(0, 520px) 300px; align-items: start; gap: 40px; } }
+  @media (min-width: 900px) { .rv-layout { grid-template-columns: minmax(0, 520px) 300px; align-items: start; gap: 40px; }
+    .rv-layout.is-wide { grid-template-columns: minmax(0, 680px) 280px; } }
   .rv-stage { margin: 0; }
   .rv-room { position: relative; width: 100%; aspect-ratio: 2 / 3; overflow: hidden; background: #2a2723; }
+  .rv-wall { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
   .rv-room img.rv-plate { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-  .rv-fr, .rv-mat, .rv-art { position: absolute; }
+  .rv-fr, .rv-mat, .rv-art { position: absolute; left: 0; top: 0; transform-origin: 0 0; backface-visibility: hidden; }
   .rv-fr { background: #2B2622; box-shadow: 0 4px 10px rgba(0, 0, 0, .28), 0 1px 2px rgba(0, 0, 0, .3); }
   .rv-mat { background: #E9E4D8; box-shadow: inset 0 2px 2px rgba(0, 0, 0, .12); }
   .rv-art { display: block; object-fit: fill; box-shadow: 0 0 0 1px rgba(0, 0, 0, .12); }
@@ -63,9 +65,8 @@ SCRIPT = r"""
 (function () {
   var D = __DATA__;
   var $ = function (id) { return document.getElementById(id); };
-  var room = $("rv-room"), plate = $("rv-plate"), fr = $("rv-fr"), mat = $("rv-mat"), art = $("rv-art");
-  var sel = $("rv-piece"), cap = $("rv-cap"), back = $("rv-back");
-  var PW = 1024, PH = 1536;
+  var room = $("rv-room"), plate = $("rv-plate"), wall = $("rv-wall"), fr = $("rv-fr"), mat = $("rv-mat"), art = $("rv-art");
+  var sel = $("rv-piece"), cap = $("rv-cap"), back = $("rv-back"), lay = $("rv-js");
   var bySlug = {}; D.pieces.forEach(function (p) { bySlug[p.slug] = p; });
   var q = new URLSearchParams(location.search);
   var state = {
@@ -74,28 +75,40 @@ SCRIPT = r"""
     size: q.get("size") || D.default_size
   };
   function roomOf(id) { for (var i = 0; i < D.rooms.length; i++) if (D.rooms[i].id === id) return D.rooms[i]; return D.rooms[0]; }
-  // Frame rectangle (plate px) for a piece at a print size in a room, or null if it doesn't fit the clear wall.
-  function layout(p, r, s) {
-    var dims = s.split("x").map(Number), shortIn = dims[0], longIn = dims[1];
-    var land = p.w >= p.h;
-    var wcm = (land ? longIn : shortIn) * 2.54, hcm = (land ? shortIn : longIn) * 2.54;
-    var k = r.px_per_cm, border = (D.frame_cm + D.mat_cm) * k;
-    var aw = wcm * k, ah = hcm * k, W = aw + 2 * border, H = ah + 2 * border;
-    var cy = r.floor_y - 147 * k, top = cy - H / 2;
-    var b = r.box;
-    if (top + H > b[3]) top = b[3] - H;          // raise it clear of the furniture
-    var left = r.centre_x - W / 2;
-    if (left < b[0]) left = b[0];
-    if (left + W > b[2]) left = b[2] - W;
-    if (top < b[1] || left < b[0] || W > b[2] - b[0]) return null;
-    return { left: left, top: top, W: W, H: H, fr: D.frame_cm * k, mat: D.mat_cm * k, aw: aw, ah: ah, wcm: wcm, hcm: hcm, land: land };
+  // Wall point (u along the wall, v above the floor, both cm) -> room image pixels.
+  function proj(r, u, v) {
+    if (r.frontal) return [u * r.frontal.px_per_cm, r.frontal.floor_y - v * r.frontal.px_per_cm];
+    var c = r.camera, t = c.theta_deg * Math.PI / 180;
+    var X = c.corner_x + u * Math.cos(t), Z = c.corner_z - u * Math.sin(t), Y = c.eye_cm - v;
+    return [c.cx + c.f * X / Z, c.cy + c.f * Y / Z];
   }
-  function pct(v, of) { return (v / of * 100).toFixed(4) + "%"; }
-  function place(el, x, y, w, h) { el.style.left = pct(x, PW); el.style.top = pct(y, PH); el.style.width = pct(w, PW); el.style.height = pct(h, PH); }
-  function fmt(n) { return (Math.round(n * 10) / 10).toString(); }
+  // Where a piece hangs (wall cm) at a print size, or null if it doesn't fit the clear wall.
+  function layout(p, r, s) {
+    var dims = s.split("x").map(Number), land = p.w >= p.h;
+    var wcm = (land ? dims[1] : dims[0]) * 2.54, hcm = (land ? dims[0] : dims[1]) * 2.54;
+    var b = D.frame_cm + D.mat_cm, W = wcm + 2 * b, H = hcm + 2 * b;
+    var bottom = Math.max(147 - H / 2, r.v_range[0]);          // raised clear of the furniture if needed
+    var left = Math.min(Math.max(r.centre_u - W / 2, r.u_range[0]), r.u_range[1] - W);
+    if (bottom + H > r.v_range[1] || left < r.u_range[0]) return null;
+    return { u: left, v: bottom, W: W, H: H, wcm: wcm, hcm: hcm, land: land };
+  }
+  // Map an element of size w x h onto the wall rectangle (u0..u1, v0..v1) with a CSS matrix3d.
+  function onWall(el, r, u0, v0, u1, v1, w, h) {
+    var P = [proj(r, u0, v1), proj(r, u1, v1), proj(r, u1, v0), proj(r, u0, v0)];
+    var x0 = P[0][0], y0 = P[0][1], x1 = P[1][0], y1 = P[1][1], x2 = P[2][0], y2 = P[2][1], x3 = P[3][0], y3 = P[3][1];
+    var dx1 = x1 - x2, dx2 = x3 - x2, dx3 = x0 - x1 + x2 - x3, dy1 = y1 - y2, dy2 = y3 - y2, dy3 = y0 - y1 + y2 - y3;
+    var den = dx1 * dy2 - dx2 * dy1, g = (dx3 * dy2 - dx2 * dy3) / den, hh = (dx1 * dy3 - dx3 * dy1) / den;
+    var a = x1 - x0 + g * x1, bb = x3 - x0 + hh * x3, d = y1 - y0 + g * y1, e = y3 - y0 + hh * y3;
+    el.style.width = w + "px"; el.style.height = h + "px";
+    el.style.transform = "matrix3d(" + [a / w, d / w, 0, g / w, bb / h, e / h, 0, hh / h, 0, 0, 1, 0, x0, y0, 0, 1].join(",") + ")";
+  }
+  function fit() {
+    var r = roomOf(state.room);
+    wall.style.width = r.size[0] + "px"; wall.style.height = r.size[1] + "px";
+    wall.style.transform = "scale(" + (room.clientWidth / r.size[0]) + ")";
+  }
   function render() {
     var p = bySlug[state.piece], r = roomOf(state.room);
-    // sizes that fit this room
     var fits = {};
     D.sizes.forEach(function (s) { fits[s] = !!layout(p, r, s); });
     if (!fits[state.size]) {
@@ -110,25 +123,28 @@ SCRIPT = r"""
     });
     document.querySelectorAll('input[name="rv-room"]').forEach(function (i) { i.checked = i.value === state.room; });
     sel.value = state.piece;
-    var L = layout(p, r, state.size);
-    plate.src = r.image; plate.alt = "";
+    room.style.aspectRatio = r.size[0] + " / " + r.size[1];
+    lay.classList.toggle("is-wide", r.size[0] > r.size[1]);
+    plate.src = r.image;
     room.setAttribute("aria-label", p.title + " shown in " + r.alt);
-    place(fr, L.left, L.top, L.W, L.H);
-    place(mat, L.left + L.fr, L.top + L.fr, L.W - 2 * L.fr, L.H - 2 * L.fr);
-    place(art, L.left + L.fr + L.mat, L.top + L.fr + L.mat, L.aw, L.ah);
+    fit();
+    var L = layout(p, r, state.size), F = D.frame_cm, M = D.mat_cm, px = 4;   // element px per cm before projection
+    onWall(fr, r, L.u, L.v, L.u + L.W, L.v + L.H, L.W * px, L.H * px);
+    onWall(mat, r, L.u + F, L.v + F, L.u + L.W - F, L.v + L.H - F, (L.W - 2 * F) * px, (L.H - 2 * F) * px);
+    onWall(art, r, L.u + F + M, L.v + F + M, L.u + F + M + L.wcm, L.v + F + M + L.hcm, L.wcm * px, L.hcm * px);
     art.src = p.img; art.alt = "";
     var d = state.size.split("x"), w = L.land ? d[1] : d[0], h = L.land ? d[0] : d[1];
     var cmw = Math.round(w * 2.54 / 5) * 5, cmh = Math.round(h * 2.54 / 5) * 5;
     cap.innerHTML = "<em>" + p.title_html + "</em> at " + w + " × " + h + " in (" + cmw + " × " + cmh + " cm), shown to scale, framed with a mat.";
     back.href = "/art/" + p.slug + "/";
-    var u = "?piece=" + p.slug + "&room=" + r.id + "&size=" + state.size;
-    try { history.replaceState(null, "", u); } catch (e) {}
+    try { history.replaceState(null, "", "?piece=" + p.slug + "&room=" + r.id + "&size=" + state.size); } catch (e) {}
   }
   sel.addEventListener("change", function () { state.piece = sel.value; render(); });
   document.querySelectorAll('input[name="rv-room"]').forEach(function (i) { i.addEventListener("change", function () { state.room = i.value; render(); }); });
   document.querySelectorAll('input[name="rv-size"]').forEach(function (i) { i.addEventListener("change", function () { state.size = i.value; render(); }); });
+  lay.hidden = false;
   render();
-  $("rv-js").hidden = false;
+  if (window.ResizeObserver) new ResizeObserver(fit).observe(room); else window.addEventListener("resize", fit);
 })();
 </script>
 """
@@ -143,19 +159,19 @@ def main():
                "img": f"/assets/art/{s}.webp", "w": P[s]["w"], "h": P[s]["h"]} for s in order]
     sizes = [f"{a}x{b}" for a, b in data["sizes_in"]]
     # Every piece must fit at least one size in every room (mirrors layout() in the page script).
+    border = data["frame_cm"] + data["mat_cm"]
     for r in data["rooms"]:
-        k, b = r["px_per_cm"], r["box"]
-        border = (data["frame_cm"] + data["mat_cm"]) * k
         for p in pieces:
             land = p["w"] >= p["h"]
             ok = False
             for short_in, long_in in data["sizes_in"]:
-                W = (long_in if land else short_in) * 2.54 * k + 2 * border
-                H = (short_in if land else long_in) * 2.54 * k + 2 * border
-                top = min(r["floor_y"] - 147 * k - H / 2, b[3] - H)
-                ok = ok or (top >= b[1] and W <= b[2] - b[0])
+                W = (long_in if land else short_in) * 2.54 + 2 * border
+                H = (short_in if land else long_in) * 2.54 + 2 * border
+                bottom = max(147 - H / 2, r["v_range"][0])
+                left = min(max(r["centre_u"] - W / 2, r["u_range"][0]), r["u_range"][1] - W)
+                ok = ok or (bottom + H <= r["v_range"][1] and left >= r["u_range"][0])
             if not ok:
-                raise SystemExit(f"{p['slug']} fits no size in room {r['id']}: adjust its box or sizes")
+                raise SystemExit(f"{p['slug']} fits no size in room {r['id']}: adjust its ranges or sizes")
     client = {"pieces": pieces, "rooms": data["rooms"], "sizes": sizes, "default_room": data["default_room"],
               "default_size": data["default_size"], "frame_cm": data["frame_cm"], "mat_cm": data["mat_cm"]}
     for r in client["rooms"]:
@@ -170,9 +186,9 @@ def main():
         '<noscript><p class="rv-note" style="text-align:center">This room preview needs JavaScript. <a href="/works/">Back to the works</a>.</p></noscript>'
         '<div class="rv-layout" id="rv-js" hidden>'
         '<figure class="rv-stage"><div class="rv-room" id="rv-room" role="img">'
-        '<img class="rv-plate" id="rv-plate" alt="" width="1024" height="1536" decoding="async">'
-        '<div class="rv-fr" id="rv-fr"></div><div class="rv-mat" id="rv-mat"></div>'
-        '<img class="rv-art" id="rv-art" alt="" decoding="async">'
+        '<img class="rv-plate" id="rv-plate" alt="" decoding="async">'
+        '<div class="rv-wall" id="rv-wall"><div class="rv-fr" id="rv-fr"></div><div class="rv-mat" id="rv-mat"></div>'
+        '<img class="rv-art" id="rv-art" alt="" decoding="async"></div>'
         '</div><figcaption class="rv-cap" id="rv-cap" aria-live="polite"></figcaption></figure>'
         '<div class="rv-controls">'
         f'<div><label for="rv-piece">Piece</label><select class="rv-select" id="rv-piece">{opts}</select></div>'

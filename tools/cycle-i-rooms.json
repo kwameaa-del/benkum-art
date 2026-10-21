@@ -1,18 +1,25 @@
 {
-  "_note": "Cycle I only: rooms for /cycle-i/in-your-space/. Each plate is a frontal room image (1024x1536). px_per_cm = pixels per centimetre on the wall plane, measured from the furniture (seat ~45 cm, desk ~75 cm). floor_y = where the wall meets the floor (px). centre_x = hanging centre (px); pieces hang centred 147 cm above the floor, raised if they would meet the furniture. box = [left, top, right, bottom] of clear wall (px). Then run: python tools/render_rooms.py",
+  "_note": "Cycle I only: rooms for /cycle-i/in-your-space/. Every room describes its wall in centimetres: u runs along the wall, v is height above the floor. A 'frontal' wall is seen straight on (x = u * px_per_cm, y = floor_y - v * px_per_cm), measured from the furniture (seat ~45 cm, desk ~75 cm). A 'camera' wall is seen at an angle: f, cx, cy (pixels), theta_deg (angle between wall and image plane), corner_x / corner_z (cm, the wall's left floor corner relative to the camera) and eye_cm (camera height), fitted to the skirting and ceiling lines with a 260 cm ceiling. Pieces hang centred 147 cm above the floor at centre_u, raised to v_range[0] if they would meet the furniture; sizes that leave u_range or v_range are disabled. Then run: python tools/render_rooms.py",
   "rooms": [
-    { "id": "home", "label": "Home", "image": "rooms/home.webp",
+    { "id": "living", "label": "Living room", "image": "rooms/living.webp", "size": [1536, 1024],
+      "alt": "a wide living room seen at an angle, with a long linen sofa and a low oak coffee table",
+      "camera": { "f": 1493, "cx": 768, "cy": 434, "theta_deg": 25.9, "corner_x": -272.5, "corner_z": 693, "eye_cm": 97.2 },
+      "centre_u": 228, "u_range": [30, 540], "v_range": [90, 245] },
+    { "id": "home", "label": "Reading corner", "image": "rooms/home.webp", "size": [1024, 1536],
       "alt": "a quiet reading corner with a linen sofa and a small oak side table",
-      "px_per_cm": 4.6, "floor_y": 1150, "centre_x": 390, "box": [20, 30, 1004, 745] },
-    { "id": "studio", "label": "Studio", "image": "rooms/studio.webp",
+      "frontal": { "px_per_cm": 4.6, "floor_y": 1150 },
+      "centre_u": 84.8, "u_range": [4.3, 218.3], "v_range": [88.0, 243.5] },
+    { "id": "studio", "label": "Studio", "image": "rooms/studio.webp", "size": [1024, 1536],
       "alt": "a small studio office with a walnut desk and a woven chair",
-      "px_per_cm": 4.68, "floor_y": 1200, "centre_x": 512, "box": [24, 30, 1000, 880] },
-    { "id": "library", "label": "Library", "image": "rooms/library.webp",
+      "frontal": { "px_per_cm": 4.68, "floor_y": 1200 },
+      "centre_u": 109.4, "u_range": [5.1, 213.7], "v_range": [68.4, 250.0] },
+    { "id": "library", "label": "Library", "image": "rooms/library.webp", "size": [1024, 1536],
       "alt": "a library reading lounge with a long wool bench and a low bookshelf",
-      "px_per_cm": 4.2, "floor_y": 1285, "centre_x": 380, "box": [20, 30, 1004, 935] }
+      "frontal": { "px_per_cm": 4.2, "floor_y": 1285 },
+      "centre_u": 90.5, "u_range": [4.8, 239.0], "v_range": [83.3, 298.8] }
   ],
   "sizes_in": [[12, 18], [16, 24], [20, 30], [24, 36]],
-  "default_room": "home",
+  "default_room": "living",
   "default_size": "16x24",
   "frame_cm": 1.8,
   "mat_cm": 6
