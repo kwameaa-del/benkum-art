@@ -142,6 +142,20 @@ def main():
     pieces = [{"slug": s, "title": P[s]["title"], "title_html": html.escape(P[s]["title"]),
                "img": f"/assets/art/{s}.webp", "w": P[s]["w"], "h": P[s]["h"]} for s in order]
     sizes = [f"{a}x{b}" for a, b in data["sizes_in"]]
+    # Every piece must fit at least one size in every room (mirrors layout() in the page script).
+    for r in data["rooms"]:
+        k, b = r["px_per_cm"], r["box"]
+        border = (data["frame_cm"] + data["mat_cm"]) * k
+        for p in pieces:
+            land = p["w"] >= p["h"]
+            ok = False
+            for short_in, long_in in data["sizes_in"]:
+                W = (long_in if land else short_in) * 2.54 * k + 2 * border
+                H = (short_in if land else long_in) * 2.54 * k + 2 * border
+                top = min(r["floor_y"] - 147 * k - H / 2, b[3] - H)
+                ok = ok or (top >= b[1] and W <= b[2] - b[0])
+            if not ok:
+                raise SystemExit(f"{p['slug']} fits no size in room {r['id']}: adjust its box or sizes")
     client = {"pieces": pieces, "rooms": data["rooms"], "sizes": sizes, "default_room": data["default_room"],
               "default_size": data["default_size"], "frame_cm": data["frame_cm"], "mat_cm": data["mat_cm"]}
     for r in client["rooms"]:
