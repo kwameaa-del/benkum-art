@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-cycle="i">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -596,6 +596,11 @@
   }
   @media (max-width: 420px) { .site-head-title { letter-spacing: 0.06em; font-size: 12px; } .site-nav { gap: 10px; } }
   @media (max-width: 480px) { .site-head { flex-wrap: wrap; justify-content: center; row-gap: 2px; } .site-head-link { width: 100%; text-align: center; } .site-nav { justify-content: center; } }
+  .story-room { margin: 10px auto 0; text-align: center; font-size: 14px; }
+  .story-room a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid var(--border); }
+  .story-room a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  .story-room a:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+  @media (min-width: 1000px) { .story-layout .story-room { text-align: left; margin: 10px 0 0; } }
 </style>
 
 <script>
@@ -623,6 +628,7 @@ function markLoaded(e) {
     <div class="story-visual">
     <div class="story-frame marked marked-b"><img class="piece-img" data-full="/assets/art/not-yet-on.jpg" src="/assets/art/not-yet-on.jpg" srcset="/assets/art/not-yet-on.webp 667w, /assets/art/not-yet-on.jpg 1024w" sizes="(max-width: 900px) 92vw, 860px" alt="A young man in Rabat in a dark sweatshirt sits side-on on a low bench, holding a red shirt up at arm’s length in a warm amber glow, under a slate-blue field between stepped stone-grey panels." width="1024" height="1536" loading="eager"></div>
     <p class="story-cap">Some things you only put on once the waiting is over.</p>
+    <p class="story-room"><a href="/cycle-i/in-your-space/?piece=not-yet-on" data-umami-event="room-open" data-umami-event-piece="not-yet-on">See it in your space</a></p>
     </div>
     <div class="story-body">
     <div class="story-reading-pause" aria-hidden="true"></div>

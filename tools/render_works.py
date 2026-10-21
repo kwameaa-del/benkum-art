@@ -75,6 +75,10 @@ CSS = """
   }
   @media (max-width: 600px) { .works-view { margin-left: -32px; margin-right: -32px; } }
   @media (prefers-reduced-motion: reduce) { .w-item img { transition: none; } }
+  .works-room { margin: 40px 0 0; text-align: center; font-size: 15px; font-style: italic; }
+  .works-room a { color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid var(--border); }
+  .works-room a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+  .works-room a:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
 """
 
 
@@ -153,10 +157,12 @@ def main():
         '<main id="view-root"><div class="works-view">'
         '<h2 class="visually-hidden">Works</h2>'
         f'<div class="works-grid">{"".join(parts)}{breaks}</div>'
+        '<p class="works-room"><a href="/cycle-i/in-your-space/" data-umami-event="room-open" data-umami-event-from="works">See the pieces in a room &rarr;</a></p>'
         '</div></main>'
     )
 
     t = ABOUT.read_text(encoding="utf-8")
+    t = t.replace('<html lang="en">', '<html lang="en" data-cycle="i">', 1)
     t = re.sub(r"<title>[^<]*</title>", "<title>Works — Benkum Art</title>", t, count=1)
     t = re.sub(r'<meta name="description" content="[^"]*">', f'<meta name="description" content="{DESCRIPTION}">', t, count=1)
     t = t.replace("https://benkum.art/about/", "https://benkum.art/works/")
