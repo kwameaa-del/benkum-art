@@ -1,0 +1,19 @@
+{
+  "_note": "Cycle I only: rooms for /cycle-i/in-your-space/. Each plate is a frontal room image (1024x1536). px_per_cm = pixels per centimetre on the wall plane, measured from the furniture (seat ~45 cm, desk ~75 cm). floor_y = where the wall meets the floor (px). centre_x = hanging centre (px); pieces hang centred 147 cm above the floor, raised if they would meet the furniture. box = [left, top, right, bottom] of clear wall (px). Then run: python tools/render_rooms.py",
+  "rooms": [
+    { "id": "home", "label": "Home", "image": "rooms/home.webp",
+      "alt": "a quiet reading corner with a linen sofa and a small oak side table",
+      "px_per_cm": 4.6, "floor_y": 1150, "centre_x": 390, "box": [20, 30, 1004, 745] },
+    { "id": "studio", "label": "Studio", "image": "rooms/studio.webp",
+      "alt": "a small studio office with a walnut desk and a woven chair",
+      "px_per_cm": 4.68, "floor_y": 1200, "centre_x": 512, "box": [24, 30, 1000, 880] },
+    { "id": "library", "label": "Library", "image": "rooms/library.webp",
+      "alt": "a library reading lounge with a long wool bench and a low bookshelf",
+      "px_per_cm": 4.2, "floor_y": 1285, "centre_x": 380, "box": [20, 30, 1004, 935] }
+  ],
+  "sizes_in": [[12, 18], [16, 24], [20, 30], [24, 36]],
+  "default_room": "home",
+  "default_size": "16x24",
+  "frame_cm": 1.8,
+  "mat_cm": 6
+}

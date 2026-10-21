@@ -37,9 +37,10 @@ requests or site content.
 |---|---|---|
 | Map + slideshow block between `<!-- MAP:START` and `<!-- MAP:END -->` in `index.html` | `tools/render_map.py`, `tools/map-pieces.json`, `tools/map-chips.json` | `python tools/render_map.py` |
 | `works/index.html` (the curated Works gallery) | `tools/render_works.py` (`DESKTOP` and `PHONE` layouts) | `python tools/render_works.py` |
+| `cycle-i/in-your-space/index.html` (Cycle I room viewer) | `tools/render_rooms.py`, `tools/cycle-i-rooms.json` | `python tools/render_rooms.py` (also after adding a piece) |
 | `assets/map/africa-geometry.json` | `tools/build_map_geometry.py` | only when the map shapes must change |
 
-Both render scripts need Python with Pillow. Commit the regenerated files with
+The render scripts need Python with Pillow. Commit the regenerated files with
 the generator change, so the page always matches its source.
 
 ## Decisions Kae has made (keep them)
@@ -58,6 +59,16 @@ the generator change, so the page always matches its source.
   country, title or story), with large/medium/small sizing; images only.
   The arrangement in `tools/render_works.py` is approved. Don't reorder it
   without Kae.
+- **Cycles are kept apart.** Everything published so far is Cycle I. Its pages carry
+  `data-cycle="i"` on `<html>`, and Cycle I-only features live under `cycle-i/`
+  (the "In your space" room viewer, its rooms and data). Never move them to
+  shared code or the main navigation: Cycle II will get its own style and
+  system later. The header (works · about · write · follow) stays cycle-neutral.
+- **In your space:** one shared viewer, opened from a quiet "See it in your
+  space" link under each piece's caption and one line on the Works page. Sizes
+  are illustrative 2:3 sizes at true scale (no prices, no shop wording while
+  the shop is closed); rooms are labelled as visualizations. Pieces are listed
+  in the Works curated order, never release order.
 - **Never describe Kae with a nationality label.** Lead with their authorship.
 - **The KA mark** is the upright gold-leaf KA (flat gold `#EAAE45` on
   `#141414` at small sizes), never the italic monogram.
