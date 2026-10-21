@@ -36,7 +36,12 @@ CSS = """
   .rv-room { position: relative; width: 100%; aspect-ratio: 2 / 3; overflow: hidden; background: #2a2723; }
   .rv-wall { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
   .rv-room img.rv-plate { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-  .rv-fr, .rv-mat, .rv-art { position: absolute; left: 0; top: 0; transform-origin: 0 0; backface-visibility: hidden; }
+  .rv-fr, .rv-mat, .rv-art, .rv-glass { position: absolute; left: 0; top: 0; transform-origin: 0 0; backface-visibility: hidden; }
+  /* Glass over the mat and piece: a faint sheen on top; the artwork underneath is untouched. */
+  .rv-glass { pointer-events: none; background:
+      linear-gradient(118deg, rgba(255, 255, 255, 0) 22%, rgba(255, 255, 255, .13) 34%, rgba(255, 255, 255, .04) 44%, rgba(255, 255, 255, 0) 56%, rgba(255, 255, 255, .06) 72%, rgba(255, 255, 255, 0) 84%),
+      linear-gradient(180deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, 0) 30%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, .18), inset 0 0 6px rgba(0, 0, 0, .10); }
   .rv-fr { background: #2B2622; box-shadow: 0 4px 10px rgba(0, 0, 0, .28), 0 1px 2px rgba(0, 0, 0, .3); }
   .rv-mat { background: #E9E4D8; box-shadow: inset 0 2px 2px rgba(0, 0, 0, .12); }
   .rv-art { display: block; object-fit: fill; box-shadow: 0 0 0 1px rgba(0, 0, 0, .12); }
@@ -65,7 +70,7 @@ SCRIPT = r"""
 (function () {
   var D = __DATA__;
   var $ = function (id) { return document.getElementById(id); };
-  var room = $("rv-room"), plate = $("rv-plate"), wall = $("rv-wall"), fr = $("rv-fr"), mat = $("rv-mat"), art = $("rv-art");
+  var room = $("rv-room"), plate = $("rv-plate"), wall = $("rv-wall"), fr = $("rv-fr"), mat = $("rv-mat"), art = $("rv-art"), glass = $("rv-glass");
   var sel = $("rv-piece"), cap = $("rv-cap"), back = $("rv-back"), lay = $("rv-js");
   var bySlug = {}; D.pieces.forEach(function (p) { bySlug[p.slug] = p; });
   var q = new URLSearchParams(location.search);
@@ -131,11 +136,12 @@ SCRIPT = r"""
     var L = layout(p, r, state.size), F = D.frame_cm, M = D.mat_cm, px = 4;   // element px per cm before projection
     onWall(fr, r, L.u, L.v, L.u + L.W, L.v + L.H, L.W * px, L.H * px);
     onWall(mat, r, L.u + F, L.v + F, L.u + L.W - F, L.v + L.H - F, (L.W - 2 * F) * px, (L.H - 2 * F) * px);
+    onWall(glass, r, L.u + F, L.v + F, L.u + L.W - F, L.v + L.H - F, (L.W - 2 * F) * px, (L.H - 2 * F) * px);
     onWall(art, r, L.u + F + M, L.v + F + M, L.u + F + M + L.wcm, L.v + F + M + L.hcm, L.wcm * px, L.hcm * px);
     art.src = p.img; art.alt = "";
     var d = state.size.split("x"), w = L.land ? d[1] : d[0], h = L.land ? d[0] : d[1];
     var cmw = Math.round(w * 2.54 / 5) * 5, cmh = Math.round(h * 2.54 / 5) * 5;
-    cap.innerHTML = "<em>" + p.title_html + "</em> at " + w + " × " + h + " in (" + cmw + " × " + cmh + " cm), shown to scale, framed with a mat.";
+    cap.innerHTML = "<em>" + p.title_html + "</em> at " + w + " × " + h + " in (" + cmw + " × " + cmh + " cm), shown to scale, framed with a mat behind glass.";
     back.href = "/art/" + p.slug + "/";
     try { history.replaceState(null, "", "?piece=" + p.slug + "&room=" + r.id + "&size=" + state.size); } catch (e) {}
   }
@@ -188,7 +194,7 @@ def main():
         '<figure class="rv-stage"><div class="rv-room" id="rv-room" role="img">'
         '<img class="rv-plate" id="rv-plate" alt="" decoding="async">'
         '<div class="rv-wall" id="rv-wall"><div class="rv-fr" id="rv-fr"></div><div class="rv-mat" id="rv-mat"></div>'
-        '<img class="rv-art" id="rv-art" alt="" decoding="async"></div>'
+        '<img class="rv-art" id="rv-art" alt="" decoding="async"><div class="rv-glass" id="rv-glass" aria-hidden="true"></div></div>'
         '</div><figcaption class="rv-cap" id="rv-cap" aria-live="polite"></figcaption></figure>'
         '<div class="rv-controls">'
         f'<div><label for="rv-piece">Piece</label><select class="rv-select" id="rv-piece">{opts}</select></div>'
