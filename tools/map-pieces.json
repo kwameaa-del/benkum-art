@@ -12,6 +12,7 @@
   "no-fixed-point":      { "country": "TD", "focus": [0.60, 0.55] },
   "nothing-left-to-tie": { "country": "ZM", "focus": [0.50, 0.72] },
   "one-more":            { "country": "KE", "focus": [0.45, 0.68] },
+  "out-of-our-own":      { "country": "TZ", "focus": [0.36, 0.50] },
   "same-wish":           { "country": "MG", "focus": [0.50, 0.70] },
   "second-wind":         { "country": "CD", "focus": [0.47, 0.72] },
   "steady-without-me":   { "country": "SN", "focus": [0.35, 0.57] },

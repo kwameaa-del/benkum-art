@@ -106,4 +106,8 @@
     <loc>https://benkum.art/art/wired-time/</loc>
     <image:image><image:loc>https://benkum.art/assets/art/wired-time.jpg</image:loc></image:image>
   </url>
+  <url>
+    <loc>https://benkum.art/art/out-of-our-own/</loc>
+    <image:image><image:loc>https://benkum.art/assets/art/out-of-our-own.jpg</image:loc></image:image>
+  </url>
 </urlset>
