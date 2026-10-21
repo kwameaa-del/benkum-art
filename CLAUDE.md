@@ -38,6 +38,7 @@ requests or site content.
 | Map + slideshow block between `<!-- MAP:START` and `<!-- MAP:END -->` in `index.html` | `tools/render_map.py`, `tools/map-pieces.json`, `tools/map-chips.json` | `python tools/render_map.py` |
 | `works/index.html` (the curated Works gallery) | `tools/render_works.py` (`DESKTOP` and `PHONE` layouts) | `python tools/render_works.py` |
 | `cycle-i/in-your-space/index.html` (Cycle I room viewer) | `tools/render_rooms.py`, `tools/cycle-i-rooms.json` | `python tools/render_rooms.py` (also after adding a piece) |
+| `cycle-i/in-your-space/rooms/<id>-wall.png` (wall masks for the shade option) | `tools/build_wall_masks.py` (hand-traced wall areas and furniture) | `python tools/build_wall_masks.py --preview <dir>` only when a room image changes; check with a dark shade before committing |
 | `assets/map/africa-geometry.json` | `tools/build_map_geometry.py` | only when the map shapes must change |
 
 The render scripts need Python with Pillow. Commit the regenerated files with
