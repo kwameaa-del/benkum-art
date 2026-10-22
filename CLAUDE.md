@@ -67,7 +67,7 @@ the generator change, so the page always matches its source.
 - **In your space:** one shared viewer, opened from a quiet "See it in your
   space" link under each piece's caption and one line on the Works page. Sizes
   are illustrative 2:3 sizes at true scale (no prices, no shop wording while
-  the shop is closed); rooms are labelled as visualizations. Pieces are listed
+  the shop is closed); the page carries no visualization disclaimer (Kae's call). Pieces are listed
   in the Works curated order, never release order.
 - **Never describe Kae with a nationality label.** Lead with their authorship.
 - **The KA mark** is the upright gold-leaf KA (flat gold `#EAAE45` on
