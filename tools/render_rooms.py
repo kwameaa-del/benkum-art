@@ -236,8 +236,7 @@ def main():
         '<label class="rv-opt"><input type="radio" name="rv-view" value="room"><span>Whole room</span></label></div></fieldset>'
         f'<fieldset><legend>Room</legend><div class="rv-opts">{rooms}</div></fieldset>'
         f'<fieldset><legend>Size</legend><div class="rv-opts">{size_opts}</div></fieldset>'
-        '<p class="rv-note">Sizes are illustrative, shown at true scale against the furniture. '
-        'The rooms are visualizations, not photographs of real homes. Colours vary by screen.</p>'
+        '<p class="rv-note">Sizes are illustrative, shown at true scale against the furniture.</p>'
         '<a class="rv-back" id="rv-back" href="/works/">&larr; Back to the piece</a>'
         '</div></div></div></main>'
     )
