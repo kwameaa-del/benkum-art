@@ -39,9 +39,6 @@ CSS = """
   .rv-scene.is-moving { transition: transform .45s ease; }
   @media (prefers-reduced-motion: reduce) { .rv-scene.is-moving { transition: none; } }
   .rv-wall { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
-  .rv-room canvas.rv-paint { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-  .rv-opt.rv-swatch span { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; }
-  .rv-swatch i { display: inline-block; width: 16px; height: 16px; border-radius: 50%; background: var(--c); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .25); }
   .rv-room img.rv-plate { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
   .rv-fr, .rv-mat, .rv-art, .rv-glass { position: absolute; left: 0; top: 0; transform-origin: 0 0; backface-visibility: hidden; }
   /* Glass over the mat and piece: a faint sheen on top; the artwork underneath is untouched. */
@@ -77,7 +74,7 @@ SCRIPT = r"""
 (function () {
   var D = __DATA__;
   var $ = function (id) { return document.getElementById(id); };
-  var room = $("rv-room"), scene = $("rv-scene"), plate = $("rv-plate"), paint = $("rv-paint"), wall = $("rv-wall"), fr = $("rv-fr"), mat = $("rv-mat"), art = $("rv-art"), glass = $("rv-glass");
+  var room = $("rv-room"), scene = $("rv-scene"), plate = $("rv-plate"), wall = $("rv-wall"), fr = $("rv-fr"), mat = $("rv-mat"), art = $("rv-art"), glass = $("rv-glass");
   var sel = $("rv-piece"), cap = $("rv-cap"), back = $("rv-back"), lay = $("rv-js");
   var bySlug = {}; D.pieces.forEach(function (p) { bySlug[p.slug] = p; });
   var q = new URLSearchParams(location.search);
@@ -85,44 +82,9 @@ SCRIPT = r"""
     piece: bySlug[q.get("piece")] ? q.get("piece") : D.pieces[0].slug,
     room: D.rooms.some(function (r) { return r.id === q.get("room"); }) ? q.get("room") : D.default_room,
     size: q.get("size") || D.default_size,
-    wall: D.shades.some(function (w) { return w.id === q.get("wall"); }) ? q.get("wall") : D.default_shade,
     view: q.get("view") === "room" ? "room" : "close"
   };
   var view = null;   // camera: the part of the room image shown {x, y, w, h}
-  // Wall shades: scale the wall's own pixels by (shade / the room's mean wall colour), blended by its mask,
-  // so the room's light and shadow stay. The artwork, frame and glass sit above and are never recoloured.
-  var cache = {}, paintJob = 0;
-  function loadImg(src) { return new Promise(function (ok, no) { var i = new Image(); i.onload = function () { ok(i); }; i.onerror = no; i.src = src; }); }
-  function pixels(r) {
-    if (!cache[r.id]) cache[r.id] = Promise.all([loadImg(r.image), loadImg(r.wall_mask)]).then(function (ims) {
-      var c = document.createElement("canvas"); c.width = r.size[0]; c.height = r.size[1];
-      var x = c.getContext("2d"); x.drawImage(ims[0], 0, 0); var base = x.getImageData(0, 0, c.width, c.height);
-      x.clearRect(0, 0, c.width, c.height); x.drawImage(ims[1], 0, 0); var mask = x.getImageData(0, 0, c.width, c.height).data;
-      return { base: base, mask: mask };
-    });
-    return cache[r.id];
-  }
-  function hexRGB(h) { return [1, 3, 5].map(function (i) { return parseInt(h.substr(i, 2), 16); }); }
-  function repaint(r) {
-    var shade = null; D.shades.forEach(function (w) { if (w.id === state.wall) shade = w; });
-    var job = ++paintJob;
-    if (!shade || !shade.hex) { paint.hidden = true; return; }
-    pixels(r).then(function (px) {
-      if (job !== paintJob) return;
-      var t = hexRGB(shade.hex), k = [t[0] / r.wall_mean[0], t[1] / r.wall_mean[1], t[2] / r.wall_mean[2]];
-      var src = px.base.data, m = px.mask, out = new ImageData(px.base.width, px.base.height), o = out.data;
-      for (var i = 0; i < src.length; i += 4) {
-        var a = m[i] / 255;
-        o[i] = src[i] + (src[i] * k[0] - src[i]) * a;
-        o[i + 1] = src[i + 1] + (src[i + 1] * k[1] - src[i + 1]) * a;
-        o[i + 2] = src[i + 2] + (src[i + 2] * k[2] - src[i + 2]) * a;
-        o[i + 3] = 255;
-      }
-      paint.width = out.width; paint.height = out.height;
-      paint.getContext("2d").putImageData(out, 0, 0);
-      paint.hidden = false;
-    }).catch(function () { if (job === paintJob) paint.hidden = true; });
-  }
   function roomOf(id) { for (var i = 0; i < D.rooms.length; i++) if (D.rooms[i].id === id) return D.rooms[i]; return D.rooms[0]; }
   // Wall point (u along the wall, v above the floor, both cm) -> room image pixels.
   function proj(r, u, v) {
@@ -174,7 +136,6 @@ SCRIPT = r"""
     var k = room.clientWidth / view.w;
     scene.style.transform = "scale(" + k + ") translate(" + (-view.x) + "px," + (-view.y) + "px)";
   }
-  function shadeLabel() { var l = ""; D.shades.forEach(function (w) { if (w.id === state.wall) l = w.label; }); return l; }
   function render() {
     var p = bySlug[state.piece], r = roomOf(state.room);
     var fits = {};
@@ -190,13 +151,11 @@ SCRIPT = r"""
       i.nextElementSibling.textContent = (landP ? d[1] + " × " + d[0] : d[0] + " × " + d[1]) + " in";
     });
     document.querySelectorAll('input[name="rv-room"]').forEach(function (i) { i.checked = i.value === state.room; });
-    document.querySelectorAll('input[name="rv-wall"]').forEach(function (i) { i.checked = i.value === state.wall; });
     document.querySelectorAll('input[name="rv-view"]').forEach(function (i) { i.checked = i.value === state.view; });
     sel.value = state.piece;
     room.style.aspectRatio = r.size[0] + " / " + r.size[1];
     lay.classList.toggle("is-wide", r.size[0] > r.size[1]);
-    if (plate.getAttribute("src") !== r.image) { paint.hidden = true; plate.src = r.image; }
-    repaint(r);
+    if (plate.getAttribute("src") !== r.image) plate.src = r.image;
     room.setAttribute("aria-label", p.title + " shown in " + r.alt);
     var moved = view !== null;
     view = camera(p, r);
@@ -210,14 +169,13 @@ SCRIPT = r"""
     art.src = p.img; art.alt = "";
     var d = state.size.split("x"), w = L.land ? d[1] : d[0], h = L.land ? d[0] : d[1];
     var cmw = Math.round(w * 2.54 / 5) * 5, cmh = Math.round(h * 2.54 / 5) * 5;
-    cap.innerHTML = "<em>" + p.title_html + "</em> at " + w + " × " + h + " in (" + cmw + " × " + cmh + " cm), shown to scale, framed with a mat behind glass" + (state.wall !== D.default_shade ? ", on a " + shadeLabel().toLowerCase() + " wall." : ".");
+    cap.innerHTML = "<em>" + p.title_html + "</em> at " + w + " × " + h + " in (" + cmw + " × " + cmh + " cm), shown to scale, framed with a mat behind glass" + ".";
     back.href = "/art/" + p.slug + "/";
-    try { history.replaceState(null, "", "?piece=" + p.slug + "&room=" + r.id + "&size=" + state.size + (state.wall !== D.default_shade ? "&wall=" + state.wall : "") + (state.view === "room" ? "&view=room" : "")); } catch (e) {}
+    try { history.replaceState(null, "", "?piece=" + p.slug + "&room=" + r.id + "&size=" + state.size + (state.view === "room" ? "&view=room" : "")); } catch (e) {}
   }
   sel.addEventListener("change", function () { state.piece = sel.value; render(); });
   document.querySelectorAll('input[name="rv-room"]').forEach(function (i) { i.addEventListener("change", function () { state.room = i.value; render(); }); });
   document.querySelectorAll('input[name="rv-size"]').forEach(function (i) { i.addEventListener("change", function () { state.size = i.value; render(); }); });
-  document.querySelectorAll('input[name="rv-wall"]').forEach(function (i) { i.addEventListener("change", function () { state.wall = i.value; render(); }); });
   document.querySelectorAll('input[name="rv-view"]').forEach(function (i) { i.addEventListener("change", function () { state.view = i.value; render(); }); });
   lay.hidden = false;
   render();
@@ -250,25 +208,16 @@ def main():
                 ok = ok or (bottom + H <= r["v_range"][1] and left >= r["u_range"][0])
             if not ok:
                 raise SystemExit(f"{p['slug']} fits no size in room {r['id']}: adjust its ranges or sizes")
-    import numpy as np
-    from PIL import Image
-    for r in data["rooms"]:
-        img = np.asarray(Image.open(OUT.parent / r["image"]).convert("RGB")).astype(float)
-        m = np.asarray(Image.open(OUT.parent / r["wall_mask"]).convert("L")).astype(float) / 255
-        r["wall_mean"] = [round(float(v), 1) for v in (img * m[..., None]).sum((0, 1)) / m.sum()]
     client = {"pieces": pieces, "rooms": data["rooms"], "sizes": sizes, "default_room": data["default_room"],
-              "shades": data["shades"], "default_shade": data["default_shade"],
               "default_size": data["default_size"], "frame_cm": data["frame_cm"], "mat_cm": data["mat_cm"]}
     for r in client["rooms"]:
-        # ?v=<content hash> so browsers fetch a room image or wall mask again whenever it changes.
+        # ?v=<content hash> so browsers fetch a room image again whenever it changes.
         import hashlib
         ver = lambda rel: hashlib.sha1((OUT.parent / rel).read_bytes()).hexdigest()[:8]
         r["image"] = "/cycle-i/in-your-space/" + r["image"] + "?v=" + ver(r["image"])
-        r["wall_mask"] = "/cycle-i/in-your-space/" + r["wall_mask"] + "?v=" + ver(r["wall_mask"])
 
     opts = "".join(f'<option value="{p["slug"]}">{p["title_html"]}</option>' for p in pieces)
     rooms = "".join(f'<label class="rv-opt"><input type="radio" name="rv-room" value="{r["id"]}"><span>{html.escape(r["label"])}</span></label>' for r in data["rooms"])
-    shades = "".join(f'<label class="rv-opt rv-swatch"><input type="radio" name="rv-wall" value="{w["id"]}"><span><i style="--c:{w.get("hex", "linear-gradient(135deg, #dcd3c3, #c4b9a5)")}"></i>{html.escape(w["label"])}</span></label>' for w in data["shades"])
     size_opts = "".join(f'<label class="rv-opt"><input type="radio" name="rv-size" value="{a}x{b}"><span>{a} × {b} in</span></label>' for a, b in data["sizes_in"])
     main_html = (
         '<main id="view-root"><div class="rv">'
@@ -276,7 +225,7 @@ def main():
         '<noscript><p class="rv-note" style="text-align:center">This room preview needs JavaScript. <a href="/works/">Back to the works</a>.</p></noscript>'
         '<div class="rv-layout" id="rv-js" hidden>'
         '<figure class="rv-stage"><div class="rv-room" id="rv-room" role="img">'
-        '<div class="rv-scene" id="rv-scene"><img class="rv-plate" id="rv-plate" alt="" decoding="async"><canvas class="rv-paint" id="rv-paint" hidden aria-hidden="true"></canvas>'
+        '<div class="rv-scene" id="rv-scene"><img class="rv-plate" id="rv-plate" alt="" decoding="async">'
         '<div class="rv-wall" id="rv-wall"><div class="rv-fr" id="rv-fr"></div><div class="rv-mat" id="rv-mat"></div>'
         '<img class="rv-art" id="rv-art" alt="" decoding="async"><div class="rv-glass" id="rv-glass" aria-hidden="true"></div></div></div>'
         '</div><figcaption class="rv-cap" id="rv-cap" aria-live="polite"></figcaption></figure>'
@@ -286,10 +235,9 @@ def main():
         '<label class="rv-opt"><input type="radio" name="rv-view" value="close"><span>Close</span></label>'
         '<label class="rv-opt"><input type="radio" name="rv-view" value="room"><span>Whole room</span></label></div></fieldset>'
         f'<fieldset><legend>Room</legend><div class="rv-opts">{rooms}</div></fieldset>'
-        f'<fieldset><legend>Wall</legend><div class="rv-opts">{shades}</div></fieldset>'
         f'<fieldset><legend>Size</legend><div class="rv-opts">{size_opts}</div></fieldset>'
         '<p class="rv-note">Sizes are illustrative, shown at true scale against the furniture. '
-        'The rooms are visualizations, not photographs of real homes. Colours vary by screen, and wall shades are approximate.</p>'
+        'The rooms are visualizations, not photographs of real homes. Colours vary by screen.</p>'
         '<a class="rv-back" id="rv-back" href="/works/">&larr; Back to the piece</a>'
         '</div></div></div></main>'
     )
