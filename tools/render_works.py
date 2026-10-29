@@ -93,6 +93,12 @@ def pieces():
     return out
 
 
+def add_css(t, css):
+    """Append CSS to the page's main stylesheet (the first <style> after </head>), not the small head blocks."""
+    head, body = t.split("</head>", 1)
+    return head + "</head>" + body.replace("</style>", css + "</style>", 1)
+
+
 def n(v):
     return f"{v:.5f}".rstrip("0").rstrip(".")
 
@@ -176,10 +182,10 @@ def main():
         '  "author": { "@type": "Person", "name": "Kwame Asiedu", "url": "https://benkum.art/about/" }\n}\n</script>'
     )
     t = re.sub(r'<script type="application/ld\+json">.*?</script>', lambda m: ld, t, count=1, flags=re.S)
-    t = t.replace("</style>", CSS + "</style>", 1)
+    t = add_css(t, CSS)
     t = re.sub(r'<main id="view-root">.*?</main>', lambda m: main_html, t, count=1, flags=re.S)
-    if 'class="visually-hidden"' in t and ".visually-hidden" not in t.split("</style>")[0]:
-        t = t.replace("</style>", "  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }\n</style>", 1)
+    if 'class="visually-hidden"' in t and ".visually-hidden {" not in t:
+        t = add_css(t, "  .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }\n")
     OUT.parent.mkdir(exist_ok=True)
     OUT.write_text(t, encoding="utf-8", newline="\n")
     print(f"{len(P)} works -> {OUT.relative_to(ROOT)}")
