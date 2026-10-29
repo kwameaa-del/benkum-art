@@ -36,6 +36,29 @@ function markLoaded(e) {
   if (t && t.classList && t.classList.contains("piece-img")) t.classList.add("is-loaded");
 }
 </script>
+<style>
+  /* Follow menu: Instagram or Facebook */
+  .site-nav .follow { position: relative; }
+  .site-nav summary { list-style: none; cursor: pointer; }
+  .site-nav summary::-webkit-details-marker { display: none; }
+  .site-nav .follow[open] > summary { color: var(--accent); }
+  .site-nav .follow-pop {
+    position: absolute; right: 0; top: 100%; z-index: 30;
+    display: flex; flex-direction: column; min-width: 150px; padding: 6px 0;
+    background: var(--bg, #141414); border: 1px solid var(--border, var(--line, rgba(237, 234, 226, 0.16)));
+  }
+  .site-nav .follow-pop a { padding: 10px 16px; }
+</style>
+<script>
+  // Close the Follow menu on an outside click or Escape
+  document.addEventListener("click", function (e) {
+    document.querySelectorAll("details.follow[open]").forEach(function (d) { if (!d.contains(e.target)) d.open = false; });
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    document.querySelectorAll("details.follow[open]").forEach(function (d) { d.open = false; d.querySelector("summary").focus(); });
+  });
+</script>
 </head>
 <body>
 <style>
@@ -551,7 +574,7 @@ function markLoaded(e) {
     gap: 16px;
   }
   .site-nav { display: flex; gap: 22px; }
-  .site-nav a {
+  .site-nav a, .site-nav summary {
     font-family: "Archivo", sans-serif;
     font-weight: 600;
     font-size: 12px;
@@ -561,8 +584,8 @@ function markLoaded(e) {
     text-decoration: none;
     padding: 10px 0;
   }
-  .site-nav a:hover { color: var(--accent); }
-  @media (max-width: 420px) { .site-nav { gap: 16px; } .site-nav a { font-size: 11px; } }
+  .site-nav a:hover, .site-nav summary:hover { color: var(--accent); }
+  @media (max-width: 420px) { .site-nav { gap: 16px; } .site-nav a, .site-nav summary { font-size: 11px; } }
 
   /* ---------- Email signup ---------- */
   .signup { max-width: 46ch; margin: 64px auto 0; padding-top: 36px; border-top: 1px solid var(--border); text-align: center; }
@@ -607,13 +630,13 @@ function markLoaded(e) {
   .signup-line { font-size: 18px; }
   .signup-note, .foot-caption { font-size: 14px; }
   .foot-disclosure { font-size: 12px; opacity: 1; }
-  .site-nav a { font-size: 13px; }
+  .site-nav a, .site-nav summary { font-size: 13px; }
   .load-more-btn { font-size: 16px; }
   @media (max-width: 600px) {
     .story-text, .about-prose { font-size: 18px; }
   }
   @media (max-width: 420px) {
-    .site-nav a { font-size: 12px; }
+    .site-nav a, .site-nav summary { font-size: 12px; }
   }
 
   /* ---------- Write to me (inquiry form) ---------- */
@@ -775,7 +798,7 @@ function markLoaded(e) {
   .site-foot .sig-logo-img { height: 18px; }
   .site-foot .foot-disclosure { font-size: 12px; }
   #view-root, #write, main { scroll-margin-top: 80px; }
-  @media (max-width: 420px) { .site-nav { gap: 12px; } .site-nav a { font-size: 11px; letter-spacing: 0.1em; } }
+  @media (max-width: 420px) { .site-nav { gap: 12px; } .site-nav a, .site-nav summary { font-size: 11px; letter-spacing: 0.1em; } }
   html, body { overflow-x: clip; }
   @media (max-width: 700px) {
     footer.site-foot { justify-content: center; padding: 10px 0; }
@@ -833,7 +856,7 @@ function markLoaded(e) {
 <div class="wrap">
   <header class="site-head">
     <a class="site-head-link" href="/"><h1 class="site-head-title">Benkum Art</h1></a>
-    <nav class="site-nav" aria-label="Site"><a href="/works/">works</a><a href="/about/">about</a><a href="/#write">write</a><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">follow</a></nav>
+    <nav class="site-nav" aria-label="Site"><a href="/works/">works</a><a href="/about/">about</a><a href="/#write">write</a><details class="follow"><summary>follow</summary><div class="follow-pop"><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">instagram</a><a href="https://www.facebook.com/profile.php?id=61595866311679" target="_blank" rel="me noopener">facebook</a></div></details></nav>
   </header>
   <main id="view-root"><div class="rv"><p class="rv-label">Cycle I</p><h2 class="rv-title">In your space</h2><noscript><p class="rv-note" style="text-align:center">This room preview needs JavaScript. <a href="/works/">Back to the works</a>.</p></noscript><div class="rv-layout" id="rv-js" hidden><figure class="rv-stage"><div class="rv-room" id="rv-room" role="img"><div class="rv-scene" id="rv-scene"><img class="rv-plate" id="rv-plate" alt="" decoding="async"><div class="rv-wall" id="rv-wall"><div class="rv-fr" id="rv-fr"></div><div class="rv-mat" id="rv-mat"></div><img class="rv-art" id="rv-art" alt="" decoding="async"><div class="rv-glass" id="rv-glass" aria-hidden="true"></div></div></div></div><figcaption class="rv-cap" id="rv-cap" aria-live="polite"></figcaption></figure><div class="rv-controls"><div><label for="rv-piece">Piece</label><select class="rv-select" id="rv-piece"><option value="no-fixed-point">No Fixed Point</option><option value="enough">Enough</option><option value="half-a-turn">Half a Turn</option><option value="second-wind">Second Wind</option><option value="same-wish">Same Wish</option><option value="bound-to-outlast">Bound to Outlast</option><option value="not-yet-on">Not Yet On</option><option value="already-landed">Already Landed</option><option value="one-more">One More</option><option value="between-the-marks">Between the Marks</option><option value="steady-without-me">Steady Without Me</option><option value="the-shine-holds">The Shine Holds</option><option value="out-of-our-own">Out of Our Own</option><option value="where-i-remain">Where I Remain</option><option value="wired-time">Wired Time</option><option value="still-turning">Still Turning</option><option value="what-stayed-open">What Stayed Open</option><option value="nothing-left-to-tie">Nothing Left to Tie</option><option value="where-the-heat-was">Where the Heat Was</option><option value="her-hands-go-first">Her Hands Go First</option><option value="wonder-dread">Wonder &amp; Dread</option><option value="yet-to-let-go">Yet to Let Go</option><option value="always-left-open">Always Left Open</option><option value="a-second-behind">A Second Behind</option><option value="before-it-works">Before It Works</option><option value="no-need-to-run">No Need to Run</option><option value="still-red">Still Red</option></select></div><fieldset><legend>View</legend><div class="rv-opts"><label class="rv-opt"><input type="radio" name="rv-view" value="close"><span>Close</span></label><label class="rv-opt"><input type="radio" name="rv-view" value="room"><span>Whole room</span></label></div></fieldset><fieldset><legend>Room</legend><div class="rv-opts"><label class="rv-opt"><input type="radio" name="rv-room" value="living"><span>Living room</span></label><label class="rv-opt"><input type="radio" name="rv-room" value="bedroom"><span>Bedroom</span></label><label class="rv-opt"><input type="radio" name="rv-room" value="home"><span>Reading corner</span></label><label class="rv-opt"><input type="radio" name="rv-room" value="studio"><span>Studio</span></label><label class="rv-opt"><input type="radio" name="rv-room" value="library"><span>Library</span></label><label class="rv-opt"><input type="radio" name="rv-room" value="hallway"><span>Hallway</span></label></div></fieldset><fieldset><legend>Size</legend><div class="rv-opts"><label class="rv-opt"><input type="radio" name="rv-size" value="12x18"><span>12 × 18 in</span></label><label class="rv-opt"><input type="radio" name="rv-size" value="16x24"><span>16 × 24 in</span></label><label class="rv-opt"><input type="radio" name="rv-size" value="20x30"><span>20 × 30 in</span></label><label class="rv-opt"><input type="radio" name="rv-size" value="24x36"><span>24 × 36 in</span></label></div></fieldset><p class="rv-note">Sizes are illustrative, shown at true scale against the furniture.</p><a class="rv-back" id="rv-back" href="/works/">&larr; Back to the piece</a></div></div></div></main>
 <script>
@@ -955,7 +978,7 @@ function markLoaded(e) {
     <p class="signature">
       <img class="sig-logo-img" src="/assets/brand/benkum-logo.png" alt="benkum art" width="647" height="130">
     </p>
-    <p class="foot-caption"><span class="foot-lead">self taught, figuring it out, yɛn kɔ &middot; </span><a class="foot-about-link" href="/about/">a note</a> &middot; <a class="foot-about-link" href="/rights.html">rights &amp; usage</a> &middot; <a class="foot-about-link" href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">instagram</a> &middot; <a class="foot-about-link" href="mailto:ka@benkum.art">email</a></p>
+    <p class="foot-caption"><span class="foot-lead">self taught, figuring it out, yɛn kɔ &middot; </span><a class="foot-about-link" href="/about/">a note</a> &middot; <a class="foot-about-link" href="/rights.html">rights &amp; usage</a> &middot; <a class="foot-about-link" href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">instagram</a> &middot; <a class="foot-about-link" href="https://www.facebook.com/profile.php?id=61595866311679" target="_blank" rel="me noopener">facebook</a> &middot; <a class="foot-about-link" href="mailto:ka@benkum.art">email</a></p>
     <p class="foot-disclosure">&copy; 2026 Kwame Asiedu &middot; Benkum Art. All rights reserved.</p>
   </footer>
 </div>
