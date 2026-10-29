@@ -1,5 +1,5 @@
 {
-  "_note": "Cycle I only: rooms for /cycle-i/in-your-space/. Every room describes its wall in centimetres: u runs along the wall, v is height above the floor. A 'frontal' wall is seen straight on (x = u * px_per_cm, y = floor_y - v * px_per_cm), measured from the furniture (seat ~45 cm, desk ~75 cm). A 'camera' wall is seen at an angle: f, cx, cy (pixels), theta_deg (angle between wall and image plane), corner_x / corner_z (cm, the wall's left floor corner relative to the camera) and eye_cm (camera height), fitted to the skirting and ceiling lines with a 260 cm ceiling (living room) or a 55 cm bedside table (bedroom). Hallway scale comes from its door casing (about 210 cm). Pieces hang centred 147 cm above the floor at centre_u, raised to v_range[0] if they would meet the furniture; sizes that leave u_range or v_range are disabled. Then run: python tools/render_rooms.py",
+  "_note": "Cycle I only: rooms for /cycle-i/in-your-space/. Every room describes its wall in centimetres: u runs along the wall, v is height above the floor. A 'frontal' wall is seen straight on (x = u * px_per_cm, y = floor_y - v * px_per_cm), measured from the furniture (seat ~45 cm, desk ~75 cm). A 'camera' wall is seen at an angle: f, cx, cy (pixels), theta_deg (angle between wall and image plane), corner_x / corner_z (cm, the wall's left floor corner relative to the camera) and eye_cm (camera height), fitted to the skirting and ceiling lines with a 260 cm ceiling (living room). Hallway scale comes from its door casing (about 210 cm). Pieces hang centred 147 cm above the floor at centre_u, raised to v_range[0] if they would meet the furniture; sizes that leave u_range or v_range are disabled. A room's optional default_size is used when it is opened (the bedroom scale comes from its bedside tables, about 50 cm, and skirting, about 12 cm). Then run: python tools/render_rooms.py",
   "rooms": [
     {
       "id": "living",
@@ -17,11 +17,12 @@
       "label": "Bedroom",
       "image": "rooms/bedroom.webp",
       "size": [1536, 1024],
-      "alt": "a calm bedroom seen at an angle, with a linen bed and a small oak bedside table",
-      "camera": { "f": 1493, "cx": 768, "cy": 418, "theta_deg": 32.05, "corner_x": -368.4, "corner_z": 829.6, "eye_cm": 107.7 },
-      "centre_u": 425.5,
-      "u_range": [60, 560],
-      "v_range": [117, 260]
+      "alt": "a calm bedroom seen straight on, with a linen headboard, a dark oak bed and an indigo throw",
+      "frontal": { "px_per_cm": 3.05, "floor_y": 765 },
+      "centre_u": 251,
+      "u_range": [18, 503],
+      "v_range": [120, 245],
+      "default_size": "24x36"
     },
     {
       "id": "home",
