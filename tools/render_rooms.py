@@ -81,9 +81,10 @@ SCRIPT = r"""
   var state = {
     piece: bySlug[q.get("piece")] ? q.get("piece") : D.pieces[0].slug,
     room: D.rooms.some(function (r) { return r.id === q.get("room"); }) ? q.get("room") : D.default_room,
-    size: q.get("size") || D.default_size,
+    size: q.get("size"),
     view: q.get("view") === "room" ? "room" : "close"
   };
+  if (!state.size) state.size = roomOf(state.room).default_size || D.default_size;
   var view = null;   // camera: the part of the room image shown {x, y, w, h}
   function roomOf(id) { for (var i = 0; i < D.rooms.length; i++) if (D.rooms[i].id === id) return D.rooms[i]; return D.rooms[0]; }
   // Wall point (u along the wall, v above the floor, both cm) -> room image pixels.
@@ -142,7 +143,8 @@ SCRIPT = r"""
     D.sizes.forEach(function (s) { fits[s] = !!layout(p, r, s); });
     if (!fits[state.size]) {
       var ok = D.sizes.filter(function (s) { return fits[s]; });
-      state.size = ok.length ? (ok.indexOf(D.default_size) >= 0 ? D.default_size : ok[ok.length - 1]) : D.sizes[0];
+      var want = r.default_size || D.default_size;
+      state.size = ok.length ? (ok.indexOf(want) >= 0 ? want : ok[ok.length - 1]) : D.sizes[0];
     }
     var landP = p.w >= p.h;
     document.querySelectorAll('input[name="rv-size"]').forEach(function (i) {
@@ -174,7 +176,11 @@ SCRIPT = r"""
     try { history.replaceState(null, "", "?piece=" + p.slug + "&room=" + r.id + "&size=" + state.size + (state.view === "room" ? "&view=room" : "")); } catch (e) {}
   }
   sel.addEventListener("change", function () { state.piece = sel.value; render(); });
-  document.querySelectorAll('input[name="rv-room"]').forEach(function (i) { i.addEventListener("change", function () { state.room = i.value; render(); }); });
+  document.querySelectorAll('input[name="rv-room"]').forEach(function (i) { i.addEventListener("change", function () {
+    state.room = i.value;
+    if (roomOf(i.value).default_size) state.size = roomOf(i.value).default_size;   // e.g. the bedroom opens at the size that suits a king bed
+    render();
+  }); });
   document.querySelectorAll('input[name="rv-size"]').forEach(function (i) { i.addEventListener("change", function () { state.size = i.value; render(); }); });
   document.querySelectorAll('input[name="rv-view"]').forEach(function (i) { i.addEventListener("change", function () { state.view = i.value; render(); }); });
   lay.hidden = false;
