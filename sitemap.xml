@@ -121,4 +121,8 @@
     <loc>https://benkum.art/art/no-need-to-run/</loc>
     <image:image><image:loc>https://benkum.art/assets/art/no-need-to-run.jpg</image:loc></image:image>
   </url>
+  <url>
+    <loc>https://benkum.art/art/still-red/</loc>
+    <image:image><image:loc>https://benkum.art/assets/art/still-red.jpg</image:loc></image:image>
+  </url>
 </urlset>

@@ -18,6 +18,7 @@
   "same-wish":           { "country": "MG", "focus": [0.50, 0.70] },
   "second-wind":         { "country": "CD", "focus": [0.47, 0.72] },
   "steady-without-me":   { "country": "SN", "focus": [0.35, 0.57] },
+  "still-red":         { "country": "ET", "focus": [0.48, 0.46] },
   "still-turning":       { "country": "LR", "focus": [0.43, 0.67] },
   "the-shine-holds":     { "country": "GN", "focus": [0.42, 0.80] },
   "what-stayed-open":    { "country": "NA", "focus": [0.75, 0.62], "zoom": 1.4 },
