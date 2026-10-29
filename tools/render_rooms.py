@@ -257,7 +257,7 @@ def main():
         '  "author": { "@type": "Person", "name": "Kwame Asiedu", "url": "https://benkum.art/about/" }\n}\n</script>'
     )
     t = re.sub(r'<script type="application/ld\+json">.*?</script>', lambda m: ld, t, count=1, flags=re.S)
-    t = t.replace("</style>", CSS + "</style>", 1)
+    t = render_works.add_css(t, CSS)
     t = re.sub(r'<main id="view-root">.*?</main>', lambda m: main_html + script, t, count=1, flags=re.S)
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(t, encoding="utf-8", newline="\n")
