@@ -604,27 +604,52 @@ function markLoaded(e) {
   .site-nav .follow-pop a { padding: 10px 16px; }
 
   /* ---------- Commissions page ---------- */
-  .commission-intro { max-width: 52ch; margin: -12px auto 72px; text-align: center; font-style: italic; font-size: 19px; line-height: 1.6; color: var(--ink-soft); }
-  .commission-name { margin: 0 0 28px; text-align: center; font: italic 500 clamp(26px, 2.6vw, 34px)/1.15 "Newsreader", serif; color: var(--ink); }
-  .commission-proof { display: grid; gap: 48px; max-width: 1320px; margin: 88px auto 0; padding-top: 56px; border-top: 1px solid rgba(234, 174, 69, 0.35); }
-  .commission-proof figure { margin: 0; }
-  .commission-proof .story-frame { max-width: none; margin: 0 0 16px; }
-  .commission-proof figcaption { font-size: 16px; font-style: italic; line-height: 1.6; color: var(--ink-soft); text-align: center; }
-  .commission-proof figcaption a { color: var(--ink); text-decoration: underline; text-decoration-color: rgba(234, 174, 69, 0.55); text-underline-offset: 3px; }
-  .commission-proof figcaption a:hover { color: var(--accent); }
-  .commission-label { display: block; margin-bottom: 6px; font: 600 11px "Archivo", sans-serif; font-style: normal; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
-  .commission-cta { max-width: 52ch; margin: 96px auto 0; padding-top: 48px; border-top: 1px solid var(--border); text-align: center; }
-  .commission-cta h3 { margin: 0 0 14px; font: italic 500 30px/1.1 "Newsreader", serif; color: var(--ink); }
-  .commission-cta p { margin: 0 0 22px; font-size: 18px; line-height: 1.7; color: var(--ink); }
-  .commission-cta .about-contact { margin: 0; font-size: 16px; }
+  .commission-kicker { display: block; margin: 0 0 14px; font: 600 12px "Archivo", sans-serif; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+  .commission-page .story-title { margin-bottom: 20px; }
+  .commission-intro { max-width: 34ch; margin: 0 auto; font-style: italic; font-size: 21px; line-height: 1.55; color: var(--ink-soft); }
+  .commission-hero { display: grid; gap: 40px; text-align: center; }
+  .commission-hero figure, .commission-feature figure { margin: 0; }
+  .commission-hero .story-frame, .commission-feature .story-frame { max-width: none; margin: 0 0 14px; }
+  .commission-cap { margin: 0; font-size: 16px; font-style: italic; line-height: 1.6; color: var(--ink-soft); }
+  .commission-cap a { color: var(--ink); text-decoration: underline; text-decoration-color: rgba(234, 174, 69, 0.55); text-underline-offset: 3px; }
+  .commission-cap a:hover { color: var(--accent); }
+  .commission-label { display: block; margin-bottom: 4px; font: 600 11px "Archivo", sans-serif; font-style: normal; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
+  .commission-rule { width: 56px; height: 1px; margin: 28px auto; background: var(--accent); opacity: 0.6; border: 0; }
+  .commission-feature { display: grid; gap: 40px; margin: 96px 0 0; padding-top: 72px; border-top: 1px solid rgba(234, 174, 69, 0.35); }
+  .commission-name { margin: 0 0 22px; font: italic 500 clamp(30px, 3.2vw, 46px)/1.08 "Newsreader", serif; letter-spacing: -0.005em; color: var(--ink); }
+  .commission-details { display: grid; grid-template-columns: max-content 1fr; gap: 12px 24px; margin: 32px 0 0; padding: 24px 0 0; border-top: 1px solid var(--border); font-size: 17px; line-height: 1.5; text-align: left; }
+  .commission-details dt { padding-top: 4px; font: 600 11px "Archivo", sans-serif; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); }
+  .commission-details dd { margin: 0; color: var(--ink); }
+  .commission-framed { display: grid; grid-template-columns: minmax(0, 150px) 1fr; gap: 20px; align-items: center; margin: 36px 0 0; text-align: left; }
+  .commission-framed .story-frame { margin: 0; padding: 6px; }
+  .commission-cta { position: relative; margin: 112px 0 0; padding: 64px 0; border-top: 1px solid rgba(234, 174, 69, 0.35); border-bottom: 1px solid rgba(234, 174, 69, 0.35); text-align: center; }
+  .commission-cta h3 { margin: 0 0 16px; font: italic 500 clamp(32px, 3.6vw, 52px)/1.05 "Newsreader", serif; color: var(--ink); }
+  .commission-cta p { max-width: 46ch; margin: 0 auto 26px; font-size: 19px; line-height: 1.7; color: var(--ink); }
+  .commission-cta .about-contact { margin: 18px 0 0; font-size: 16px; }
   .commission-cta .cta-button {
-    display: inline-block; min-height: 44px; padding: 10px 28px; text-decoration: none;
-    font: italic 16px "Newsreader", serif; color: var(--accent);
+    display: inline-block; min-height: 48px; padding: 12px 34px; text-decoration: none;
+    font: italic 17px "Newsreader", serif; color: var(--accent);
     background: rgba(234, 174, 69, 0.08); border: 1px solid rgba(234, 174, 69, 0.45); border-radius: 999px;
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease;
   }
   .commission-cta .cta-button:hover { background: rgba(234, 174, 69, 0.16); border-color: var(--accent); color: var(--ink); }
-  @media (min-width: 900px) {
-    .commission-proof { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); align-items: start; }
+  @media (min-width: 1000px) {
+    .commission-page .story-back { margin-bottom: 40px; }
+    /* Opening: the claim on the left, the moment of presentation large on the right. */
+    .commission-hero { grid-template-columns: minmax(0, 5fr) minmax(0, 8fr); gap: 72px; align-items: center; text-align: left; max-width: 1400px; margin: 0 auto; }
+    .commission-hero .story-title { text-align: left; font-size: clamp(56px, 6vw, 92px); }
+    .commission-hero .commission-intro { margin: 0; }
+    .commission-hero .commission-rule { margin: 32px 0; }
+    /* The piece: tall artwork left, its account and details right. */
+    .commission-feature { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: 80px; align-items: center; max-width: 1320px; margin-left: auto; margin-right: auto; }
+    .commission-feature .story-text { max-width: 52ch; margin: 0; }
+    /* The whole piece fits on a laptop screen: its frame is sized to the window height. */
+    .commission-feature > figure .story-frame { width: min(100%, calc((100vh - 150px) * 2 / 3 + 32px)); margin: 0 auto; }
+    .commission-cta { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 72px; align-items: center; max-width: 1320px; margin-left: auto; margin-right: auto; padding: 72px 0; text-align: left; }
+    .commission-cta h3 { margin: 0; }
+    .commission-cta p { margin-left: 0; }
+    /* A thin gold line between the two halves, as on the About page. */
+    .commission-cta::before { content: ""; position: absolute; left: 50%; top: 18%; bottom: 18%; width: 1px; background: linear-gradient(to bottom, transparent, var(--accent) 20%, var(--accent) 80%, transparent); opacity: 0.55; }
   }
 </style>
 <script>
@@ -645,39 +670,51 @@ function markLoaded(e) {
     <nav class="site-nav" aria-label="Site"><a href="/works/">works</a><a href="/about/">about</a><a href="/#write">write</a><details class="follow"><summary>follow</summary><div class="follow-pop"><a href="https://www.instagram.com/benkum.art/" target="_blank" rel="me noopener">instagram</a><a href="https://www.facebook.com/profile.php?id=61595866311679" target="_blank" rel="me noopener">facebook</a></div></details></nav>
   </header>
 
-  <main class="story-view">
+  <main class="story-view commission-page">
     <a class="story-back" href="/works/">&larr; Works</a>
-    <h2 class="story-title">Commissions</h2>
-    <p class="commission-intro">I create pieces for the people and moments that ask for one.</p>
 
-    <h3 class="commission-name">Portrait for the Guan Congress</h3>
-    <div class="story-layout">
-    <div class="story-visual">
-    <div class="story-frame marked"><img class="piece-img" data-full="/assets/commissions/guan-congress-portrait.jpg" src="/assets/commissions/guan-congress-portrait.jpg" srcset="/assets/commissions/guan-congress-portrait.webp 667w, /assets/commissions/guan-congress-portrait.jpg 800w" sizes="(max-width: 900px) 92vw, 860px" alt="Portrait of President John Dramani Mahama, head and shoulders, smiling softly, in a gold and cream striped fugu edged in red, against a deep green field of vertical streaks; the Guan Congress emblem sits lower left." width="800" height="1200"></div>
-    <p class="story-cap">The finished piece &middot; 16 &times; 24 in &middot; matte, no varnish</p>
-    </div>
-    <div class="story-body">
-    <div class="story-reading-pause" aria-hidden="true"></div>
-    <div class="story-text"><p>A portrait of H.E. John Dramani Mahama, President of the Republic of Ghana, created for the Guan Congress, the Association of Guan Speaking People of Ghana.</p><p>The Congress’s traditional leaders presented it to the President at the Presidency in Accra, during their courtesy call. He holds it in the photograph below.</p><p>He wears a gold and cream fugu edged in red. The Congress’s emblem sits in the lower left corner.</p></div>
-    </div>
-    </div>
+    <section class="commission-hero" aria-labelledby="commissions-title">
+      <div class="commission-lead">
+        <span class="commission-kicker">Commissioned work</span>
+        <h2 class="story-title" id="commissions-title">Commissions</h2>
+        <p class="commission-intro">I create pieces for the people and moments that ask for one.</p>
+        <hr class="commission-rule">
+        <p class="commission-cap"><span class="commission-label">Most recent</span>Portrait for the Guan Congress, presented to the President of the Republic of Ghana.</p>
+      </div>
+      <figure>
+        <div class="story-frame"><img class="piece-img" data-full="/assets/commissions/guan-congress-portrait-presidency.jpg" src="/assets/commissions/guan-congress-portrait-presidency.jpg" srcset="/assets/commissions/guan-congress-portrait-presidency.webp 1000w, /assets/commissions/guan-congress-portrait-presidency.jpg 1280w" sizes="(max-width: 999px) 92vw, 860px" alt="President John Dramani Mahama, smiling, holds the framed portrait at the Presidency with Guan chiefs in kente and smocks gathered around him, a Ghana flag at the left." width="1280" height="853"></div>
+        <figcaption class="commission-cap"><span class="commission-label">Presented</span>At the Presidency, with the Guan chiefs. Photo: The Presidency, Republic of Ghana. <a href="https://woezor.tv/president-mahama-receives-guan-chiefs/" target="_blank" rel="noopener">Reported by Woezor TV</a></figcaption>
+      </figure>
+    </section>
 
-    <section class="commission-proof" aria-label="The portrait in the world">
+    <section class="commission-feature" aria-labelledby="commission-name">
       <figure>
-        <div class="story-frame"><img class="piece-img" data-full="/assets/commissions/guan-congress-portrait-presidency.jpg" src="/assets/commissions/guan-congress-portrait-presidency.jpg" srcset="/assets/commissions/guan-congress-portrait-presidency.webp 1000w, /assets/commissions/guan-congress-portrait-presidency.jpg 1280w" sizes="(max-width: 900px) 92vw, 780px" alt="President John Dramani Mahama, smiling, holds the framed portrait at the Presidency with Guan chiefs in kente and smocks gathered around him, a Ghana flag at the left." width="1280" height="853" loading="lazy"></div>
-        <figcaption><span class="commission-label">Presented</span>At the Presidency, with the Guan chiefs. Photo: The Presidency, Republic of Ghana. <a href="https://woezor.tv/president-mahama-receives-guan-chiefs/" target="_blank" rel="noopener">Reported by Woezor TV</a></figcaption>
+        <div class="story-frame marked"><img class="piece-img" data-full="/assets/commissions/guan-congress-portrait.jpg" src="/assets/commissions/guan-congress-portrait.jpg" srcset="/assets/commissions/guan-congress-portrait.webp 667w, /assets/commissions/guan-congress-portrait.jpg 800w" sizes="(max-width: 999px) 92vw, 680px" alt="Portrait of President John Dramani Mahama, head and shoulders, smiling softly, in a gold and cream striped fugu edged in red, against a deep green field of vertical streaks; the Guan Congress emblem sits lower left." width="800" height="1200" loading="lazy"></div>
       </figure>
-      <figure>
-        <div class="story-frame"><img class="piece-img" data-full="/assets/commissions/guan-congress-portrait-framed.jpg" src="/assets/commissions/guan-congress-portrait-framed.jpg" srcset="/assets/commissions/guan-congress-portrait-framed.webp 750w, /assets/commissions/guan-congress-portrait-framed.jpg 960w" sizes="(max-width: 900px) 92vw, 520px" alt="The framed portrait, 16 by 24 inches, standing on a tiled floor against a pale patterned curtain." width="960" height="1280" loading="lazy"></div>
-        <figcaption><span class="commission-label">Framed</span>The finished piece in its frame: a matte finish, with no varnish or gloss.</figcaption>
-      </figure>
+      <div class="commission-account">
+        <span class="commission-kicker">The piece</span>
+        <h3 class="commission-name" id="commission-name">Portrait for the Guan Congress</h3>
+        <div class="story-text"><p>A portrait of H.E. John Dramani Mahama, President of the Republic of Ghana, created for the Guan Congress, the Association of Guan Speaking People of Ghana.</p><p>The Congress’s traditional leaders presented it to the President at the Presidency in Accra, during their courtesy call.</p><p>He wears a gold and cream fugu edged in red. The Congress’s emblem sits in the lower left corner.</p></div>
+        <dl class="commission-details">
+          <dt>For</dt><dd>The Guan Congress</dd>
+          <dt>Presented to</dt><dd>H.E. John Dramani Mahama</dd>
+          <dt>Size</dt><dd>16 &times; 24 in</dd>
+          <dt>Finish</dt><dd>Matte, no varnish or gloss</dd>
+        </dl>
+        <figure class="commission-framed">
+          <div class="story-frame"><img class="piece-img" data-full="/assets/commissions/guan-congress-portrait-framed.jpg" src="/assets/commissions/guan-congress-portrait-framed.webp" srcset="/assets/commissions/guan-congress-portrait-framed.webp 750w, /assets/commissions/guan-congress-portrait-framed.jpg 960w" sizes="150px" alt="The framed portrait, 16 by 24 inches, standing on a tiled floor against a pale patterned curtain." width="960" height="1280" loading="lazy"></div>
+          <figcaption class="commission-cap"><span class="commission-label">Framed</span>The finished piece in its frame.</figcaption>
+        </figure>
+      </div>
     </section>
 
     <section class="commission-cta" aria-labelledby="commission-cta-heading">
       <h3 id="commission-cta-heading">Commission a piece of work</h3>
-      <p>Each commission begins with a conversation: who the person is, and what should stay with them. Write to me, and I’ll reply myself.</p>
-      <p><a class="cta-button" href="/#write" data-umami-event="commission-enquiry" data-umami-event-from="commissions">Write to me about a commission</a></p>
-      <p class="about-contact"><a href="mailto:ka@benkum.art">ka@benkum.art</a></p>
+      <div>
+        <p>Each commission begins with a conversation: who the person is, and what should stay with them. Write to me, and I’ll reply myself.</p>
+        <a class="cta-button" href="/#write" data-umami-event="commission-enquiry" data-umami-event-from="commissions">Write to me about a commission</a>
+        <p class="about-contact"><a href="mailto:ka@benkum.art">ka@benkum.art</a></p>
+      </div>
     </section>
 
     <nav class="story-links" aria-label="Page navigation"><a class="story-return" href="/works/">&larr; Works</a><span class="story-next-empty" aria-hidden="true"></span></nav>
