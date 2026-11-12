@@ -129,4 +129,8 @@
     <loc>https://benkum.art/art/a-few-grains/</loc>
     <image:image><image:loc>https://benkum.art/assets/art/a-few-grains.jpg</image:loc></image:image>
   </url>
+  <url>
+    <loc>https://benkum.art/commissions/</loc>
+    <image:image><image:loc>https://benkum.art/assets/commissions/guan-congress-portrait.jpg</image:loc></image:image>
+  </url>
 </urlset>
