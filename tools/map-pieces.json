@@ -1,5 +1,6 @@
 {
   "_note": "Cycle I map: one entry per piece. country = ISO alpha-2 (one of the 54). focus = focal point as [x, y] fractions of the image. zoom (optional) narrows the crop around focus; 1 shows as much of the piece as the country's shape allows. Then run: python tools/render_map.py",
+  "a-few-grains":        { "country": "BF", "focus": [0.57, 0.56] },
   "a-second-behind":     { "country": "ZW", "focus": [0.43, 0.63] },
   "already-landed":      { "country": "ER", "focus": [0.46, 0.60] },
   "always-left-open":    { "country": "CF", "focus": [0.42, 0.55] },
