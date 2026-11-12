@@ -605,8 +605,9 @@ function markLoaded(e) {
 
   /* ---------- Commissions page ---------- */
   .commission-kicker { display: block; margin: 0 0 14px; font: 600 12px "Archivo", sans-serif; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
-  .commission-page .story-title { margin-bottom: 20px; }
-  .commission-intro { max-width: 34ch; margin: 0 auto; font-style: italic; font-size: 21px; line-height: 1.55; color: var(--ink-soft); }
+  .commission-hero .commission-kicker { margin-bottom: 20px; font-size: 13px; }
+  /* With the gold label as the heading, the artist's line carries the opening. */
+  .commission-intro { max-width: 22ch; margin: 0 auto; font: italic 500 clamp(30px, 3.4vw, 50px)/1.15 "Newsreader", serif; letter-spacing: -0.005em; color: var(--ink); }
   .commission-hero { display: grid; gap: 40px; text-align: center; }
   .commission-hero figure, .commission-feature figure { margin: 0; }
   .commission-hero .story-frame, .commission-feature .story-frame { max-width: none; margin: 0 0 14px; }
@@ -637,7 +638,6 @@ function markLoaded(e) {
     .commission-page .story-back { margin-bottom: 40px; }
     /* Opening: the claim on the left, the moment of presentation large on the right. */
     .commission-hero { grid-template-columns: minmax(0, 5fr) minmax(0, 8fr); gap: 72px; align-items: center; text-align: left; max-width: 1400px; margin: 0 auto; }
-    .commission-hero .story-title { text-align: left; font-size: clamp(56px, 6vw, 92px); }
     .commission-hero .commission-intro { margin: 0; }
     .commission-hero .commission-rule { margin: 32px 0; }
     /* The piece: tall artwork left, its account and details right. */
@@ -675,8 +675,7 @@ function markLoaded(e) {
 
     <section class="commission-hero" aria-labelledby="commissions-title">
       <div class="commission-lead">
-        <span class="commission-kicker">Commissioned work</span>
-        <h2 class="story-title" id="commissions-title">Commissions</h2>
+        <h2 class="commission-kicker" id="commissions-title">Commissioned work</h2>
         <p class="commission-intro">I create pieces for the people and moments that ask for one.</p>
         <hr class="commission-rule">
         <p class="commission-cap"><span class="commission-label">Most recent</span>Portrait for the Guan Congress, presented to the President of the Republic of Ghana.</p>
