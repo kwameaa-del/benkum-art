@@ -133,4 +133,8 @@
     <loc>https://benkum.art/commissions/</loc>
     <image:image><image:loc>https://benkum.art/assets/commissions/guan-congress-portrait.jpg</image:loc></image:image>
   </url>
+  <url>
+    <loc>https://benkum.art/art/given-back/</loc>
+    <image:image><image:loc>https://benkum.art/assets/art/given-back.jpg</image:loc></image:image>
+  </url>
 </urlset>
