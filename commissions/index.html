@@ -616,6 +616,18 @@ function markLoaded(e) {
   .commission-cap a:hover { color: var(--accent); }
   .commission-label { display: block; margin-bottom: 4px; font: 600 11px "Archivo", sans-serif; font-style: normal; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); }
   .commission-rule { width: 56px; height: 1px; margin: 28px auto; background: var(--accent); opacity: 0.6; border: 0; }
+  /* Presented / Received: two photos in one frame, switched by tap, swipe or keyboard; never moves on its own. */
+  .slides-stage { position: relative; overflow: hidden; touch-action: pan-y; }
+  .slides-stage .slide img { animation: slide-in 0.45s ease; }
+  @keyframes slide-in { from { opacity: 0; } to { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .slides-stage .slide img { animation: none; } }
+  .slide-tabs { display: flex; gap: 22px; justify-content: center; margin: 2px 0 8px; }
+  .slide-tab { background: none; border: 0; padding: 8px 2px; cursor: pointer; font: 600 11px "Archivo", sans-serif; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-faint); border-bottom: 1px solid transparent; }
+  .slide-tab:hover { color: var(--ink); }
+  .slide-tab.is-on { color: var(--accent); border-bottom-color: var(--accent); }
+  .slide-tab:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+  .slide-cap .commission-label { display: none; }
+  @media (min-width: 1000px) { .slide-tabs { justify-content: flex-start; } }
   .commission-feature { display: grid; gap: 40px; margin: 96px 0 0; padding-top: 72px; border-top: 1px solid rgba(234, 174, 69, 0.35); }
   .commission-name { margin: 0 0 22px; font: italic 500 clamp(30px, 3.2vw, 46px)/1.08 "Newsreader", serif; letter-spacing: -0.005em; color: var(--ink); }
   .commission-details { display: grid; grid-template-columns: max-content 1fr; gap: 12px 24px; margin: 32px 0 0; padding: 24px 0 0; border-top: 1px solid var(--border); font-size: 17px; line-height: 1.5; text-align: left; }
@@ -680,9 +692,17 @@ function markLoaded(e) {
         <hr class="commission-rule">
         <p class="commission-cap"><span class="commission-label">Most recent</span>Portrait for the Guan Congress, presented to the President of the Republic of Ghana.</p>
       </div>
-      <figure>
-        <div class="story-frame"><img class="piece-img" data-full="/assets/commissions/guan-congress-portrait-presidency.jpg" src="/assets/commissions/guan-congress-portrait-presidency.jpg" srcset="/assets/commissions/guan-congress-portrait-presidency.webp 1000w, /assets/commissions/guan-congress-portrait-presidency.jpg 1280w" sizes="(max-width: 999px) 92vw, 860px" alt="President John Dramani Mahama, smiling, holds the framed portrait at the Presidency with Guan chiefs in kente and smocks gathered around him, a Ghana flag at the left." width="1280" height="853"></div>
-        <figcaption class="commission-cap"><span class="commission-label">Presented</span>At the Presidency, with the Guan chiefs. Photo: The Presidency, Republic of Ghana. <a href="https://woezor.tv/president-mahama-receives-guan-chiefs/" target="_blank" rel="noopener">Reported by Woezor TV</a></figcaption>
+      <figure class="commission-slides" aria-roledescription="carousel" aria-label="The presentation, two photos">
+        <div class="story-frame slides-stage">
+          <div class="slide is-on" id="slide-1" role="tabpanel" aria-labelledby="tab-1"><img class="piece-img" data-full="/assets/commissions/guan-congress-portrait-presidency.jpg" src="/assets/commissions/guan-congress-portrait-presidency.jpg" srcset="/assets/commissions/guan-congress-portrait-presidency.webp 1000w, /assets/commissions/guan-congress-portrait-presidency.jpg 1280w" sizes="(max-width: 999px) 92vw, 860px" alt="President John Dramani Mahama, smiling, holds the framed portrait at the Presidency with Guan chiefs in kente and smocks gathered around him, a Ghana flag at the left." width="1280" height="853"></div>
+          <div class="slide" id="slide-2" role="tabpanel" aria-labelledby="tab-2" hidden><img class="piece-img" data-full="/assets/commissions/guan-congress-portrait-presented.jpg" src="/assets/commissions/guan-congress-portrait-presented.jpg" srcset="/assets/commissions/guan-congress-portrait-presented.webp 1000w, /assets/commissions/guan-congress-portrait-presented.jpg 1600w" sizes="(max-width: 999px) 92vw, 860px" alt="President John Dramani Mahama leans in to look at the framed portrait as he holds it, with Guan chiefs in kente and smocks beside him and a Ghana flag at the left." width="1600" height="1066" loading="lazy"></div>
+        </div>
+        <div class="slide-tabs" role="tablist" aria-label="Choose a photo">
+          <button type="button" role="tab" id="tab-1" class="slide-tab is-on" aria-selected="true" aria-controls="slide-1" data-slide="0">Presented</button>
+          <button type="button" role="tab" id="tab-2" class="slide-tab" aria-selected="false" aria-controls="slide-2" data-slide="1">Received</button>
+        </div>
+        <figcaption class="commission-cap slide-cap" data-slide="0"><span class="commission-label">Presented</span>At the Presidency, with the Guan chiefs. Photo: The Presidency, Republic of Ghana. <a href="https://woezor.tv/president-mahama-receives-guan-chiefs/" target="_blank" rel="noopener">Reported by Woezor TV</a></figcaption>
+        <figcaption class="commission-cap slide-cap" data-slide="1" hidden><span class="commission-label">Received</span>The President looks over the portrait with the Guan chiefs. Photo: The Presidency, Republic of Ghana.</figcaption>
       </figure>
     </section>
 
@@ -783,6 +803,33 @@ function markLoaded(e) {
       lightboxClose.focus();
     }
   });
+})();
+</script>
+<script>
+(function () {
+  var tabs = document.querySelectorAll(".slide-tab"), slides = document.querySelectorAll(".slides-stage .slide"), caps = document.querySelectorAll(".slide-cap");
+  if (!tabs.length) return;
+  var cur = 0;
+  function show(i) {
+    cur = (i + slides.length) % slides.length;
+    slides.forEach(function (el, k) { el.hidden = k !== cur; el.classList.toggle("is-on", k === cur); });
+    caps.forEach(function (el, k) { el.hidden = k !== cur; });
+    tabs.forEach(function (el, k) { el.classList.toggle("is-on", k === cur); el.setAttribute("aria-selected", k === cur ? "true" : "false"); el.tabIndex = k === cur ? 0 : -1; });
+    var img = slides[cur].querySelector("img"); if (img) img.loading = "eager";
+  }
+  tabs.forEach(function (t, k) {
+    t.addEventListener("click", function () { show(k); });
+    t.addEventListener("keydown", function (e) {
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft") { e.preventDefault(); show(cur + (e.key === "ArrowRight" ? 1 : -1)); tabs[cur].focus(); }
+    });
+  });
+  var stage = document.querySelector(".slides-stage"), x0 = null;
+  stage.addEventListener("pointerdown", function (e) { x0 = e.clientX; });
+  var swiped = false;
+  stage.addEventListener("pointerup", function (e) { swiped = x0 !== null && Math.abs(e.clientX - x0) > 40; if (swiped) show(cur + (e.clientX < x0 ? 1 : -1)); x0 = null; });
+  // a swipe must not also open the enlarged view
+  stage.addEventListener("click", function (e) { if (swiped) { e.stopPropagation(); e.preventDefault(); swiped = false; } }, true);
+  show(0);
 })();
 </script>
 </body>
