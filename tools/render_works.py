@@ -37,7 +37,7 @@ DESKTOP = [
     ("row", ["what-stayed-open", "nothing-left-to-tie", "where-the-heat-was", "her-hands-go-first"]),
     ("feature", "wonder-dread", ["yet-to-let-go", "always-left-open"], "right"),
     ("row", ["a-second-behind", "before-it-works", "no-need-to-run", "still-red"]),
-    ("row", ["given-back", "a-few-grains"]),
+    ("row", ["given-back", "a-few-grains", "anyway"]),
 ]
 # (slug, width as a fraction of the column, side) or a pair of portraits.
 PAIR_WIDTH = .84  # phones: a pair of small portraits spans 84% of the column, centred
@@ -48,7 +48,7 @@ PHONE = [
     ("the-shine-holds", .66, "c"), ("out-of-our-own", .66, "r"), ("where-i-remain", .66, "l"), ("wired-time", .88, "c"),
     ("still-turning", .66, "r"), ["what-stayed-open", "nothing-left-to-tie"], ["where-the-heat-was", "her-hands-go-first"],
     ("wonder-dread", .88, "c"), ("yet-to-let-go", .66, "l"), ("always-left-open", .66, "r"),
-    ("a-second-behind", .88, "c"), ["before-it-works", "no-need-to-run"], ("still-red", .88, "c"), ("given-back", .88, "c"), ("a-few-grains", .66, "c"),
+    ("a-second-behind", .88, "c"), ["before-it-works", "no-need-to-run"], ("still-red", .88, "c"), ("given-back", .88, "c"), ("a-few-grains", .66, "c"), ("anyway", .88, "c"),
 ]
 
 CSS = """
