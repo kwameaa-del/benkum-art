@@ -137,4 +137,8 @@
     <loc>https://benkum.art/art/given-back/</loc>
     <image:image><image:loc>https://benkum.art/assets/art/given-back.jpg</image:loc></image:image>
   </url>
+  <url>
+    <loc>https://benkum.art/art/anyway/</loc>
+    <image:image><image:loc>https://benkum.art/assets/art/anyway.jpg</image:loc></image:image>
+  </url>
 </urlset>
